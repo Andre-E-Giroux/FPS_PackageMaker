@@ -475,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3578931500200609295}
-  meshRenderer: {fileID: 0}
+  meshRenderer: {fileID: 3578931499723180062}
   healthBar: {fileID: 3578931499383812553}
   cameraTransform: {fileID: 3578931501053011935}
   playerCollider: {fileID: 3578931500200609293}
@@ -483,9 +483,9 @@ MonoBehaviour:
   speed: 6
   crouchSpeed: 1.5
   jumpForce: 5
-  currentHealth: 100
   healthDecaySpeed: 4
   isCrouching: 0
+  playerEntity: {fileID: 0}
 --- !u!1 &3578931500360964987
 GameObject:
   m_ObjectHideFlags: 0

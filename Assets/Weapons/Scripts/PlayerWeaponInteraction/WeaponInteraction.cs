@@ -14,17 +14,26 @@ public class WeaponInteraction : MonoBehaviour
     public Transform weaponPositionPoint;
 
 
+    public WeaponPlayerHUD_Controller weaponPlayerHUD_Controller;
+
     private void Awake()
     {
         weaponBases = new WeaponBase[weapons.Length];
         // initiate weapons
         for (int i = 0; i < weapons.Length; i++)
         {
+            if (!weaponPlayerHUD_Controller)
+                weaponPlayerHUD_Controller = GetComponent<WeaponPlayerHUD_Controller>();
+
             weaponBases[i] = weapons[i].GetComponent<WeaponBase>();
             weapons[i].transform.position = weaponPositionPoint.position;
+            weaponBases[i].AddInteractionManager(this);
             weapons[i].SetActive(false);
         }
         weapons[0].SetActive(true);
+
+        
+        UpdateHud();
     }
 
     private void Update()
@@ -34,72 +43,79 @@ public class WeaponInteraction : MonoBehaviour
             weaponBases[selectedWeapon].Fire1();
         }
 
-        int temp = SwitchWeapons();
-        
-        if(temp != selectedWeapon)
-        {
-            weapons[selectedWeapon].SetActive(false);
-            weapons[temp].SetActive(true);
-            selectedWeapon = temp;
-        }
+
+        SwitchWeapons();
 
     }
 
-    private int SwitchWeapons()
+    private void SwitchWeapons()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        int temp = selectedWeapon;
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if(MAX_NUMBER_OF_WEAPONS > 0)
-                return 0;
+                temp = 0;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (MAX_NUMBER_OF_WEAPONS > 1)
-                return 1;
+                temp = 1;
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (MAX_NUMBER_OF_WEAPONS > 2)
-                return 2;
+                temp = 2;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             if (MAX_NUMBER_OF_WEAPONS > 3)
-                return 3;
+                temp = 3;
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             if (MAX_NUMBER_OF_WEAPONS > 4)
-                return 4;
+                temp = 4;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             if (MAX_NUMBER_OF_WEAPONS > 5)
-                return 5;
+                temp = 5;
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             if (MAX_NUMBER_OF_WEAPONS > 6)
-                return 6;
+                temp = 6;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             if (MAX_NUMBER_OF_WEAPONS > 7)
-                return 7;
+                temp = 7;
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             if (MAX_NUMBER_OF_WEAPONS > 8)
-                return 8;
+                temp = 8;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             if (MAX_NUMBER_OF_WEAPONS > 9)
-                return 9;
+                temp = 9;
         }
 
-        return selectedWeapon;
+        if (temp != selectedWeapon)
+        {
+            weapons[selectedWeapon].SetActive(false);
+            weapons[temp].SetActive(true);
+            selectedWeapon = temp;
+            UpdateHud();
+        }
     }
 
+
+    public void UpdateHud()
+    {
+        weaponPlayerHUD_Controller.SetCurrentMagazineAmmoText(weaponBases[selectedWeapon].GetMagazineAmmo());
+        weaponPlayerHUD_Controller.SetCurrentReserveAmmoText(weaponBases[selectedWeapon].GetReserveAmmo());
+    }
 
 }

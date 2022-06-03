@@ -24,7 +24,7 @@ public class WeaponHitScanBurst : WeaponHitScan
 
     private void Update()
     {
-        if (burstsRemaining > 0)
+        if (burstsRemaining > 0 && GetMagazineAmmo() > 0)
         {
            
             Debug.Log("Burst fire allowed/continued");
@@ -33,6 +33,12 @@ public class WeaponHitScanBurst : WeaponHitScan
             {
                 Debug.Log("One bullet of burst was fired!");
                 --burstsRemaining;
+
+
+                if(GetMagazineAmmo() <= 0)
+                {
+                    burstsRemaining = 0;
+                }
 
                 Debug.Log("Bursts remaining: " + burstsRemaining);
                 // burst cleaned

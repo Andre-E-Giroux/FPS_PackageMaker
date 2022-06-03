@@ -21,14 +21,14 @@ public class WeaponHitScan : WeaponBase
 
     public override bool Fire1( )
     {
-        if (Time.time > FIRE_RATE + nextFire)
+        if (Time.time > FIRE_RATE + nextFire && currentMagazineAmmo > 0)
         {
             
             Debug.Log("Weapon fired!");
 
             for (int i = 0; i < NUMBER_OF_PROJECTILES_PER_SHOT; i++)
             {
-                Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(Vector3.forward) * MAX_WEAPON_RANGE, Color.yellow);
+                Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(Vector3.forward) * MAX_WEAPON_RANGE, Color.yellow,2);
                 if (Physics.Raycast(playerCamera.transform.position, transform.TransformDirection(Vector3.forward), out hit, MAX_WEAPON_RANGE, entityLayerMask))
                 {
 
@@ -43,7 +43,12 @@ public class WeaponHitScan : WeaponBase
                 }
             }
 
+            --currentMagazineAmmo;
+
             nextFire = Time.time;
+
+            base.Fire1();
+
             return true;
         }
         return false;

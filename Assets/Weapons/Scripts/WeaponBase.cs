@@ -57,6 +57,11 @@ public class WeaponBase : MonoBehaviour
 
     protected float nextFire = 0;
 
+    [SerializeField]
+    protected int currentMagazineAmmo = 20;
+
+    [SerializeField]
+    protected int currentReserveAmmo = 40;
 
     /// <summary>
     /// Possible Weapon types
@@ -95,22 +100,73 @@ public class WeaponBase : MonoBehaviour
     [SerializeField]
     protected FireTypes fireType;
 
+    /// <summary>
+    /// Hud controller
+    /// </summary>
+    private WeaponInteraction weaponInteraction;
 
 
     /// <summary>
     /// Primary Fire of weapon
     /// </summary>
     /// <returns>True if shot succesful</returns>
-    public virtual bool Fire1() { return false; }
+    public virtual bool Fire1() 
+    {
+        if(weaponInteraction)
+        {
+            weaponInteraction.UpdateHud();
+        }
+        return false; }
 
     /// <summary>
     /// Secondary Fire of weapon
     /// </summary>
     public virtual void Fire2() { }
 
+    public void Reload()
+    {
+        if(MAX_MAGAZINE_SIZE > currentMagazineAmmo && currentReserveAmmo > 0)
+        {
+            if(MAX_MAGAZINE_SIZE >= currentReserveAmmo)
+            {
+                currentMagazineAmmo = currentReserveAmmo;
+                currentReserveAmmo = 0;
+            }
+            else
+            {
+                currentReserveAmmo -= (MAX_MAGAZINE_SIZE - currentMagazineAmmo);
+                currentMagazineAmmo = MAX_MAGAZINE_SIZE;
+                
+            }
+        }
+    }
+
+
+
     private void Awake()
     {
         entityLayerMask = LayerMask.NameToLayer("Entity");
+
+        currentMagazineAmmo = MAX_MAGAZINE_SIZE;
+        currentReserveAmmo = MAX_RESERVE_AMMUNITION;
     }
+
+
+    public void AddInteractionManager(WeaponInteraction hud)
+    {
+        weaponInteraction = hud;
+    }
+
+    public int GetReserveAmmo()
+    {
+        return currentReserveAmmo;
+    }
+
+    public int GetMagazineAmmo()
+    {
+        return currentMagazineAmmo;
+    }
+
+
 
 }

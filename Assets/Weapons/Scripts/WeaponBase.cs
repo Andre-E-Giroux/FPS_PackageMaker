@@ -163,7 +163,7 @@ public class WeaponBase : MonoBehaviour
 
     protected void AwakenWeapon()
     {
-        entityLayerMask = LayerMask.NameToLayer("Entity");
+        //entityLayerMask = LayerMask.NameToLayer("Entity");
 
         currentMagazineAmmo = MAX_MAGAZINE_SIZE;
         currentReserveAmmo = MAX_RESERVE_AMMUNITION;

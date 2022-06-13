@@ -398,14 +398,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 452565733}
     m_Modifications:
-    - target: {fileID: -7392962417690044507, guid: 9599de80f97beaf4ca7ed8dd00fe53e8, type: 3}
-      propertyPath: FIRE_RATE
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: -7392962417690044507, guid: 9599de80f97beaf4ca7ed8dd00fe53e8, type: 3}
-      propertyPath: BURST_FIRERATE
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 2107350981350189901, guid: 9599de80f97beaf4ca7ed8dd00fe53e8, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -625,13 +617,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MAX_WEAPON_RANGE: 5
-  FIRE_RATE: 2
-  SWITCH_WEAPON_TIME: 1
-  SPEED_EFFECT: 0
+  WEAPON_FIRE_RATE: 2
+  WEAPON_SWITCH_TIME: 1
+  PLAYER_SPEED_EFFECT: 0
   MAX_MAGAZINE_SIZE: 30
   MAX_RESERVE_AMMUNITION: 240
   RELOAD_SPEED: 1
-  MINIMUM_CONE_SIZE: 0
+  MINIMUM_CONE_ACCURACY_SIZE: 0
+  MAXIMUM_CONE_ACCURACY_SIZE: 0
+  currentConeAccuracySize: 0
   NUMBER_OF_PROJECTILES_PER_SHOT: 0
   entityLayerMask:
     serializedVersion: 2
@@ -688,11 +682,11 @@ RectTransform:
   m_Father: {fileID: 901358495}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -0.15000057, y: 0}
   m_SizeDelta: {x: 4.6, y: 0.8}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &974904270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1598,6 +1592,10 @@ PrefabInstance:
       propertyPath: weaponPlayerHUD_Controller
       value: 
       objectReference: {fileID: 1345541027}
+    - target: {fileID: 1061864159298539766, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: MINIMUM_CONE_ACCURACY_SIZE
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3578931500200609282, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1670,6 +1668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1054a6e683d23f4aa2a36bdfc5f2a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ED: {fileID: 2107277185}
   currentHealth: 100
   isPlayer: 0
   ragdoll: 0

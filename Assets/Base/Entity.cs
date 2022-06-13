@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
+    [SerializeField]
+    private EntityDebugger ED;
+
+
     /// <summary>
     /// Entity's current health
     /// </summary>
@@ -33,13 +37,19 @@ public class Entity : MonoBehaviour
     {
         if (currentHealth + increase > MAX_HEALTH)
             currentHealth = MAX_HEALTH;
-        else if (currentHealth + increase < 0)
+        else if ((currentHealth + increase) <= 0)
         {
             currentHealth = 0;
-            DeathDelete();
+            if (ragdoll)
+                DeathRagdoll();
+            else
+                DeathDelete();
         }
         else
             currentHealth += increase;
+
+        if (ED)
+            ED.UpdateHealthBar(currentHealth, MAX_HEALTH);
     }
 
     /// <summary>

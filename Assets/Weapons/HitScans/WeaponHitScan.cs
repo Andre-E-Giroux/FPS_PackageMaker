@@ -16,20 +16,26 @@ public class WeaponHitScan : WeaponBase
 
     private void Awake()
     {
+        AwakenWeapon();
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     public override bool Fire1( )
     {
-        if (Time.time > FIRE_RATE + nextFire && currentMagazineAmmo > 0)
+        if (Time.time > WEAPON_FIRE_RATE + nextFire && currentMagazineAmmo > 0)
         {
             
             Debug.Log("Weapon fired!");
 
             for (int i = 0; i < NUMBER_OF_PROJECTILES_PER_SHOT; i++)
             {
-                Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(Vector3.forward) * MAX_WEAPON_RANGE, Color.yellow,2);
-                if (Physics.Raycast(playerCamera.transform.position, transform.TransformDirection(Vector3.forward), out hit, MAX_WEAPON_RANGE, entityLayerMask))
+                //Vector3 shotDirection = new Vector3(playerCamera.transform.rotation.x + Random.Range(-currentConeAccuracySize, currentConeAccuracySize), playerCamera.transform.rotation.y + Random.Range(-currentConeAccuracySize, currentConeAccuracySize), 10);
+
+                Vector3 shotDirectionOffset = PickFiringDirection(Vector3.forward);
+
+                Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(shotDirectionOffset) * MAX_WEAPON_RANGE, Color.yellow,30);
+
+                if (Physics.Raycast(playerCamera.transform.position, transform.TransformDirection(shotDirectionOffset), out hit, MAX_WEAPON_RANGE, entityLayerMask))
                 {
 
                     Debug.Log("Did Hit");

@@ -140,18 +140,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd18cef413732a46af2253dbdbc9207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAX_WEAPON_RANGE: 5
-  FIRE_RATE: 0.5
-  SWITCH_WEAPON_TIME: 1
-  SPEED_EFFECT: 0
+  MAX_WEAPON_RANGE: 20
+  WEAPON_FIRE_RATE: 0.1
+  WEAPON_SWITCH_TIME: 1
+  PLAYER_SPEED_EFFECT: 0
   MAX_MAGAZINE_SIZE: 30
   MAX_RESERVE_AMMUNITION: 240
   RELOAD_SPEED: 1
-  MINIMUM_CONE_SIZE: 0
+  MINIMUM_CONE_ACCURACY_SIZE: 5
+  MAXIMUM_CONE_ACCURACY_SIZE: 0
+  currentConeAccuracySize: 0
   NUMBER_OF_PROJECTILES_PER_SHOT: 1
   entityLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  currentMagazineAmmo: 20
+  currentReserveAmmo: 40
   weaponType: 0
   fireType: 0
   WEAPON_DAMAGE: 10

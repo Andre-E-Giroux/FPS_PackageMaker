@@ -42,6 +42,11 @@ public class WeaponInteraction : MonoBehaviour
         {
             weaponBases[selectedWeapon].Fire1();
         }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Reload, interaction");
+            weaponBases[selectedWeapon].Reload();
+        }
 
 
         SwitchWeapons();

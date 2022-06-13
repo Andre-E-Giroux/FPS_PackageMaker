@@ -13,17 +13,17 @@ public class WeaponBase : MonoBehaviour
     /// Fire rate seconds between shots
     /// </summary>
     [SerializeField]
-    protected float FIRE_RATE = 2;
+    protected float WEAPON_FIRE_RATE = 2;
     /// <summary>
     /// Weapon switch time, measured in seconds
     /// </summary>
     [SerializeField]
-    protected float SWITCH_WEAPON_TIME = 1;
+    protected float WEAPON_SWITCH_TIME = 1;
     /// <summary>
     /// Effect on player speed
     /// </summary>
     [SerializeField]
-    protected float SPEED_EFFECT = 0;
+    protected float PLAYER_SPEED_EFFECT = 0;
     /// <summary>
     /// Maximum Number of "bullets" in the weapon
     /// </summary>
@@ -40,10 +40,25 @@ public class WeaponBase : MonoBehaviour
     [SerializeField] 
     protected float RELOAD_SPEED = 1;
     /// <summary>
-    /// Size of the cone that projectiles can fire within
+    /// Minimum Size of the cone that projectiles can fire within, 0 = NO CONE - PIN POINT ACCURACY
+    /// QUATERNION
     /// </summary>
     [SerializeField] 
-    protected float MINIMUM_CONE_SIZE = 0;
+    protected float MINIMUM_CONE_ACCURACY_SIZE = 0;
+    /// <summary>
+    /// Maximum Size of the cone that projectiles can fire within, 0 = NO CONE - PIN POINT ACCURACY
+    /// QUATERNION
+    /// </summary>
+    [SerializeField]
+    protected float MAXIMUM_CONE_ACCURACY_SIZE = 0;
+
+    /// <summary>
+    /// Minimum Size of the cone that projectiles can fire within, 0 = NO CONE - PIN POINT ACCURACY
+    /// QUATERNION
+    /// </summary>
+    [SerializeField]
+    protected float currentConeAccuracySize = 0;
+
     /// <summary>
     /// Size of the cone that projectiles can fire within
     /// </summary>
@@ -116,16 +131,18 @@ public class WeaponBase : MonoBehaviour
         {
             weaponInteraction.UpdateHud();
         }
-        return false; }
+        return false; 
+    }
 
     /// <summary>
     /// Secondary Fire of weapon
     /// </summary>
     public virtual void Fire2() { }
 
-    public void Reload()
+    public virtual void Reload()
     {
-        if(MAX_MAGAZINE_SIZE > currentMagazineAmmo && currentReserveAmmo > 0)
+        Debug.Log("Reload, Weapon Base");
+        if (MAX_MAGAZINE_SIZE > currentMagazineAmmo && currentReserveAmmo > 0)
         {
             if(MAX_MAGAZINE_SIZE >= currentReserveAmmo)
             {
@@ -139,16 +156,18 @@ public class WeaponBase : MonoBehaviour
                 
             }
         }
+        weaponInteraction.UpdateHud();
     }
 
 
 
-    private void Awake()
+    protected void AwakenWeapon()
     {
         entityLayerMask = LayerMask.NameToLayer("Entity");
 
         currentMagazineAmmo = MAX_MAGAZINE_SIZE;
         currentReserveAmmo = MAX_RESERVE_AMMUNITION;
+        currentConeAccuracySize = MINIMUM_CONE_ACCURACY_SIZE;
     }
 
 
@@ -167,6 +186,10 @@ public class WeaponBase : MonoBehaviour
         return currentMagazineAmmo;
     }
 
-
+    protected virtual Vector3 PickFiringDirection(Vector3 muzzleForward)
+    {
+        Vector3 candidate = Random.insideUnitSphere * currentConeAccuracySize + muzzleForward;
+        return candidate.normalized;
+    }
 
 }

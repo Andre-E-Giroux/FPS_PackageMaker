@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class WeaponHitScanBurst : WeaponHitScan
 {
+    /// <summary>
+    /// Fire rate in between burst, does not change
+    /// </summary>
     [SerializeField]
     protected float BURST_FIRERATE = 0.6f;
 
+    /// <summary>
+    /// Tracks when burst can happen
+    /// </summary>
     [SerializeField]
     protected float untilNextBurst = 0;
 
@@ -17,8 +23,14 @@ public class WeaponHitScanBurst : WeaponHitScan
     [SerializeField]
     protected int burstLength = 3;
 
+    /// <summary>
+    /// Is burst allowed to fire
+    /// </summary>
     private bool allowedToFire = true;
 
+    /// <summary>
+    /// number of rounds left in burst
+    /// </summary>
     private int burstsRemaining = 0;
 
 
@@ -26,27 +38,25 @@ public class WeaponHitScanBurst : WeaponHitScan
     {
         if (burstsRemaining > 0 && GetMagazineAmmo() > 0)
         {
-           
-            Debug.Log("Burst fire allowed/continued");
+            if (allowedToReload)
+                allowedToReload = !allowedToReload;
+
 
             if (base.Fire1())
             {
-                Debug.Log("One bullet of burst was fired!");
                 --burstsRemaining;
-
 
                 if(GetMagazineAmmo() <= 0)
                 {
                     burstsRemaining = 0;
                 }
 
-                Debug.Log("Bursts remaining: " + burstsRemaining);
-                // burst cleaned
-                if (burstsRemaining <= 0)
+                // burst cleaned, or ran out of ammo
+                if (burstsRemaining <= 0 || currentMagazineAmmo <= 0)
                 {
-                    Debug.Log("Reset");
                     untilNextBurst = Time.time;
                     allowedToFire = true;
+                    allowedToReload = true;
                     burstsRemaining = 0;
                     nextFire = nextFire = Time.time;
                 }
@@ -61,6 +71,7 @@ public class WeaponHitScanBurst : WeaponHitScan
         if (Time.time >= (BURST_FIRERATE + untilNextBurst) && allowedToFire)
         {
             allowedToFire = false;
+            allowedToReload = true;
             burstsRemaining = burstLength;
         }
         return true;

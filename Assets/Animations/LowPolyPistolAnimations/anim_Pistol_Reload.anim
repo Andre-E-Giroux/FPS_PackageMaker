@@ -1044,4 +1044,11 @@ AnimationClip:
     script: {fileID: 0}
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 1.1666666
+    functionName: StoppedReloading
+    data: 
+    objectReferenceParameter: {fileID: 7120822472991122447, guid: 7f52a5c29eca823418037d84f98c60e1, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

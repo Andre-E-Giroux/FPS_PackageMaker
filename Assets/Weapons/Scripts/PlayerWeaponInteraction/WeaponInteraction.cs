@@ -24,7 +24,6 @@ public class WeaponInteraction : MonoBehaviour
         {
             if (!weaponPlayerHUD_Controller)
                 weaponPlayerHUD_Controller = GetComponent<WeaponPlayerHUD_Controller>();
-
             weaponBases[i] = weapons[i].GetComponent<WeaponBase>();
             weapons[i].transform.position = weaponPositionPoint.position;
             weaponBases[i].AddInteractionManager(this);
@@ -39,13 +38,14 @@ public class WeaponInteraction : MonoBehaviour
 
     private void Update()
     {
+        //Fire1
         if(Input.GetMouseButton(0))
         {
             weaponBases[selectedWeapon].Fire1();
         }
+        //Reload
         if(Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("Reload, interaction");
             weaponBases[selectedWeapon].Reload();
         }
 
@@ -112,6 +112,7 @@ public class WeaponInteraction : MonoBehaviour
         {
             weapons[selectedWeapon].SetActive(false);
             weapons[temp].SetActive(true);
+            weapons[temp].GetComponent<WeaponBase>().AwakenWeapon();
             selectedWeapon = temp;
             UpdateHud();
         }

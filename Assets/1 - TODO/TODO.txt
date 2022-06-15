@@ -1,0 +1,8 @@
+Allow interuptable reloading/break them up (Shotgun) have a window to stop it.
+Bloom affect when firing weapon
+Show the cone with a crosshair
+Show Weapons hud, similar to Dishonored.
+UI Copyright
+Fine tune movement
+Enemy ragdoll
+Gun push force on RG objects

@@ -5,6 +5,11 @@ using UnityEngine;
 public class WeaponBase : MonoBehaviour
 {
     /// <summary>
+    /// Name of weapon. animation names must follow this pattern: "anim_*nameOfWeapon*_*action*"
+    /// Example: "anim_Pistol_Fire"
+    /// </summary>
+    public string nameOfWeapon;
+    /// <summary>
     /// Weapon Range in meters
     /// </summary>
     [SerializeField]
@@ -78,9 +83,25 @@ public class WeaponBase : MonoBehaviour
     [SerializeField]
     protected int currentReserveAmmo = 40;
 
-
+    /// <summary>
+    /// True if the weapon is reloading, false if not
+    /// </summary>
     [SerializeField]
     protected bool isReloading = false;
+
+    /// <summary>
+    /// Weapon Fire 1 animation name, set within script and weapon name. "anim_*nameOfWeapon*_Fire1"
+    /// </summary>
+    private string weaponFire1AnimationName;
+    /// <summary>
+    /// Weapon Fire 1 animation name, set within script and weapon name. "anim_*nameOfWeapon*_Reload"
+    /// </summary>
+    private string weaponRelaodAnimationName;
+
+    /// <summary>
+    /// If the weapon can reload (Stop reload in middle of burst)
+    /// </summary>
+    protected bool allowedToReload = false;
 
     /// <summary>
     /// Possible Weapon types
@@ -140,7 +161,7 @@ public class WeaponBase : MonoBehaviour
     {
         if (weaponAnimator)
         {
-            weaponAnimator.SetBool("isShooting_Fire1", true);
+            weaponAnimator.SetTrigger("isShooting_Fire1");
         }
 
         if (weaponInteraction)
@@ -155,7 +176,7 @@ public class WeaponBase : MonoBehaviour
     {
         if (weaponAnimator)
         {
-            weaponAnimator.SetBool("isShooting_Fire1", false);
+           // weaponAnimator.SetBool("isShooting_Fire1", false);
         }
     }
 
@@ -165,98 +186,79 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     public virtual void Fire2() { }
 
+    /// <summary>
+    /// Base reload actions for weapon
+    /// </summary>
     public virtual void Reload()
     {
-        Debug.Log("Reload, Weapon Base");
-        if (MAX_MAGAZINE_SIZE > currentMagazineAmmo && currentReserveAmmo > 0)
+        if (MAX_MAGAZINE_SIZE > currentMagazineAmmo && currentReserveAmmo > 0 && allowedToReload)
         {        
             isReloading = true;
-            Invoke("StoppedReloading", RELOAD_TIME); // 
+            //Invoke("StoppedReloading", RELOAD_TIME);
 
             if (weaponAnimator)
             {
                 weaponAnimator.SetTrigger("reload");
             }
 
-            if (MAX_MAGAZINE_SIZE >= currentReserveAmmo)
-            {
-                currentMagazineAmmo = currentReserveAmmo;
-                currentReserveAmmo = 0;
-            }
-            else
-            {
-                currentReserveAmmo -= (MAX_MAGAZINE_SIZE - currentMagazineAmmo);
-                currentMagazineAmmo = MAX_MAGAZINE_SIZE;
-                
-            }
         }
-        weaponInteraction.UpdateHud();
     }
 
 
-    private const string weaponFire1AnimationName = "anim_Pistol_Fire";
-    private const string weaponRelaodAnimationName = "anim_Pistol_Reload";
+    
     public void AwakenWeapon()
     {
         //entityLayerMask = LayerMask.NameToLayer("Entity");
-        
+        allowedToReload = true;
+
         currentMagazineAmmo = MAX_MAGAZINE_SIZE;
         currentReserveAmmo = MAX_RESERVE_AMMUNITION;
         currentConeAccuracySize = MINIMUM_CONE_ACCURACY_SIZE;
 
+        weaponFire1AnimationName = "anim_" + nameOfWeapon + "_Fire1";
+        weaponRelaodAnimationName = "anim_" + nameOfWeapon + "_Reload";
 
-
+        // Get list of states in the animator
         UnityEditor.Animations.AnimatorController ac =  weaponAnimator.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
         UnityEditor.Animations.AnimatorStateMachine sm = ac.layers[0].stateMachine;
-        Debug.Log("Awaken weapon!");
+
+        // for every state find marked states and modify speed
         for (int i = 0; i < sm.states.Length; i++)
         {
-           
+            // current state in array at index
             UnityEditor.Animations.AnimatorState state = sm.states[i].state;
 
-            Debug.Log("Loop all states! Current state = " + state.name);
+            // is the state Fire1?
             if (state.name == weaponFire1AnimationName)
             {
                 AnimationClip clip = state.motion as AnimationClip;
                 if (clip != null)
                 {
-
+                    Debug.Log("Mod " + weaponFire1AnimationName + "animation speed");
+                    Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
                     weaponAnimator.SetFloat("animationSpeed_Fire1", clip.length / WEAPON_FIRE_RATE);
-
-
-
-                    //  Debug.Log("Length of the clip = " + cliplength);
-                    // .. modify speed
-
-                    
                 }
             }
+            //Is the state reload
             else if (state.name == weaponRelaodAnimationName)
             {
                 AnimationClip clip = state.motion as AnimationClip;
                 if (clip != null)
                 {
-                   // Debug.Log("Length of the clip = " + length);
-                    // .. modify speed
-
+                    Debug.Log("Mod " + weaponFire1AnimationName + " animation speed");
+                    Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
                     weaponAnimator.SetFloat("animationSpeed_Reload", clip.length/RELOAD_TIME);
                 }
             }
         }
-
-
-        //  UnityEditorInternal.StateMachine
-        Debug.Log("Weapon Awakend, animator is: " + weaponAnimator);
-        
-
-      
-
     }
 
 
-    public void AddInteractionManager(WeaponInteraction hud)
+    public void AddInteractionManager(WeaponInteraction interactor)
     {
-        weaponInteraction = hud;
+        Debug.Log("Interaction!");
+        Debug.Log("Interactor = " + interactor);
+        weaponInteraction = interactor;
     }
 
     public int GetReserveAmmo()
@@ -283,15 +285,33 @@ public class WeaponBase : MonoBehaviour
     private void Update()
     {
        if(Time.time > WEAPON_FIRE_RATE + nextFire && currentMagazineAmmo > 0)
-        {
+       {
             EndFire1();
-        }
+       }
 
     }
 
+
     private void StoppedReloading()
     {
+        Debug.Log("Reload stopped");
         isReloading = false;
+
+       
+        if (MAX_MAGAZINE_SIZE >= currentReserveAmmo)
+        {
+            currentMagazineAmmo = currentReserveAmmo;
+            currentReserveAmmo = 0;
+        }
+        else
+        {
+            currentReserveAmmo -= (MAX_MAGAZINE_SIZE - currentMagazineAmmo);
+            currentMagazineAmmo = MAX_MAGAZINE_SIZE;
+
+        }
+        Debug.Log("Interaction = " + weaponInteraction);
+        weaponInteraction.UpdateHud();
+
     }
 
 

@@ -32,6 +32,7 @@ public class WeaponInteraction : MonoBehaviour
         }
         weapons[0].SetActive(true);
 
+
         
         UpdateHud();
     }

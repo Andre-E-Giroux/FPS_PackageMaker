@@ -634,6 +634,7 @@ MonoBehaviour:
   currentReserveAmmo: 40
   weaponType: 0
   fireType: 0
+  weaponAnimator: {fileID: 0}
   WEAPON_DAMAGE: 10
   playerCamera: {fileID: 0}
 --- !u!4 &952772770
@@ -820,6 +821,11 @@ Transform:
 --- !u!1 &1131420289 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7834050028945615570, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+  m_PrefabInstance: {fileID: 2086636843}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1131420291 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3396740444959992616, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
   m_PrefabInstance: {fileID: 2086636843}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1170733818 stripped
@@ -1592,6 +1598,10 @@ PrefabInstance:
       propertyPath: weaponPlayerHUD_Controller
       value: 
       objectReference: {fileID: 1345541027}
+    - target: {fileID: 1061864159298539766, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: weaponAnimator
+      value: 
+      objectReference: {fileID: 1131420291}
     - target: {fileID: 1061864159298539766, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: MINIMUM_CONE_ACCURACY_SIZE
       value: 0.1

@@ -16,21 +16,22 @@ public class WeaponHitScan : WeaponBase
 
     private void Awake()
     {
-        AwakenWeapon();
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
+
+    private void Start()
+    {
+        AwakenWeapon();
     }
 
     public override bool Fire1( )
     {
-        if (Time.time > WEAPON_FIRE_RATE + nextFire && currentMagazineAmmo > 0)
+        if (Time.time > WEAPON_FIRE_RATE + nextFire && currentMagazineAmmo > 0 && !isReloading)
         {
             
-            Debug.Log("Weapon fired!");
 
             for (int i = 0; i < NUMBER_OF_PROJECTILES_PER_SHOT; i++)
             {
-                //Vector3 shotDirection = new Vector3(playerCamera.transform.rotation.x + Random.Range(-currentConeAccuracySize, currentConeAccuracySize), playerCamera.transform.rotation.y + Random.Range(-currentConeAccuracySize, currentConeAccuracySize), 10);
-
                 Vector3 shotDirectionOffset = PickFiringDirection(Vector3.forward);
 
                 Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(shotDirectionOffset) * MAX_WEAPON_RANGE, Color.yellow,30);
@@ -55,8 +56,10 @@ public class WeaponHitScan : WeaponBase
 
             base.Fire1();
 
+
             return true;
         }
+        EndFire1();
         return false;
     }
     public override void Fire2( )

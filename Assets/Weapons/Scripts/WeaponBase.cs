@@ -38,7 +38,7 @@ public class WeaponBase : MonoBehaviour
     /// Reload weapon speed, measured in seconds
     /// </summary>
     [SerializeField] 
-    protected float RELOAD_SPEED = 1;
+    protected float RELOAD_TIME = 1;
     /// <summary>
     /// Minimum Size of the cone that projectiles can fire within, 0 = NO CONE - PIN POINT ACCURACY
     /// QUATERNION
@@ -78,6 +78,10 @@ public class WeaponBase : MonoBehaviour
     [SerializeField]
     protected int currentReserveAmmo = 40;
 
+
+    [SerializeField]
+    protected bool isReloading = false;
+
     /// <summary>
     /// Possible Weapon types
     /// </summary>
@@ -115,10 +119,17 @@ public class WeaponBase : MonoBehaviour
     [SerializeField]
     protected FireTypes fireType;
 
+    [SerializeField]
+    protected Animator weaponAnimator;
+
+
     /// <summary>
     /// Hud controller
     /// </summary>
     private WeaponInteraction weaponInteraction;
+
+
+
 
 
     /// <summary>
@@ -127,12 +138,27 @@ public class WeaponBase : MonoBehaviour
     /// <returns>True if shot succesful</returns>
     public virtual bool Fire1() 
     {
-        if(weaponInteraction)
+        if (weaponAnimator)
+        {
+            weaponAnimator.SetBool("isShooting_Fire1", true);
+        }
+
+        if (weaponInteraction)
         {
             weaponInteraction.UpdateHud();
         }
+        
+
         return false; 
     }
+    public virtual void EndFire1()
+    {
+        if (weaponAnimator)
+        {
+            weaponAnimator.SetBool("isShooting_Fire1", false);
+        }
+    }
+
 
     /// <summary>
     /// Secondary Fire of weapon
@@ -143,8 +169,16 @@ public class WeaponBase : MonoBehaviour
     {
         Debug.Log("Reload, Weapon Base");
         if (MAX_MAGAZINE_SIZE > currentMagazineAmmo && currentReserveAmmo > 0)
-        {
-            if(MAX_MAGAZINE_SIZE >= currentReserveAmmo)
+        {        
+            isReloading = true;
+            Invoke("StoppedReloading", RELOAD_TIME); // 
+
+            if (weaponAnimator)
+            {
+                weaponAnimator.SetTrigger("reload");
+            }
+
+            if (MAX_MAGAZINE_SIZE >= currentReserveAmmo)
             {
                 currentMagazineAmmo = currentReserveAmmo;
                 currentReserveAmmo = 0;
@@ -160,14 +194,63 @@ public class WeaponBase : MonoBehaviour
     }
 
 
-
-    protected void AwakenWeapon()
+    private const string weaponFire1AnimationName = "anim_Pistol_Fire";
+    private const string weaponRelaodAnimationName = "anim_Pistol_Reload";
+    public void AwakenWeapon()
     {
         //entityLayerMask = LayerMask.NameToLayer("Entity");
-
+        
         currentMagazineAmmo = MAX_MAGAZINE_SIZE;
         currentReserveAmmo = MAX_RESERVE_AMMUNITION;
         currentConeAccuracySize = MINIMUM_CONE_ACCURACY_SIZE;
+
+
+
+        UnityEditor.Animations.AnimatorController ac =  weaponAnimator.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+        UnityEditor.Animations.AnimatorStateMachine sm = ac.layers[0].stateMachine;
+        Debug.Log("Awaken weapon!");
+        for (int i = 0; i < sm.states.Length; i++)
+        {
+           
+            UnityEditor.Animations.AnimatorState state = sm.states[i].state;
+
+            Debug.Log("Loop all states! Current state = " + state.name);
+            if (state.name == weaponFire1AnimationName)
+            {
+                AnimationClip clip = state.motion as AnimationClip;
+                if (clip != null)
+                {
+
+                    weaponAnimator.SetFloat("animationSpeed_Fire1", clip.length / WEAPON_FIRE_RATE);
+
+
+
+                    //  Debug.Log("Length of the clip = " + cliplength);
+                    // .. modify speed
+
+                    
+                }
+            }
+            else if (state.name == weaponRelaodAnimationName)
+            {
+                AnimationClip clip = state.motion as AnimationClip;
+                if (clip != null)
+                {
+                   // Debug.Log("Length of the clip = " + length);
+                    // .. modify speed
+
+                    weaponAnimator.SetFloat("animationSpeed_Reload", clip.length/RELOAD_TIME);
+                }
+            }
+        }
+
+
+        //  UnityEditorInternal.StateMachine
+        Debug.Log("Weapon Awakend, animator is: " + weaponAnimator);
+        
+
+      
+
     }
 
 
@@ -186,10 +269,31 @@ public class WeaponBase : MonoBehaviour
         return currentMagazineAmmo;
     }
 
+    public void WeaponSwitched()
+    {
+        isReloading = false;
+    }
+
     protected virtual Vector3 PickFiringDirection(Vector3 muzzleForward)
     {
         Vector3 candidate = Random.insideUnitSphere * currentConeAccuracySize + muzzleForward;
         return candidate.normalized;
     }
+
+    private void Update()
+    {
+       if(Time.time > WEAPON_FIRE_RATE + nextFire && currentMagazineAmmo > 0)
+        {
+            EndFire1();
+        }
+
+    }
+
+    private void StoppedReloading()
+    {
+        isReloading = false;
+    }
+
+
 
 }

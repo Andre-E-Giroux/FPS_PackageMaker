@@ -65,6 +65,19 @@ public class WeaponBase : MonoBehaviour
     protected float currentConeAccuracySize = 0;
 
     /// <summary>
+    /// On fire, decrease weapon accuracy by adding this variable to currentConeAccuracySize.
+    /// </summary>
+    [SerializeField]
+    protected float accuracyBloomIncrease = 0;
+
+    /// <summary>
+    /// Speed of how fast a weapon's accuracy recovers from a shot
+    /// </summary>
+    [SerializeField]
+    protected float accuracyBloomDecreaseSpeed = 0;
+
+
+    /// <summary>
     /// Size of the cone that projectiles can fire within
     /// </summary>
     [SerializeField]
@@ -170,15 +183,12 @@ public class WeaponBase : MonoBehaviour
     /// <returns>True if shot succesful</returns>
     public virtual bool Fire1_Interaction(WeaponBase weaponSuper) 
     {
-
-
         if (Time.time > WEAPON_FIRE_RATE + nextFire && currentMagazineAmmo > 0 && !isReloading)
         {
-
-
             for (int i = 0; i < NUMBER_OF_PROJECTILES_PER_SHOT; i++)
             {
                 weaponSuper.Fire1();
+                AccuracyDecrease();
             }
 
             --currentMagazineAmmo;
@@ -217,7 +227,6 @@ public class WeaponBase : MonoBehaviour
             stopReloadingCycle = true;
         }
 
-        EndFire1();
         return false;
 
 
@@ -225,17 +234,13 @@ public class WeaponBase : MonoBehaviour
 
     }
 
-    public virtual void Fire1()
-    {
-    }
+    /// <summary>
+    /// Weapon Main fire function.
+    /// HitScan weapons will use this function to shoot a raycast
+    /// Projectile weapons will use thi function to spawn and launch a projectile(gameobject)
+    /// </summary>
+    public virtual void Fire1(){}
 
-    public virtual void EndFire1()
-    {
-        if (weaponAnimator)
-        {
-           // weaponAnimator.SetBool("isShooting_Fire1", false);
-        }
-    }
 
 
     /// <summary>
@@ -367,13 +372,34 @@ public class WeaponBase : MonoBehaviour
         return candidate.normalized;
     }
 
+    /// <summary>
+    /// Decrease accuracy by decrease accuracy by variable accuracyBloomIncrease
+    /// </summary>
+    protected void AccuracyDecrease()
+    {
+        if (currentConeAccuracySize < MAXIMUM_CONE_ACCURACY_SIZE)
+        {
+            currentConeAccuracySize += accuracyBloomIncrease;
+            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, MINIMUM_CONE_ACCURACY_SIZE, MAXIMUM_CONE_ACCURACY_SIZE);
+        }
+    }
+
+    /// <summary>
+    /// Decrease bloom based on the variable accuracyBloomDecreaseSpeed overtime
+    /// </summary>
+    protected void UpdateAccuracy()
+    {
+        if (currentConeAccuracySize > MINIMUM_CONE_ACCURACY_SIZE)
+        {
+            currentConeAccuracySize -= accuracyBloomDecreaseSpeed * Time.deltaTime;
+            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, MINIMUM_CONE_ACCURACY_SIZE, MAXIMUM_CONE_ACCURACY_SIZE);
+        }
+    }
+
+
     private void Update()
     {
-       if(Time.time > WEAPON_FIRE_RATE + nextFire && currentMagazineAmmo > 0)
-       {
-            EndFire1();
-       }
-
+        UpdateAccuracy();
     }
 
     /// <summary>

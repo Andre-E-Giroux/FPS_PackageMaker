@@ -89,6 +89,15 @@ public class WeaponBase : MonoBehaviour
     [SerializeField]
     protected bool isReloading = false;
 
+    protected bool stopReloadingCycle = false;
+
+    [SerializeField]
+    protected bool isCycleReload = false;
+
+    [SerializeField]
+    protected int numberOfRoundsLoadedPerCycle = 1;
+
+
     /// <summary>
     /// Weapon Fire 1 animation name, set within script and weapon name. "anim_*nameOfWeapon*_Fire1"
     /// </summary>
@@ -159,17 +168,31 @@ public class WeaponBase : MonoBehaviour
     /// <returns>True if shot succesful</returns>
     public virtual bool Fire1() 
     {
-        if (weaponAnimator)
+       
+
+        Debug.Log("Fire1 base : " + isReloading + " cycle " + isCycleReload);
+        // stop cycle reload, allowing player to chamber at least one round before allowing to fire (remember l4d shotgun reload)
+        if (isReloading && isCycleReload)
         {
-            weaponAnimator.SetTrigger("isShooting_Fire1");
+            Debug.Log("Stop cycle reload");
+            stopReloadingCycle = true;
         }
 
-        if (weaponInteraction)
+        else if (!isReloading)
         {
-            weaponInteraction.UpdateHud();
+            if (weaponAnimator)
+            {
+                weaponAnimator.SetTrigger("isShooting_Fire1");
+            }
+
+
+            if (weaponInteraction)
+            {
+                weaponInteraction.UpdateHud();
+            }
         }
         
-
+        
         return false; 
     }
     public virtual void EndFire1()
@@ -200,12 +223,18 @@ public class WeaponBase : MonoBehaviour
             {
                 weaponAnimator.SetTrigger("reload");
             }
+            else
+            {
+                Invoke("StoppedReloading", RELOAD_TIME);
+            }
 
         }
     }
 
 
-    
+    /// <summary>
+    /// Weapon base awake function. Called from WeaponInteraction player script
+    /// </summary>
     public void AwakenWeapon()
     {
         //entityLayerMask = LayerMask.NameToLayer("Entity");
@@ -251,31 +280,52 @@ public class WeaponBase : MonoBehaviour
                 }
             }
         }
+
+        // Ensure that at least 1 round is chambered if cycleLoadIsTrue
+        if (isCycleReload && numberOfRoundsLoadedPerCycle <= 0)
+            numberOfRoundsLoadedPerCycle = 1;
     }
 
-
+    /// <summary>
+    /// Get the player interaction manager. Called from player WeaponInteraction
+    /// </summary>
+    /// <param name="interactor"></param>
     public void AddInteractionManager(WeaponInteraction interactor)
     {
-        Debug.Log("Interaction!");
-        Debug.Log("Interactor = " + interactor);
         weaponInteraction = interactor;
     }
 
+    /// <summary>
+    /// Get reserve ammunitioncaount
+    /// </summary>
+    /// <returns>Reserve ammo integer count</returns>
     public int GetReserveAmmo()
     {
         return currentReserveAmmo;
     }
 
+    /// <summary>
+    /// Get magazine ammunitioncaount
+    /// </summary>
+    /// <returns>Magazine ammo integer count</returns>
     public int GetMagazineAmmo()
     {
         return currentMagazineAmmo;
     }
 
+    /// <summary>
+    /// Function called when weapon is switched out. Reset certain elements of the weapon
+    /// </summary>
     public void WeaponSwitched()
     {
         isReloading = false;
     }
 
+    /// <summary>
+    /// Calculates direction that the shot will take, dependent on direction the camera is pointing and variable currentConeAccuracySize
+    /// </summary>
+    /// <param name="muzzleForward">Forward vector of the camera</param>
+    /// <returns>Direction of the fire will take</returns>
     protected virtual Vector3 PickFiringDirection(Vector3 muzzleForward)
     {
         Vector3 candidate = Random.insideUnitSphere * currentConeAccuracySize + muzzleForward;
@@ -291,25 +341,81 @@ public class WeaponBase : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// When time for the reload ends, this function is called. Either from reload animation End or if, no animatior, invoke calls this function after RELOAD_TIME seconds has passed
+    /// </summary>
     private void StoppedReloading()
     {
-        Debug.Log("Reload stopped");
-        isReloading = false;
-
-       
-        if (MAX_MAGAZINE_SIZE >= currentReserveAmmo)
+        if (!isCycleReload)
         {
-            currentMagazineAmmo = currentReserveAmmo;
-            currentReserveAmmo = 0;
+            isReloading = false;
+
+            //Magazine need exceeds reserve ammo
+            if (MAX_MAGAZINE_SIZE >= currentReserveAmmo)
+            {
+                currentMagazineAmmo = currentReserveAmmo;
+                currentReserveAmmo = 0;
+            }
+            else
+            {
+                currentReserveAmmo -= (MAX_MAGAZINE_SIZE - currentMagazineAmmo);
+                currentMagazineAmmo = MAX_MAGAZINE_SIZE;
+
+            }
         }
         else
         {
-            currentReserveAmmo -= (MAX_MAGAZINE_SIZE - currentMagazineAmmo);
-            currentMagazineAmmo = MAX_MAGAZINE_SIZE;
+            //Magazine need exceeds reserve ammo
+            if (numberOfRoundsLoadedPerCycle >= currentReserveAmmo)
+            {
+                currentMagazineAmmo += currentReserveAmmo;
+                currentReserveAmmo = 0;
+                //stop reload
+                isReloading = false;
+            }
+            // ammo capped, reserve ammo remaining
+            else if(currentMagazineAmmo + numberOfRoundsLoadedPerCycle >= MAX_MAGAZINE_SIZE)
+            {
+                // if loaded ammunition count exceed magazine size
+                if(MAX_MAGAZINE_SIZE - currentMagazineAmmo < numberOfRoundsLoadedPerCycle)
+                    currentReserveAmmo -= MAX_MAGAZINE_SIZE - currentMagazineAmmo;
+                else
+                    currentReserveAmmo -= numberOfRoundsLoadedPerCycle;
 
+                currentMagazineAmmo = MAX_MAGAZINE_SIZE;
+
+                //stop reload
+                isReloading = false;
+            }
+            else
+            {
+                currentReserveAmmo -= numberOfRoundsLoadedPerCycle;
+                currentMagazineAmmo += numberOfRoundsLoadedPerCycle;
+
+                
+            }
+            if(stopReloadingCycle)
+            {
+                Debug.Log("Stop reloading");
+                isReloading = false;
+                stopReloadingCycle = false;
+            }
+            else
+            {
+                if (weaponAnimator)
+                {
+                    weaponAnimator.SetTrigger("reload");
+                }
+                else
+                {
+                    Invoke("StoppedReloading", RELOAD_TIME);
+                }
+            }
+
+            
+           
         }
-        Debug.Log("Interaction = " + weaponInteraction);
+
         weaponInteraction.UpdateHud();
 
     }

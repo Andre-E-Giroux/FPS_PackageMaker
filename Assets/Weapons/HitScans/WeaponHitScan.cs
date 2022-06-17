@@ -59,6 +59,11 @@ public class WeaponHitScan : WeaponBase
 
             return true;
         }
+        else if(isReloading)
+        {
+            stopReloadingCycle = true;
+        }
+
         EndFire1();
         return false;
     }

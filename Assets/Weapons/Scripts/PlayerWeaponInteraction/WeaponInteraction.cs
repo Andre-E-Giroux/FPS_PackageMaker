@@ -41,7 +41,7 @@ public class WeaponInteraction : MonoBehaviour
         //Fire1
         if(Input.GetMouseButton(0))
         {
-            weaponBases[selectedWeapon].Fire1();
+            weaponBases[selectedWeapon].Fire1_Interaction(weaponBases[selectedWeapon]);
         }
         //Reload
         if(Input.GetKeyDown(KeyCode.R))

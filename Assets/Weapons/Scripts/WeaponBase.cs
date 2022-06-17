@@ -157,7 +157,9 @@ public class WeaponBase : MonoBehaviour
     /// Hud controller
     /// </summary>
     private WeaponInteraction weaponInteraction;
-
+    
+    [SerializeField]
+    protected Camera playerCamera;
 
 
 
@@ -166,35 +168,67 @@ public class WeaponBase : MonoBehaviour
     /// Primary Fire of weapon
     /// </summary>
     /// <returns>True if shot succesful</returns>
-    public virtual bool Fire1() 
+    public virtual bool Fire1_Interaction(WeaponBase weaponSuper) 
     {
-       
 
-        Debug.Log("Fire1 base : " + isReloading + " cycle " + isCycleReload);
-        // stop cycle reload, allowing player to chamber at least one round before allowing to fire (remember l4d shotgun reload)
-        if (isReloading && isCycleReload)
+
+        if (Time.time > WEAPON_FIRE_RATE + nextFire && currentMagazineAmmo > 0 && !isReloading)
         {
-            Debug.Log("Stop cycle reload");
+
+
+            for (int i = 0; i < NUMBER_OF_PROJECTILES_PER_SHOT; i++)
+            {
+                weaponSuper.Fire1();
+            }
+
+            --currentMagazineAmmo;
+
+            nextFire = Time.time;
+
+            //BASE
+            Debug.Log("Fire1 base : " + isReloading + " cycle " + isCycleReload);
+            // stop cycle reload, allowing player to chamber at least one round before allowing to fire (remember l4d shotgun reload)
+            if (isReloading && isCycleReload)
+            {
+                Debug.Log("Stop cycle reload");
+                stopReloadingCycle = true;
+            }
+
+            else if (!isReloading)
+            {
+                if (weaponAnimator)
+                {
+                    weaponAnimator.SetTrigger("isShooting_Fire1");
+                }
+
+
+                if (weaponInteraction)
+                {
+                    weaponInteraction.UpdateHud();
+                }
+            }
+            //BASE
+
+
+            return true;
+        }
+        else if (isReloading)
+        {
             stopReloadingCycle = true;
         }
 
-        else if (!isReloading)
-        {
-            if (weaponAnimator)
-            {
-                weaponAnimator.SetTrigger("isShooting_Fire1");
-            }
+        EndFire1();
+        return false;
 
 
-            if (weaponInteraction)
-            {
-                weaponInteraction.UpdateHud();
-            }
-        }
-        
-        
-        return false; 
+
+
     }
+
+    public virtual void Fire1()
+    {
+    }
+
     public virtual void EndFire1()
     {
         if (weaponAnimator)
@@ -316,9 +350,10 @@ public class WeaponBase : MonoBehaviour
     /// <summary>
     /// Function called when weapon is switched out. Reset certain elements of the weapon
     /// </summary>
-    public void WeaponSwitched()
+    public void WeaponReset()
     {
         isReloading = false;
+        isCycleReload = false;
     }
 
     /// <summary>
@@ -371,7 +406,8 @@ public class WeaponBase : MonoBehaviour
                 currentMagazineAmmo += currentReserveAmmo;
                 currentReserveAmmo = 0;
                 //stop reload
-                isReloading = false;
+                WeaponReset();
+
             }
             // ammo capped, reserve ammo remaining
             else if(currentMagazineAmmo + numberOfRoundsLoadedPerCycle >= MAX_MAGAZINE_SIZE)
@@ -385,7 +421,7 @@ public class WeaponBase : MonoBehaviour
                 currentMagazineAmmo = MAX_MAGAZINE_SIZE;
 
                 //stop reload
-                isReloading = false;
+                WeaponReset();
             }
             else
             {

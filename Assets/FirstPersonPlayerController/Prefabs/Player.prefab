@@ -1178,6 +1178,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1879988305336701858, guid: a4833f63806fceb4aa4c8da16e0f52ad, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 3578931501053011928}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4833f63806fceb4aa4c8da16e0f52ad, type: 3}
 --- !u!4 &1835351538881663919 stripped
@@ -1197,6 +1201,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6855896398947603643}
     m_Modifications:
+    - target: {fileID: 726807064406403127, guid: 3a4a1662e83ee504aa4433272d0ca978, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 3578931501053011928}
     - target: {fileID: 1669225457187626028, guid: 3a4a1662e83ee504aa4433272d0ca978, type: 3}
       propertyPath: m_Name
       value: Pistol
@@ -1264,6 +1272,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6855896398947603643}
     m_Modifications:
+    - target: {fileID: 726807064406403127, guid: 807e7516bd00d314295453098f525fc9, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 3578931501053011928}
     - target: {fileID: 1669225457187626028, guid: 807e7516bd00d314295453098f525fc9, type: 3}
       propertyPath: m_Name
       value: Shotgun_temp

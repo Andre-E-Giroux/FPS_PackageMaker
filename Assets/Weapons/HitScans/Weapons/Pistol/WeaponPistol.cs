@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponPistol : WeaponHitScan
 {
+    /*
     public override bool Fire1()
     {
         if (base.Fire1())
@@ -15,5 +16,5 @@ public class WeaponPistol : WeaponHitScan
     public override void Fire2()
     {
         base.Fire2();
-    }
+    }*/
 }

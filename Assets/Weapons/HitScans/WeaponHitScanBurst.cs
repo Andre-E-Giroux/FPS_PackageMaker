@@ -42,7 +42,7 @@ public class WeaponHitScanBurst : WeaponHitScan
                 allowedToReload = !allowedToReload;
 
 
-            if (base.Fire1())
+            if (base.Fire1_Interaction(this))
             {
                 --burstsRemaining;
 
@@ -65,7 +65,7 @@ public class WeaponHitScanBurst : WeaponHitScan
         }
     }
 
-    public override bool Fire1()
+    public override bool Fire1_Interaction(WeaponBase weaponSuper)
     {
 
         if (Time.time >= (BURST_FIRERATE + untilNextBurst) && allowedToFire)

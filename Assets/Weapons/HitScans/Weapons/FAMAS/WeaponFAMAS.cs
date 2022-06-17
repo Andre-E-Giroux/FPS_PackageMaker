@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponFAMAS : WeaponHitScanBurst
 {
+    /*
     public override bool Fire1()
     {
         if (base.Fire1())
@@ -16,4 +17,5 @@ public class WeaponFAMAS : WeaponHitScanBurst
     {
         base.Fire2();
     }
+    */
 }

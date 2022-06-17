@@ -112,7 +112,7 @@ public class WeaponInteraction : MonoBehaviour
         {
             weapons[selectedWeapon].SetActive(false);
             weapons[temp].SetActive(true);
-            weapons[temp].GetComponent<WeaponBase>().AwakenWeapon();
+            weapons[temp].GetComponent<WeaponBase>().EnableWeapon();
             selectedWeapon = temp;
             UpdateHud();
         }

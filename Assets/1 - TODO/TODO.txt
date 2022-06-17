@@ -2,6 +2,7 @@
 (DONE) *Bonus* Clean Fire1 from WeaponHitscan script to move most to the WeaponBaseScript, allowing for easier integration for the projectile weapon.
 (DONE_VERIFY AGAIN!) Bloom affect when firing weapon
 Show the cone with a crosshair (Scaling a decal won't work, unique crosshair for each weapon (Yay new VAR!))
+Weapon switch speed implementd, with animation
 Decal spawn on terrain hit
 Show Weapons hud, similar to Dishonored.
 UI Copyright

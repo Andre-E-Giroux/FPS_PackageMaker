@@ -1288,6 +1288,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 3578931501053011928}
+    - target: {fileID: 726807064406403127, guid: 807e7516bd00d314295453098f525fc9, type: 3}
+      propertyPath: NUMBER_OF_PROJECTILES_PER_SHOT
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1669225457187626028, guid: 807e7516bd00d314295453098f525fc9, type: 3}
       propertyPath: m_Name
       value: Shotgun_temp

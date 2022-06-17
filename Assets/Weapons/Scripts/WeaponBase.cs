@@ -171,6 +171,9 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     private WeaponInteraction weaponInteraction;
     
+    /// <summary>
+    /// Player camera
+    /// </summary>
     [SerializeField]
     protected Camera playerCamera;
 
@@ -180,7 +183,9 @@ public class WeaponBase : MonoBehaviour
     /// <summary>
     /// Primary Fire of weapon
     /// </summary>
+    /// <param name="weaponSuper"> the child script that will call this script</param>
     /// <returns>True if shot succesful</returns>
+
     public virtual bool Fire1_Interaction(WeaponBase weaponSuper) 
     {
         if (Time.time > WEAPON_FIRE_RATE + nextFire && currentMagazineAmmo > 0 && !isReloading)
@@ -270,6 +275,16 @@ public class WeaponBase : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// When weapon is activated
+    /// </summary>
+    public void EnableWeapon()
+    {
+        allowedToReload = true;
+        WeaponReset();
+
+        SetWeaponAnimationSpeed();
+    }
 
     /// <summary>
     /// Weapon base awake function. Called from WeaponInteraction player script
@@ -283,46 +298,14 @@ public class WeaponBase : MonoBehaviour
         currentReserveAmmo = MAX_RESERVE_AMMUNITION;
         currentConeAccuracySize = MINIMUM_CONE_ACCURACY_SIZE;
 
-        weaponFire1AnimationName = "anim_" + nameOfWeapon + "_Fire1";
-        weaponRelaodAnimationName = "anim_" + nameOfWeapon + "_Reload";
-
-        // Get list of states in the animator
-        UnityEditor.Animations.AnimatorController ac =  weaponAnimator.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
-        UnityEditor.Animations.AnimatorStateMachine sm = ac.layers[0].stateMachine;
-
-        // for every state find marked states and modify speed
-        for (int i = 0; i < sm.states.Length; i++)
-        {
-            // current state in array at index
-            UnityEditor.Animations.AnimatorState state = sm.states[i].state;
-
-            // is the state Fire1?
-            if (state.name == weaponFire1AnimationName)
-            {
-                AnimationClip clip = state.motion as AnimationClip;
-                if (clip != null)
-                {
-                    Debug.Log("Mod " + weaponFire1AnimationName + "animation speed");
-                    Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
-                    weaponAnimator.SetFloat("animationSpeed_Fire1", clip.length / WEAPON_FIRE_RATE);
-                }
-            }
-            //Is the state reload
-            else if (state.name == weaponRelaodAnimationName)
-            {
-                AnimationClip clip = state.motion as AnimationClip;
-                if (clip != null)
-                {
-                    Debug.Log("Mod " + weaponFire1AnimationName + " animation speed");
-                    Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
-                    weaponAnimator.SetFloat("animationSpeed_Reload", clip.length/RELOAD_TIME);
-                }
-            }
-        }
-
+        SetWeaponAnimationSpeed();
+        
         // Ensure that at least 1 round is chambered if cycleLoadIsTrue
         if (isCycleReload && numberOfRoundsLoadedPerCycle <= 0)
             numberOfRoundsLoadedPerCycle = 1;
+
+        // update hud
+        weaponInteraction.UpdateHud();
     }
 
     /// <summary>
@@ -359,6 +342,58 @@ public class WeaponBase : MonoBehaviour
     {
         isReloading = false;
         isCycleReload = false;
+    }
+
+    private void SetWeaponAnimationSpeed()
+    {
+        weaponFire1AnimationName = "anim_" + nameOfWeapon + "_Fire1";
+        weaponRelaodAnimationName = "anim_" + nameOfWeapon + "_Reload";
+
+        // Get list of states in the animator
+        UnityEditor.Animations.AnimatorController ac = weaponAnimator.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
+        UnityEditor.Animations.AnimatorStateMachine sm = ac.layers[0].stateMachine;
+
+        // for every state find marked states and modify speed
+        for (int i = 0; i < sm.states.Length; i++)
+        {
+            // current state in array at index
+            UnityEditor.Animations.AnimatorState state = sm.states[i].state;
+
+            // is the state Fire1?
+            if (state.name == weaponFire1AnimationName)
+            {
+                AnimationClip clip = state.motion as AnimationClip;
+                if (clip != null)
+                {
+                    Debug.Log("Mod " + weaponFire1AnimationName + "animation speed");
+                    Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
+                    weaponAnimator.SetFloat("animationSpeed_Fire1", clip.length / WEAPON_FIRE_RATE);
+                }
+            }
+            //Is the state reload
+            else if (state.name == weaponRelaodAnimationName)
+            {
+                AnimationClip clip = state.motion as AnimationClip;
+                if (clip != null)
+                {
+                    Debug.Log("Mod " + weaponFire1AnimationName + " animation speed");
+                    Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
+                    weaponAnimator.SetFloat("animationSpeed_Reload", clip.length / RELOAD_TIME);
+                }
+            }
+
+            //TODO
+            // create animation
+            // create variable weaponSwitchAnimationName
+            // create function
+            // put them together!
+            /*
+            else if (state.name == weaponSwitchAnimationName)
+            {
+
+            }
+            */
+        }
     }
 
     /// <summary>

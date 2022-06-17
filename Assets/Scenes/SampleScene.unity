@@ -1113,10 +1113,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1830409618313836444, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
-      propertyPath: WEAPON_FIRE_RATE
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 3578931500200609282, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1164,10 +1160,6 @@ PrefabInstance:
     - target: {fileID: 3578931500200609288, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4940355261853250672, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
-      propertyPath: m_Name
-      value: Rifle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}

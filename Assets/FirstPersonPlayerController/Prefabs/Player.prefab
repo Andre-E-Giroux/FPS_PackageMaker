@@ -1205,6 +1205,18 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 3578931501053011928}
+    - target: {fileID: 726807064406403127, guid: 3a4a1662e83ee504aa4433272d0ca978, type: 3}
+      propertyPath: accuracyBloomIncrease
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 726807064406403127, guid: 3a4a1662e83ee504aa4433272d0ca978, type: 3}
+      propertyPath: MAXIMUM_CONE_ACCURACY_SIZE
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 726807064406403127, guid: 3a4a1662e83ee504aa4433272d0ca978, type: 3}
+      propertyPath: accuracyBloomDecreaseSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1669225457187626028, guid: 3a4a1662e83ee504aa4433272d0ca978, type: 3}
       propertyPath: m_Name
       value: Pistol

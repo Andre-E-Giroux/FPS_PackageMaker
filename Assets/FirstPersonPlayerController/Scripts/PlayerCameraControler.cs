@@ -2,59 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Universal : BaseState
+public class PlayerCameraControler : MonoBehaviour
 {
-    protected PlayerSM _sm;
-
+    [SerializeField]
     private float _mouseSensitivetyX = 1f;
+    [SerializeField]
     private float _mouseSensitivetyY = 1f;
-    private float _verticalCameraRotClamp;
+    [SerializeField]
+    private float _verticalCameraRotClamp = 0;
 
+    [SerializeField]
     private Transform _cameraTransform;
+    [SerializeField]
     private Transform _playerTransform;
 
-    public Universal(string name, PlayerSM stateMachine) : base(name, stateMachine)
+    //Not implemented, attempted fix at camera stutter when straffing
+
+
+    private void Update()
     {
-        _sm = (PlayerSM)stateMachine;
-        _playerTransform = _sm.transform;
-        _cameraTransform = _sm.transform.GetChild(0);
-
-        Cursor.lockState = CursorLockMode.Locked; 
-        //to hide the curser
-        Cursor.visible = false;
-    }
-
-    public override void UpdateLogic()
-    {
-        base.UpdateLogic();
-
-
         CamerRotationX();
         CameraRotationY();
-
-
-
-        //crouch
-        if (Input.GetKeyDown(KeyCode.C) && _sm.grounded)
-        {
-            // check if they can uncrouch
-
-            if (!_sm.isCrouching)
-            {
-                Debug.Log("Crouch down!");
-
-                _sm.isCrouching = !_sm.isCrouching;
-                stateMachine.ChangeState(_sm.crouchIdleState);
-            }
-            else if (_sm.isCrouching)
-            {
-                Debug.Log("Stand up!");
-                _sm.isCrouching = !_sm.isCrouching;
-                stateMachine.ChangeState(_sm.standingIdleState);
-            }
-        }
     }
-
 
     private void CamerRotationX()
     {

@@ -178,7 +178,10 @@ public class WeaponBase : MonoBehaviour
     protected Camera playerCamera;
 
 
-
+    public float GetCurrentConeSize()
+    {
+        return currentConeAccuracySize;
+    }
 
     /// <summary>
     /// Primary Fire of weapon
@@ -365,8 +368,8 @@ public class WeaponBase : MonoBehaviour
                 AnimationClip clip = state.motion as AnimationClip;
                 if (clip != null)
                 {
-                    Debug.Log("Mod " + weaponFire1AnimationName + "animation speed");
-                    Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
+                   /// Debug.Log("Mod " + weaponFire1AnimationName + "animation speed");
+                    ///Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
                     weaponAnimator.SetFloat("animationSpeed_Fire1", clip.length / WEAPON_FIRE_RATE);
                 }
             }
@@ -376,8 +379,8 @@ public class WeaponBase : MonoBehaviour
                 AnimationClip clip = state.motion as AnimationClip;
                 if (clip != null)
                 {
-                    Debug.Log("Mod " + weaponFire1AnimationName + " animation speed");
-                    Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
+                   // Debug.Log("Mod " + weaponFire1AnimationName + " animation speed");
+                    //Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
                     weaponAnimator.SetFloat("animationSpeed_Reload", clip.length / RELOAD_TIME);
                 }
             }

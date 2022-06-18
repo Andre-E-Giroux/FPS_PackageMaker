@@ -74,11 +74,6 @@ public class PlayerSM : StateMachine
         return standingIdleState;
     }
 
-    public void AddHealth(float increase)
-    {
-
-    }
-
 
     /// <summary>
     /// Debuging State Maching

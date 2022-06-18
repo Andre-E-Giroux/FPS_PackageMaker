@@ -1160,6 +1160,10 @@ PrefabInstance:
       propertyPath: m_CullTransparentMesh
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1144435470613262384, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: WEAPON_SWITCH_TIME
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2033482982315163383, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -1267,6 +1271,14 @@ PrefabInstance:
     - target: {fileID: 5159475386564904203, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: m_CullTransparentMesh
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6370968251689503643, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: WEAPON_SWITCH_TIME
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744246208512806967, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: WEAPON_SWITCH_TIME
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 9090726894118893534, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: m_Pivot.y

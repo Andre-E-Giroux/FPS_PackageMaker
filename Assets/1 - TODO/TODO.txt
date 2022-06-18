@@ -1,9 +1,10 @@
 (DONE) Allow interuptable reloading/break them up (Shotgun) have a window to stop it. 
 (DONE) *Bonus* Clean Fire1 from WeaponHitscan script to move most to the WeaponBaseScript, allowing for easier integration for the projectile weapon.
 (DONE_VERIFY AGAIN!) Bloom affect when firing weapon
-Show the cone with a crosshair (Scaling a decal won't work, unique crosshair for each weapon (Yay new VAR!))
-Weapon switch speed implementd, with animation
-Decal spawn on terrain hit
+(Universal Crosshair added, unique: NO) Show the cone with a crosshair (Scaling a decal won't work, unique crosshair for each weapon (Yay new VAR!))
+(Done)Weapon switch speed implementd, with animation
+Decal spawn on terrain hit from weapon
+Modify con accuracy based on movement
 Show Weapons hud, similar to Dishonored.
 UI Copyright
 Fine tune movement

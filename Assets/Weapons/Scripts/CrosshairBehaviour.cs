@@ -9,9 +9,6 @@ public class CrosshairBehaviour : MonoBehaviour
     private RectTransform crosshair;
 
     [SerializeField]
-    private PlayerSM playerSM;
-
-    [SerializeField]
     private WeaponInteraction weaponInteraction;
 
 
@@ -23,6 +20,7 @@ public class CrosshairBehaviour : MonoBehaviour
 
     private void UpdateCrosshair()
     {
+        // universal
         crosshair.sizeDelta = new Vector2(weaponInteraction.weaponBases[weaponInteraction.selectedWeapon].GetCurrentConeSize() * 1000,
                                             weaponInteraction.weaponBases[weaponInteraction.selectedWeapon].GetCurrentConeSize() * 1000);
     }

@@ -41,14 +41,12 @@ public class Universal : BaseState
 
             if (!_sm.isCrouching)
             {
-                Debug.Log("Crouch down!");
 
                 _sm.isCrouching = !_sm.isCrouching;
                 stateMachine.ChangeState(_sm.crouchIdleState);
             }
             else if (_sm.isCrouching)
             {
-                Debug.Log("Stand up!");
                 _sm.isCrouching = !_sm.isCrouching;
                 stateMachine.ChangeState(_sm.standingIdleState);
             }

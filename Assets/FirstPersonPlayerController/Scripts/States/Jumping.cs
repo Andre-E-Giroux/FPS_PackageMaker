@@ -11,6 +11,9 @@ public class Jumping : Universal
 
 
     private float _groundDetectionDistance = 0.2f;
+    private static float WEAPON_ACCURACY_MODIFIER = 2f;
+
+
 
     public Jumping(PlayerSM stateMachine) : base ("Jumping", stateMachine) 
     {
@@ -28,6 +31,9 @@ public class Jumping : Universal
             vel.y += _sm.jumpForce;
             _sm.rb.velocity = vel;
         }
+
+        ((PlayerSM)stateMachine).wInteraction.UpdateWeaponFromPlayerState(WEAPON_ACCURACY_MODIFIER);
+
     }
 
     public override void UpdateLogic()
@@ -70,4 +76,8 @@ public class Jumping : Universal
 
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+    }
 }

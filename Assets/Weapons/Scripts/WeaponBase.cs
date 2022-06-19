@@ -331,7 +331,7 @@ public class WeaponBase : MonoBehaviour
 
         currentMagazineAmmo = MAX_MAGAZINE_SIZE;
         currentReserveAmmo = MAX_RESERVE_AMMUNITION;
-        currentConeAccuracySize = MINIMUM_CONE_ACCURACY_SIZE;
+        currentConeAccuracySize = GetMinAccuracyModified();
 
         SetWeaponAnimationSpeed();
         
@@ -424,8 +424,8 @@ public class WeaponBase : MonoBehaviour
                 AnimationClip clip = state.motion as AnimationClip;
                 if (clip != null)
                 {
-                    Debug.Log("Mod " + weaponSwitchAnimationName + " animation speed");
-                    Debug.Log("Clip length = " + clip.length + " Switch time = " + WEAPON_SWITCH_TIME);
+                   // Debug.Log("Mod " + weaponSwitchAnimationName + " animation speed");
+                  //  Debug.Log("Clip length = " + clip.length + " Switch time = " + WEAPON_SWITCH_TIME);
                     weaponAnimator.SetFloat("animationSpeed_Switch", clip.length / WEAPON_SWITCH_TIME);
                     animationSwitchFound = true;
                 }
@@ -453,10 +453,10 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     protected void AccuracyDecrease()
     {
-        if (currentConeAccuracySize < MAXIMUM_CONE_ACCURACY_SIZE)
+        if (currentConeAccuracySize < GetMaxAccuracyModified())
         {
             currentConeAccuracySize += accuracyBloomIncrease;
-            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, MINIMUM_CONE_ACCURACY_SIZE, MAXIMUM_CONE_ACCURACY_SIZE);
+            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, GetMinAccuracyModified(), GetMaxAccuracyModified());
         }
     }
 
@@ -465,13 +465,38 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     protected void UpdateAccuracy()
     {
-        if (currentConeAccuracySize > MINIMUM_CONE_ACCURACY_SIZE)
+        if (currentConeAccuracySize > GetMinAccuracyModified())
         {
             currentConeAccuracySize -= accuracyBloomDecreaseSpeed * Time.deltaTime;
-            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, MINIMUM_CONE_ACCURACY_SIZE, MAXIMUM_CONE_ACCURACY_SIZE);
+            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, GetMinAccuracyModified(), GetMaxAccuracyModified());
+        }
+        else if (currentConeAccuracySize < GetMinAccuracyModified())
+        {
+            currentConeAccuracySize += accuracyBloomDecreaseSpeed * Time.deltaTime;
+            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, currentConeAccuracySize, GetMaxAccuracyModified());
         }
     }
 
+
+    private float GetMaxAccuracyModified()
+    {
+        return MAXIMUM_CONE_ACCURACY_SIZE * accuracyModifier;
+    }
+
+    private float GetMinAccuracyModified()
+    {
+        return MINIMUM_CONE_ACCURACY_SIZE * accuracyModifier;
+    }
+
+    /// <summary>
+    /// DO NOT USE
+    /// </summary>
+    /// <returns></returns>
+    private float GetCurrentAccuracyModified()
+    {
+        return currentConeAccuracySize * accuracyModifier;
+
+    }
 
     private void Update()
     {
@@ -558,6 +583,13 @@ public class WeaponBase : MonoBehaviour
 
     }
 
+    [SerializeField]
+    private float accuracyModifier = 1;
 
+    public void UpdateWeaponFromPlayerState(float modifer)
+    {
+        Debug.Log("Player state changed! new modifier");
+        accuracyModifier = modifer;
+    }
 
 }

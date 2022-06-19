@@ -125,4 +125,9 @@ public class WeaponInteraction : MonoBehaviour
         weaponPlayerHUD_Controller.SetCurrentReserveAmmoText(weaponBases[selectedWeapon].GetReserveAmmo());
     }
 
+
+    public void UpdateWeaponFromPlayerState(float modifer)
+    {
+        weapons[selectedWeapon].GetComponent<WeaponBase>().UpdateWeaponFromPlayerState(modifer);
+    }
 }

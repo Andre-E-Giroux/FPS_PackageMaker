@@ -53,6 +53,7 @@ public class PlayerSM : StateMachine
 
     public Entity playerEntity;
 
+    public WeaponInteraction wInteraction;
 
     public void Awake()
     {
@@ -64,7 +65,8 @@ public class PlayerSM : StateMachine
         crouchMovingState = new CrouchingMoving(this);
         playerEntity = gameObject.GetComponent<Entity>();
         grounded = true;
-       
+
+        wInteraction = GetComponent<WeaponInteraction>();
 
         playerCollider = GetComponent<CapsuleCollider>();
     }

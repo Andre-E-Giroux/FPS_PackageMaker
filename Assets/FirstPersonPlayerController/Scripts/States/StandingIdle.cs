@@ -7,6 +7,8 @@ public class StandingIdle : Grounded
 
     private float _horizontalInput;
     private float _verticalInput;
+    private static float WEAPON_ACCURACY_MODIFIER = 1f;
+
 
     public StandingIdle(PlayerSM stateMachine) : base ("StandingIdle", stateMachine) { }
 
@@ -16,6 +18,7 @@ public class StandingIdle : Grounded
         _sm.CrouchPlayer(false);
         _horizontalInput = 0f;
         _sm.meshRenderer.material.color = Color.black;
+        ((PlayerSM)stateMachine).wInteraction.UpdateWeaponFromPlayerState(WEAPON_ACCURACY_MODIFIER);
     }
 
     public override void UpdateLogic()
@@ -30,4 +33,9 @@ public class StandingIdle : Grounded
         }
     }
 
+
+    public override void Exit()
+    {
+        base.Exit();
+    }
 }

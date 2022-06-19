@@ -20,9 +20,9 @@ public class CrosshairBehaviour : MonoBehaviour
 
     private void UpdateCrosshair()
     {
-        // universal
-        crosshair.sizeDelta = new Vector2(weaponInteraction.weaponBases[weaponInteraction.selectedWeapon].GetCurrentConeSize() * 1000,
-                                            weaponInteraction.weaponBases[weaponInteraction.selectedWeapon].GetCurrentConeSize() * 1000);
+        // universal// find a better accurate depiction, currently 2500
+        crosshair.sizeDelta = new Vector2(weaponInteraction.weaponBases[weaponInteraction.selectedWeapon].GetCurrentConeSize() * 2500,
+                                            weaponInteraction.weaponBases[weaponInteraction.selectedWeapon].GetCurrentConeSize() * 2500);
     }
 
 

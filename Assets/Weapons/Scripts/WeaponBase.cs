@@ -83,7 +83,7 @@ public class WeaponBase : MonoBehaviour
     [SerializeField]
     protected float NUMBER_OF_PROJECTILES_PER_SHOT = 1;
     /// <summary>
-    /// Layer mask's for available taget's (Currently only entities)
+    /// Layer mask's for available target's 
     /// </summary>
     [SerializeField]
     protected LayerMask entityLayerMask;

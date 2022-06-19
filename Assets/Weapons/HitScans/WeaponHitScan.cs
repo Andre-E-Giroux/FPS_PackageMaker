@@ -11,9 +11,24 @@ public class WeaponHitScan : WeaponBase
     //raycast for hitscan weapon
     protected RaycastHit hit;
 
+    [SerializeField]
+    private ObjectPooler bulletHoleDecalPooler;
+
     private void Awake()
     {
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+
+        if(!bulletHoleDecalPooler)
+        {
+            GameObject[] hold = GameObject.FindGameObjectsWithTag("Pool");
+            for(int i = 0; i < hold.Length; i++)
+            {
+                if(hold[i].GetComponent<ObjectPooler>().poolerID == "pool_BulletHole")
+                {
+                    bulletHoleDecalPooler = hold[i].GetComponent<ObjectPooler>();
+                }
+            }
+        }
     }
 
     private void Start()
@@ -37,9 +52,24 @@ public class WeaponHitScan : WeaponBase
             if (hitEntity)
             {
                 Debug.Log("Damage!!!!");
+                Debug.Log("hit point: " + hit.point);
+
                 hitEntity.AddHealth(-WEAPON_DAMAGE);
             }
+            else
+            {
+                Debug.Log("Decal!");
+                GameObject bulletHole = bulletHoleDecalPooler.GetPooledObject();
+                Debug.Log("hit point: " + hit.point);
+                bulletHole.transform.position = hit.point;
+                bulletHole.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+                bulletHole.transform.parent = hit.transform;
+                bulletHole.SetActive(true);
+            }
+
         }
+        //weapon decal
+        
     }
     public override void Fire2( )
     {

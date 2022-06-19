@@ -3,10 +3,15 @@
 (DONE_VERIFY AGAIN!) Bloom affect when firing weapon
 (Universal Crosshair added, unique: NO) Show the cone with a crosshair (Scaling a decal won't work, unique crosshair for each weapon (Yay new VAR!))
 (Done)Weapon switch speed implementd, with animation
-Decal spawn on terrain hit from weapon
-Modify con accuracy based on movement
+(Done) Decal spawn on terrain hit from weapon
+Modify cone accuracy based on movement and stance
 Show Weapons hud, similar to Dishonored.
 UI Copyright
 Fine tune movement
 Enemy ragdoll
 Gun push force on RG objects
+
+
+
+
+BUGS: when smashing the camera down, camera my inverse due to the clamp

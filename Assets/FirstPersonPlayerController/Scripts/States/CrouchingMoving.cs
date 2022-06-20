@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CrouchingMoving : Grounded
 {
-    private float _horizontalInput;
-    private float _verticalInput;
 
     private static float WEAPON_ACCURACY_MODIFIER = 1.1f;
 

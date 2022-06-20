@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StandingMoving : Grounded
+public class StandingRunning : Grounded
 {
-    private static float WEAPON_ACCURACY_MODIFIER = 1.3f;
+    private static float WEAPON_ACCURACY_MODIFIER = 1.6f;
 
 
-    public StandingMoving(PlayerSM stateMachine) : base ("StandingMoving", stateMachine) 
+    public StandingRunning(PlayerSM stateMachine) : base ("StandingRunning", stateMachine) 
     {}
 
 
@@ -22,12 +22,18 @@ public class StandingMoving : Grounded
 
     public override void UpdateLogic()
     {
+        Debug.Log("In running state!");
+
         base.UpdateLogic();
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
         if (Mathf.Abs(_horizontalInput) < Mathf.Epsilon && Mathf.Abs(_verticalInput) < Mathf.Epsilon)
         {
             stateMachine.ChangeState(_sm.standingIdleState);
+        }
+        else if(!Input.GetKey(KeyCode.LeftShift))
+        {
+            stateMachine.ChangeState(_sm.standingMovingState);
         }
     }
 
@@ -39,7 +45,7 @@ public class StandingMoving : Grounded
         Vector2 zMov = new Vector2(_verticalInput * _sm.transform.forward.x, _verticalInput * _sm.transform.forward.z);
 
 
-        Vector2 velo = (xMov + zMov).normalized * _sm.speed;
+        Vector2 velo = (xMov + zMov).normalized * _sm.runningSpeed;
 
 
         _sm.rb.velocity = new Vector3(velo.x, _sm.rb.velocity.y, velo.y);

@@ -5,9 +5,6 @@ using UnityEngine;
 public class CrouchingIdle : Grounded
 {
 
-    private float _horizontalInput;
-    private float _verticalInput;
-
     private static float WEAPON_ACCURACY_MODIFIER = 0.8f;
 
     public CrouchingIdle(PlayerSM stateMachine) : base ("CrouchIdle", stateMachine) { }

@@ -588,7 +588,6 @@ public class WeaponBase : MonoBehaviour
 
     public void UpdateWeaponFromPlayerState(float modifer)
     {
-        Debug.Log("Player state changed! new modifier");
         accuracyModifier = modifer;
     }
 

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Grounded : Universal
 {
-
+    protected float _horizontalInput;
+    protected float _verticalInput;
 
     public Grounded(string name, PlayerSM stateMachine) : base (name, stateMachine) 
     {
@@ -17,7 +18,14 @@ public class Grounded : Universal
 
         if (Input.GetKeyDown(KeyCode.Space))
             stateMachine.ChangeState(_sm.jumpState);
-       
+
+
+        if (Input.GetKey(KeyCode.LeftShift) && (Mathf.Abs(_horizontalInput) > Mathf.Epsilon || Mathf.Abs(_verticalInput) > Mathf.Epsilon))
+        {
+            _sm.CrouchPlayer(false);
+            stateMachine.ChangeState(((PlayerSM)stateMachine).standingRunningState);
+        }
+
     }
 
 }

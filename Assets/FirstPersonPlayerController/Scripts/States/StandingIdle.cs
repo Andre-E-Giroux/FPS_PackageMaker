@@ -5,8 +5,7 @@ using UnityEngine;
 public class StandingIdle : Grounded
 {
 
-    private float _horizontalInput;
-    private float _verticalInput;
+    
     private static float WEAPON_ACCURACY_MODIFIER = 1f;
 
 

@@ -6,10 +6,11 @@
 (Done) Decal spawn on terrain hit from weapon
 (Done, play with it to modify until satisfy)Modify cone accuracy based on movement and stance
 (Done)Projectile Weapons
+(Done)UI Copyright
+
 Projectile Weapons explosion variant
 Melle weapon
 Show Weapons hud, similar to Dishonored. (Press weapon switch button, show line of weapons)
-UI Copyright
 Fine tune movement
 Enemy ragdoll
 Gun push force on RG objects

@@ -1,0 +1,3 @@
+This project is created by André Giroux for the use of ease of recreating FPS games by the creator. Copies to be used for commercial use is reserved for the creator only.
+
+written documentation made on 21/06/2022

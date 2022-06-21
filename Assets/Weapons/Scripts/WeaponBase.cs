@@ -180,7 +180,7 @@ public class WeaponBase : MonoBehaviour
     /// <summary>
     /// Hud controller
     /// </summary>
-    private WeaponInteraction weaponInteraction;
+    protected WeaponInteraction weaponInteraction;
     
     /// <summary>
     /// Player camera

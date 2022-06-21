@@ -16,6 +16,8 @@ public class WeaponInteraction : MonoBehaviour
 
     public WeaponPlayerHUD_Controller weaponPlayerHUD_Controller;
 
+    public Transform projectileSpawnPoint;
+
     private void Awake()
     {
         weaponBases = new WeaponBase[weapons.Length];

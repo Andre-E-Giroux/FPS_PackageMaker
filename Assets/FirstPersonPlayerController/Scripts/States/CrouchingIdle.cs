@@ -5,8 +5,7 @@ using UnityEngine;
 public class CrouchingIdle : Grounded
 {
 
-    private float _horizontalInput;
-    private float _verticalInput;
+    private static float WEAPON_ACCURACY_MODIFIER = 0.8f;
 
     public CrouchingIdle(PlayerSM stateMachine) : base ("CrouchIdle", stateMachine) { }
 
@@ -16,6 +15,8 @@ public class CrouchingIdle : Grounded
         _sm.CrouchPlayer(true);
         _horizontalInput = 0f;
         _sm.meshRenderer.material.color = Color.black;
+        ((PlayerSM)stateMachine).wInteraction.UpdateWeaponFromPlayerState(WEAPON_ACCURACY_MODIFIER);
+
     }
 
     public override void UpdateLogic()
@@ -26,9 +27,15 @@ public class CrouchingIdle : Grounded
         // floats are not accurate use abs and epsilon to verify if float is 0 or is close enough to it.
         if (Mathf.Abs(_horizontalInput) > Mathf.Epsilon || Mathf.Abs(_verticalInput) > Mathf.Epsilon) 
         {
-            Debug.Log("Switch to crouch moving");
             stateMachine.ChangeState(((PlayerSM)stateMachine).crouchMovingState);
         }
+    }
+
+
+    public override void Exit()
+    {
+        base.Exit();
+
     }
 
 }

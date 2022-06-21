@@ -265,18 +265,23 @@ MonoBehaviour:
   MINIMUM_CONE_ACCURACY_SIZE: 0.1
   MAXIMUM_CONE_ACCURACY_SIZE: 0
   currentConeAccuracySize: 0
+  accuracyBloomIncrease: 0
+  accuracyBloomDecreaseSpeed: 0
   NUMBER_OF_PROJECTILES_PER_SHOT: 1
   entityLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 4294967295
   currentMagazineAmmo: 20
   currentReserveAmmo: 40
   isReloading: 0
+  isCycleReload: 0
+  numberOfRoundsLoadedPerCycle: 1
   weaponType: 2
   fireType: 2
   weaponAnimator: {fileID: 4982334125304391311}
-  WEAPON_DAMAGE: 10
   playerCamera: {fileID: 0}
+  WEAPON_DAMAGE: 10
+  bulletHoleDecalPooler: {fileID: 0}
   BURST_FIRERATE: 0.3
   untilNextBurst: 0
   burstLength: 3

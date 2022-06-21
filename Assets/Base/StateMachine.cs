@@ -46,6 +46,10 @@ public class StateMachine : MonoBehaviour
         return null;
     }
 
-  
+    public BaseState GetCurrentState()
+    {
+         return currentState;
+    }
+ 
 
 }

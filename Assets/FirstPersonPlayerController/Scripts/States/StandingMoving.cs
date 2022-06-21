@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class StandingMoving : Grounded
 {
-    private float _horizontalInput;
-    private float _verticalInput;
-
+    private static float WEAPON_ACCURACY_MODIFIER = 1.3f;
 
 
     public StandingMoving(PlayerSM stateMachine) : base ("StandingMoving", stateMachine) 
@@ -18,6 +16,8 @@ public class StandingMoving : Grounded
         base.Enter();
         _horizontalInput = 0f;
         _sm.meshRenderer.material.color = Color.red;
+        ((PlayerSM)stateMachine).wInteraction.UpdateWeaponFromPlayerState(WEAPON_ACCURACY_MODIFIER);
+
     }
 
     public override void UpdateLogic()

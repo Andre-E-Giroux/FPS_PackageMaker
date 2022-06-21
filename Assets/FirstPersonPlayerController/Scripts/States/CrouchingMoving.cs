@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class CrouchingMoving : Grounded
 {
-    private float _horizontalInput;
-    private float _verticalInput;
 
-
+    private static float WEAPON_ACCURACY_MODIFIER = 1.1f;
 
     public CrouchingMoving(PlayerSM stateMachine) : base ("CrouchMoving", stateMachine) 
     {}
@@ -18,7 +16,7 @@ public class CrouchingMoving : Grounded
         base.Enter();
         _horizontalInput = 0f;
         _sm.meshRenderer.material.color = Color.red;
-        // lower player
+        ((PlayerSM)stateMachine).wInteraction.UpdateWeaponFromPlayerState(WEAPON_ACCURACY_MODIFIER);
 
     }
 
@@ -51,5 +49,6 @@ public class CrouchingMoving : Grounded
     public override void Exit()
     {
         base.Exit();
+
     }
 }

@@ -9,6 +9,8 @@ public class PlayerSM : StateMachine
     [HideInInspector]
     public StandingMoving standingMovingState;
     [HideInInspector]
+    public StandingRunning standingRunningState;
+    [HideInInspector]
     public Jumping jumpState;
     [HideInInspector]
     public CrouchingMoving crouchMovingState;
@@ -27,6 +29,7 @@ public class PlayerSM : StateMachine
     public bool grounded;
 
     public float speed = 4f;
+    public float runningSpeed = 6f;
     public float crouchSpeed = 1.5f;
     public float jumpForce = 10f;
 
@@ -53,18 +56,23 @@ public class PlayerSM : StateMachine
 
     public Entity playerEntity;
 
+    public WeaponInteraction wInteraction;
 
     public void Awake()
     {
         //initiate states
         standingIdleState = new StandingIdle(this);
         standingMovingState = new StandingMoving(this);
+        standingRunningState = new StandingRunning(this);
         jumpState = new Jumping(this);
         crouchIdleState = new CrouchingIdle(this);
         crouchMovingState = new CrouchingMoving(this);
+
+
         playerEntity = gameObject.GetComponent<Entity>();
         grounded = true;
-       
+
+        wInteraction = GetComponent<WeaponInteraction>();
 
         playerCollider = GetComponent<CapsuleCollider>();
     }
@@ -72,11 +80,6 @@ public class PlayerSM : StateMachine
     protected override BaseState GetInitialState()
     {
         return standingIdleState;
-    }
-
-    public void AddHealth(float increase)
-    {
-
     }
 
 

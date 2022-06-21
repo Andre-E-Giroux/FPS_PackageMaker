@@ -83,7 +83,7 @@ public class WeaponBase : MonoBehaviour
     [SerializeField]
     protected float NUMBER_OF_PROJECTILES_PER_SHOT = 1;
     /// <summary>
-    /// Layer mask's for available taget's (Currently only entities)
+    /// Layer mask's for available target's 
     /// </summary>
     [SerializeField]
     protected LayerMask entityLayerMask;
@@ -116,14 +116,25 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     private string weaponFire1AnimationName;
     /// <summary>
-    /// Weapon Fire 1 animation name, set within script and weapon name. "anim_*nameOfWeapon*_Reload"
+    /// Weapon Reload animation name, set within script and weapon name. "anim_*nameOfWeapon*_Reload"
     /// </summary>
     private string weaponRelaodAnimationName;
+
+    /// <summary>
+    /// Weapon Switch animation name, set within script and weapon name. "anim_*nameOfWeapon*_Reload"
+    /// </summary>
+    private string weaponSwitchAnimationName;
 
     /// <summary>
     /// If the weapon can reload (Stop reload in middle of burst)
     /// </summary>
     protected bool allowedToReload = false;
+
+    /// <summary>
+    /// If false weapon will not fire, or reload, but can still switch
+    /// If true weapon can do all basic functions unless another variable says other wise
+    /// </summary>
+    protected bool allowWeaponInteraction = true;
 
     /// <summary>
     /// Possible Weapon types
@@ -169,7 +180,7 @@ public class WeaponBase : MonoBehaviour
     /// <summary>
     /// Hud controller
     /// </summary>
-    private WeaponInteraction weaponInteraction;
+    protected WeaponInteraction weaponInteraction;
     
     /// <summary>
     /// Player camera
@@ -178,7 +189,10 @@ public class WeaponBase : MonoBehaviour
     protected Camera playerCamera;
 
 
-
+    public float GetCurrentConeSize()
+    {
+        return currentConeAccuracySize;
+    }
 
     /// <summary>
     /// Primary Fire of weapon
@@ -188,6 +202,9 @@ public class WeaponBase : MonoBehaviour
 
     public virtual bool Fire1_Interaction(WeaponBase weaponSuper) 
     {
+        if (!allowWeaponInteraction)
+            return false;
+
         if (Time.time > WEAPON_FIRE_RATE + nextFire && currentMagazineAmmo > 0 && !isReloading)
         {
             for (int i = 0; i < NUMBER_OF_PROJECTILES_PER_SHOT; i++)
@@ -258,6 +275,9 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     public virtual void Reload()
     {
+        if (!allowWeaponInteraction)
+            return;
+
         if (MAX_MAGAZINE_SIZE > currentMagazineAmmo && currentReserveAmmo > 0 && allowedToReload)
         {        
             isReloading = true;
@@ -284,6 +304,17 @@ public class WeaponBase : MonoBehaviour
         WeaponReset();
 
         SetWeaponAnimationSpeed();
+        Debug.Log("EnableWeapon");
+        if (!weaponAnimator)
+            AllowWeaponInteraction();
+    }
+
+    /// <summary>
+    /// Allow weapon to be interacted, not counting weapon switch, all functions disabled until this function is called
+    /// </summary>
+    public void AllowWeaponInteraction()
+    {
+        allowWeaponInteraction = true;
     }
 
     /// <summary>
@@ -294,9 +325,13 @@ public class WeaponBase : MonoBehaviour
         //entityLayerMask = LayerMask.NameToLayer("Entity");
         allowedToReload = true;
 
+        weaponFire1AnimationName = "anim_" + nameOfWeapon + "_Fire1";
+        weaponRelaodAnimationName = "anim_" + nameOfWeapon + "_Reload";
+        weaponSwitchAnimationName = "anim_" + nameOfWeapon + "_Switch";
+
         currentMagazineAmmo = MAX_MAGAZINE_SIZE;
         currentReserveAmmo = MAX_RESERVE_AMMUNITION;
-        currentConeAccuracySize = MINIMUM_CONE_ACCURACY_SIZE;
+        currentConeAccuracySize = GetMinAccuracyModified();
 
         SetWeaponAnimationSpeed();
         
@@ -342,12 +377,14 @@ public class WeaponBase : MonoBehaviour
     {
         isReloading = false;
         isCycleReload = false;
+        allowWeaponInteraction = false;
     }
+
+  
 
     private void SetWeaponAnimationSpeed()
     {
-        weaponFire1AnimationName = "anim_" + nameOfWeapon + "_Fire1";
-        weaponRelaodAnimationName = "anim_" + nameOfWeapon + "_Reload";
+        bool animationSwitchFound = false;
 
         // Get list of states in the animator
         UnityEditor.Animations.AnimatorController ac = weaponAnimator.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
@@ -365,8 +402,8 @@ public class WeaponBase : MonoBehaviour
                 AnimationClip clip = state.motion as AnimationClip;
                 if (clip != null)
                 {
-                    Debug.Log("Mod " + weaponFire1AnimationName + "animation speed");
-                    Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
+                   /// Debug.Log("Mod " + weaponFire1AnimationName + "animation speed");
+                    ///Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
                     weaponAnimator.SetFloat("animationSpeed_Fire1", clip.length / WEAPON_FIRE_RATE);
                 }
             }
@@ -376,24 +413,28 @@ public class WeaponBase : MonoBehaviour
                 AnimationClip clip = state.motion as AnimationClip;
                 if (clip != null)
                 {
-                    Debug.Log("Mod " + weaponFire1AnimationName + " animation speed");
-                    Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
+                   // Debug.Log("Mod " + weaponFire1AnimationName + " animation speed");
+                    //Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
                     weaponAnimator.SetFloat("animationSpeed_Reload", clip.length / RELOAD_TIME);
                 }
             }
-
-            //TODO
-            // create animation
-            // create variable weaponSwitchAnimationName
-            // create function
-            // put them together!
-            /*
+            
             else if (state.name == weaponSwitchAnimationName)
             {
-
+                AnimationClip clip = state.motion as AnimationClip;
+                if (clip != null)
+                {
+                   // Debug.Log("Mod " + weaponSwitchAnimationName + " animation speed");
+                  //  Debug.Log("Clip length = " + clip.length + " Switch time = " + WEAPON_SWITCH_TIME);
+                    weaponAnimator.SetFloat("animationSpeed_Switch", clip.length / WEAPON_SWITCH_TIME);
+                    animationSwitchFound = true;
+                }
             }
-            */
+            
         }
+
+        if (!animationSwitchFound)
+            AllowWeaponInteraction();
     }
 
     /// <summary>
@@ -412,10 +453,10 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     protected void AccuracyDecrease()
     {
-        if (currentConeAccuracySize < MAXIMUM_CONE_ACCURACY_SIZE)
+        if (currentConeAccuracySize < GetMaxAccuracyModified())
         {
             currentConeAccuracySize += accuracyBloomIncrease;
-            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, MINIMUM_CONE_ACCURACY_SIZE, MAXIMUM_CONE_ACCURACY_SIZE);
+            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, GetMinAccuracyModified(), GetMaxAccuracyModified());
         }
     }
 
@@ -424,13 +465,38 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     protected void UpdateAccuracy()
     {
-        if (currentConeAccuracySize > MINIMUM_CONE_ACCURACY_SIZE)
+        if (currentConeAccuracySize > GetMinAccuracyModified())
         {
             currentConeAccuracySize -= accuracyBloomDecreaseSpeed * Time.deltaTime;
-            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, MINIMUM_CONE_ACCURACY_SIZE, MAXIMUM_CONE_ACCURACY_SIZE);
+            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, GetMinAccuracyModified(), GetMaxAccuracyModified());
+        }
+        else if (currentConeAccuracySize < GetMinAccuracyModified())
+        {
+            currentConeAccuracySize += accuracyBloomDecreaseSpeed * Time.deltaTime;
+            currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, currentConeAccuracySize, GetMaxAccuracyModified());
         }
     }
 
+
+    private float GetMaxAccuracyModified()
+    {
+        return MAXIMUM_CONE_ACCURACY_SIZE * accuracyModifier;
+    }
+
+    private float GetMinAccuracyModified()
+    {
+        return MINIMUM_CONE_ACCURACY_SIZE * accuracyModifier;
+    }
+
+    /// <summary>
+    /// DO NOT USE
+    /// </summary>
+    /// <returns></returns>
+    private float GetCurrentAccuracyModified()
+    {
+        return currentConeAccuracySize * accuracyModifier;
+
+    }
 
     private void Update()
     {
@@ -517,6 +583,12 @@ public class WeaponBase : MonoBehaviour
 
     }
 
+    [SerializeField]
+    private float accuracyModifier = 1;
 
+    public void UpdateWeaponFromPlayerState(float modifer)
+    {
+        accuracyModifier = modifer;
+    }
 
 }

@@ -41,29 +41,16 @@ public class Universal : BaseState
 
             if (!_sm.isCrouching)
             {
-                Debug.Log("Crouch down!");
 
                 _sm.isCrouching = !_sm.isCrouching;
                 stateMachine.ChangeState(_sm.crouchIdleState);
             }
             else if (_sm.isCrouching)
             {
-                Debug.Log("Stand up!");
                 _sm.isCrouching = !_sm.isCrouching;
                 stateMachine.ChangeState(_sm.standingIdleState);
             }
         }
-         
-
-
-        // attack
-        /*
-        if (Input.GetMouseButtonDown(0))
-        {
-            stateMachine.ChangeState(_sm.attackState);
-        }
-        */
-
     }
 
 
@@ -87,7 +74,6 @@ public class Universal : BaseState
 
     public void CameraRotationY()
     {
-        //float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
         float rotationNumberY = mouseY * _mouseSensitivetyY;

@@ -13,6 +13,7 @@ public class Universal : BaseState
     private Transform _cameraTransform;
     private Transform _playerTransform;
 
+
     public Universal(string name, PlayerSM stateMachine) : base(name, stateMachine)
     {
         _sm = (PlayerSM)stateMachine;
@@ -102,4 +103,9 @@ public class Universal : BaseState
         _cameraTransform.rotation = Quaternion.Euler(cameraRotation);
     }
 
+
+    public virtual float GetWeaponAccuracyModifer()
+    {
+        return 1;
+    }
 }

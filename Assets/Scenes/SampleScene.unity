@@ -1727,6 +1727,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3578931500200609288, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
   m_PrefabInstance: {fileID: 2086636843}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1345541029 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1345541031, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+  m_PrefabInstance: {fileID: 2086636843}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345541026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93fc768a40672f240b0c6066aca0d35e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1345541030 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6908144849438330571, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+  m_PrefabInstance: {fileID: 2086636843}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345541026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ea0b68d1ac08546b85a86c33a9e5fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1391672932
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,6 +1997,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1345541031, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: playerStateMachine
+      value: 
+      objectReference: {fileID: 1345541030}
     - target: {fileID: 529898604448616129, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: isCycleReload
       value: 0
@@ -1984,8 +2010,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 529898604448616129, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: accuracyBloomIncrease
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 529898604448616129, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: MAX_RESERVE_AMMUNITION
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144435470613262384, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: accuracyBloomIncrease
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144435470613262384, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: MAXIMUM_CONE_ACCURACY_SIZE
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144435470613262384, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: accuracyBloomDecreaseSpeed
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3578931500200609282, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: m_RootOrder
@@ -2035,6 +2077,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6744246208512806967, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: accuracyBloomIncrease
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744246208512806967, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: MAXIMUM_CONE_ACCURACY_SIZE
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744246208512806967, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: accuracyBloomDecreaseSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6908144849438330571, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: wInteraction
+      value: 
+      objectReference: {fileID: 1345541029}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
 --- !u!1 &2107277181 stripped

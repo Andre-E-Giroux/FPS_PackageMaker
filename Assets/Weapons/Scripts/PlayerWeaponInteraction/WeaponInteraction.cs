@@ -18,6 +18,8 @@ public class WeaponInteraction : MonoBehaviour
 
     public Transform projectileSpawnPoint;
 
+    public PlayerSM playerStateMachine;
+
     private void Awake()
     {
         weaponBases = new WeaponBase[weapons.Length];
@@ -116,6 +118,12 @@ public class WeaponInteraction : MonoBehaviour
             weapons[temp].SetActive(true);
             weapons[temp].GetComponent<WeaponBase>().EnableWeapon();
             selectedWeapon = temp;
+
+            Debug.Log("State's name: " + playerStateMachine.GetCurrentState().name);
+
+            UpdateWeaponFromPlayerState(((Universal)playerStateMachine.GetCurrentState()).GetWeaponAccuracyModifer());
+            weapons[temp].GetComponent<WeaponBase>().SetCurrentAccuracyToMin();
+
             UpdateHud();
         }
     }

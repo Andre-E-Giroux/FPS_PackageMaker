@@ -38,4 +38,9 @@ public class CrouchingIdle : Grounded
 
     }
 
+    public override float GetWeaponAccuracyModifer()
+    {
+        return WEAPON_ACCURACY_MODIFIER;
+    }
+
 }

@@ -56,4 +56,9 @@ public class StandingRunning : Grounded
     {
         base.Exit();
     }
+
+    public override float GetWeaponAccuracyModifer()
+    {
+        return WEAPON_ACCURACY_MODIFIER;
+    }
 }

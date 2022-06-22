@@ -136,42 +136,7 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     protected bool allowWeaponInteraction = true;
 
-    /// <summary>
-    /// Possible Weapon types
-    /// </summary>
-    protected enum WeaponTypes
-    {
-        MEELEE,
-        SIDEARM,
-        RIFLE,
-        AUTOMATIC_RIFLE,
-        SUB_MACHINGUN,
-        MACHINGUN,
-        SPECIAL
-    }
-
-    /// <summary>
-    /// The weapon's type
-    /// </summary>
-    [SerializeField]
-    protected WeaponTypes weaponType;
-
-    /// <summary>
-    /// Possible fire types
-    /// </summary>
-    protected enum FireTypes
-    {
-        MANUAL,
-        SEMI_AUTO,
-        BURST,
-        AUTOMATIC
-    }
-
-    /// <summary>
-    /// The weapon's fire type
-    /// </summary>
-    [SerializeField]
-    protected FireTypes fireType;
+   
 
     [SerializeField]
     protected Animator weaponAnimator;
@@ -465,8 +430,11 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     protected void UpdateAccuracy()
     {
+        Debug.Log("UpdateAccuracy");
+
         if (currentConeAccuracySize > GetMinAccuracyModified())
         {
+            Debug.Log("Decrease bloom");
             currentConeAccuracySize -= accuracyBloomDecreaseSpeed * Time.deltaTime;
             currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, GetMinAccuracyModified(), GetMaxAccuracyModified());
         }
@@ -492,14 +460,15 @@ public class WeaponBase : MonoBehaviour
     /// DO NOT USE
     /// </summary>
     /// <returns></returns>
-    private float GetCurrentAccuracyModified()
+    public void SetCurrentAccuracyToMin()
     {
-        return currentConeAccuracySize * accuracyModifier;
+        currentConeAccuracySize = GetMinAccuracyModified();
 
     }
 
     private void Update()
     {
+        Debug.Log("Update base!");
         UpdateAccuracy();
     }
 

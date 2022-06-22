@@ -8,8 +8,9 @@
 (Done)Projectile Weapons
 (Done)UI Copyright
 
+Update Comments on scripts
 Projectile Weapons explosion variant
-Melle weapon
+Melee weapon
 Show Weapons hud, similar to Dishonored. (Press weapon switch button, show line of weapons)
 Fine tune movement
 Enemy ragdoll

@@ -51,4 +51,10 @@ public class CrouchingMoving : Grounded
         base.Exit();
 
     }
+
+
+    public override float GetWeaponAccuracyModifer()
+    {
+        return WEAPON_ACCURACY_MODIFIER;
+    }
 }

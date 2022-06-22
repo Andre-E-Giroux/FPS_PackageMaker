@@ -80,4 +80,9 @@ public class Jumping : Universal
     {
         base.Exit();
     }
+
+    public override float GetWeaponAccuracyModifer()
+    {
+        return WEAPON_ACCURACY_MODIFIER;
+    }
 }

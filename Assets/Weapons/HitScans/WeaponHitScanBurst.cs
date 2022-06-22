@@ -63,6 +63,8 @@ public class WeaponHitScanBurst : WeaponHitScan
 
             }
         }
+
+        UpdateAccuracy();
     }
 
     public override bool Fire1_Interaction(WeaponBase weaponSuper)

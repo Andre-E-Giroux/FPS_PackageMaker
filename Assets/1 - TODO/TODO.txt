@@ -7,9 +7,10 @@
 (Done, play with it to modify until satisfy)Modify cone accuracy based on movement and stance
 (Done)Projectile Weapons
 (Done)UI Copyright
+(Done)Projectile Weapons explosion variant
+
 
 Update Comments on scripts
-Projectile Weapons explosion variant
 Melee weapon
 Show Weapons hud, similar to Dishonored. (Press weapon switch button, show line of weapons)
 Fine tune movement

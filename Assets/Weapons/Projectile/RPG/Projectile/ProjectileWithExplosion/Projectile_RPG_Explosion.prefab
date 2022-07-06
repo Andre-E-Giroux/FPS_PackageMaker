@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8668732426957079228}
-  - component: {fileID: 470511225840680039}
+  - component: {fileID: -7727452880434800130}
   - component: {fileID: 3294959084264963873}
   - component: {fileID: -4183571102196600868}
   m_Layer: 0
-  m_Name: Projectile_RPG
+  m_Name: Projectile_RPG_Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.5, y: 0, z: 0}
---- !u!114 &470511225840680039
+--- !u!114 &-7727452880434800130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6196476107147711604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d6c5543aef1d2b4383fab6817f9061f, type: 3}
+  m_Script: {fileID: 11500000, guid: b917f992c657f7f4ca87836448cdca09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityTargetLayerMask:
@@ -51,6 +51,7 @@ MonoBehaviour:
     m_Bits: 256
   projectileSpeedForce: 10
   directDamage: 60
+  explosionPoolerID: pool_Explosions
 --- !u!54 &3294959084264963873
 Rigidbody:
   m_ObjectHideFlags: 0

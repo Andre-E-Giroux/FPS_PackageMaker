@@ -7,22 +7,23 @@ public class ProjectileScript : MonoBehaviour
     /// <summary>
     /// Projectile rigidbody
     /// </summary>
-    private Rigidbody rb;
+    protected Rigidbody rb;
 
     // Entity target LayerMask, layer mask of those that will trigger unique effect
     [SerializeField]
-    private LayerMask entityTargetLayerMask;
+    protected LayerMask entityTargetLayerMask;
 
     /// <summary>
     /// Speed of projectile
     /// </summary>
     [SerializeField]
-    private float projectileSpeedForce = 1;
+    protected float projectileSpeedForce = 1;
 
     /// <summary>
     /// Damage done to entity on direct target
     /// </summary>
-    private float directDamage = 60;
+    [SerializeField]
+    protected float directDamage = 60;
 
     private void Awake()
     {
@@ -37,7 +38,7 @@ public class ProjectileScript : MonoBehaviour
         rb.AddForce(transform.forward * projectileSpeedForce, ForceMode.Impulse);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         // if target hit is included in layer Mask
         if (entityTargetLayerMask == (entityTargetLayerMask | (1 << other.gameObject.layer)))

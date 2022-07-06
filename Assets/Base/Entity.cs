@@ -35,6 +35,7 @@ public class Entity : MonoBehaviour
     /// <param name="increase">Float value of the added health to the entity</param>
     public void AddHealth(float increase)
     {
+        Debug.Log("Add health called on entity: " + gameObject.name + " value increase = " + increase);
         if (currentHealth + increase > MAX_HEALTH)
             currentHealth = MAX_HEALTH;
         else if ((currentHealth + increase) <= 0)

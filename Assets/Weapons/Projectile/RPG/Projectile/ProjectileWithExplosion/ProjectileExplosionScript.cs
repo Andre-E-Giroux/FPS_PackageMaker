@@ -40,10 +40,5 @@ public class ProjectileExplosionScript : ProjectileScript
 
         base.OnTriggerEnter(other);
 
-        
-
-
-
-
     }
 }

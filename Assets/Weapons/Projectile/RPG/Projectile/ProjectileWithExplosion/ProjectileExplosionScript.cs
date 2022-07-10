@@ -11,11 +11,12 @@ public class ProjectileExplosionScript : ProjectileScript
     private float maxExplosionDistance = 5.0f;
     private float maxExplosionDamage = 5.0f;
 
-
+    [SerializeField]
     private EntityList eList;
 
-    private void Start()
+    public new  void Start()
     {
+
         if (!explosionObjectPooler)
             foreach (ObjectPooler op in GameObject.FindGameObjectWithTag("Pool").GetComponents<ObjectPooler>())
                 if (op.poolerID == explosionPoolerID)
@@ -30,15 +31,22 @@ public class ProjectileExplosionScript : ProjectileScript
 
     protected override void OnTriggerEnter(Collider other)
     {
-   
-        GameObject obj = explosionObjectPooler.GetPooledObject();
+        if (!other.isTrigger)
+        {
+            Debug.Log("TriggerHit");
+            GameObject obj = explosionObjectPooler.GetPooledObject();
 
-        obj.transform.position = transform.position;
-        obj.SetActive(true);
+            Debug.Log(obj);
 
-        eList.CheckForExplosionDistance(transform, maxExplosionDistance, maxExplosionDamage);
+            obj.transform.position = transform.position;
+            obj.SetActive(true);
 
-        base.OnTriggerEnter(other);
+            Debug.Log(eList);
 
+            eList.CheckForExplosionDistance(transform.position, maxExplosionDistance, maxExplosionDamage);
+
+            base.OnTriggerEnter(other);
+
+        }
     }
 }

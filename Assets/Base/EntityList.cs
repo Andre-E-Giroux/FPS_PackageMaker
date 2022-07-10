@@ -22,30 +22,49 @@ public class EntityList : MonoBehaviour
     }
 
     // explosion
-    public void CheckForExplosionDistance(Transform explosionPoint, float maxDistance, float explosionDamage)
+    public void CheckForExplosionDistance(Vector3 explosionPoint, float maxDistance, float explosionDamage)
     {
         
         foreach (Entity entity in entities)
         {
             Debug.Log("Explosion each");
-            Debug.Log("distance: " + (explosionPoint.position - entity.transform.position).magnitude);
-            if((explosionPoint.position - entity.transform.position).magnitude < maxDistance)
+            Debug.Log("distance: " + (explosionPoint - entity.transform.position).magnitude);
+
+           
+
+            if ((explosionPoint - entity.transform.position).magnitude < maxDistance)
             {
                 //within max distance
-                Debug.Log("Damaga them! Entity: " + entity.gameObject.name);
-                
 
-                entity.AddHealth(-(entity.transform.position - explosionPoint.position).magnitude * explosionDamage);
-               
-                /*if(tempHandler.health <= 0)
+                RaycastHit hit;
+
+
+                //
+                // Does the ray intersect any objects excluding the player layer
+                Debug.DrawRay(explosionPoint, transform.TransformDirection((entity.transform.position - explosionPoint)), Color.magenta, 60f);
+                Debug.Log("Explosion point = " + explosionPoint);
+
+
+
+
+
+              
+                if (Physics.Raycast(explosionPoint, transform.TransformDirection((entity.transform.position - explosionPoint)), out hit) && hit.transform != null)
                 {
-                    RagdollActivate tempRagActive = actor.GetComponent<RagdollActivate>();
-                    foreach (Rigidbody rbs in tempRagActive._rigidbodies)
-                    {
-                        Debug.Log("alert");
-                        rbs.AddExplosionForce(pushForce, transform.position, 100);
-                    }
-                }*/
+                    Debug.Log("Welp!");
+                    Debug.DrawRay(transform.position, transform.TransformDirection((entity.transform.position - explosionPoint)).normalized * hit.distance, Color.yellow);
+                    Debug.Log("Did Hit");
+
+                    Debug.Log("Damaga them! Entity: " + entity.gameObject.name);
+
+
+                    entity.AddHealth(-(entity.transform.position - explosionPoint).magnitude * explosionDamage);
+                }
+
+
+                Debug.Log("Alert!");
+                
+               
             }
         }
     }

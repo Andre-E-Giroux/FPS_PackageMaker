@@ -28,7 +28,11 @@ public class Entity : MonoBehaviour
     /// If true the DeathRagdoll function will be called, else DeathDelete function will be called
     /// </summary>
     public bool ragdoll = false;
-   
+
+
+
+
+
     /// <summary>
     /// Add health to target
     /// </summary>

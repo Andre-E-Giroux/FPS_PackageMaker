@@ -25,7 +25,8 @@ public class ProjectileScript : MonoBehaviour
     [SerializeField]
     protected float directDamage = 60;
 
-    private void Awake()
+
+    public void Start()
     {
         if (!rb)
             rb = GetComponent<Rigidbody>();
@@ -34,6 +35,10 @@ public class ProjectileScript : MonoBehaviour
     private void OnEnable()
     {
         //reset and set projectile velocity
+
+        if(!rb)
+            rb = GetComponent<Rigidbody>();
+
         rb.velocity = Vector3.zero;
         rb.AddForce(transform.forward * projectileSpeedForce, ForceMode.Impulse);
     }

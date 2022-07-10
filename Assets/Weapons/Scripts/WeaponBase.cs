@@ -159,12 +159,14 @@ public class WeaponBase : MonoBehaviour
         return currentConeAccuracySize;
     }
 
+    [SerializeField]
+    private float accuracyModifier = 1;
+
     /// <summary>
-    /// Primary Fire of weapon
+    /// Primary Fire of weapon, user commanded
     /// </summary>
     /// <param name="weaponSuper"> the child script that will call this script</param>
     /// <returns>True if shot succesful</returns>
-
     public virtual bool Fire1_Interaction(WeaponBase weaponSuper) 
     {
         if (!allowWeaponInteraction)
@@ -546,8 +548,7 @@ public class WeaponBase : MonoBehaviour
 
     }
 
-    [SerializeField]
-    private float accuracyModifier = 1;
+
 
     public void UpdateWeaponFromPlayerState(float modifer)
     {

@@ -58,6 +58,9 @@ public class WeaponInteraction : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Switch weapons
+    /// </summary>
     private void SwitchWeapons()
     {
         int temp = selectedWeapon;
@@ -119,7 +122,7 @@ public class WeaponInteraction : MonoBehaviour
             weapons[temp].GetComponent<WeaponBase>().EnableWeapon();
             selectedWeapon = temp;
 
-            Debug.Log("State's name: " + playerStateMachine.GetCurrentState().name);
+           // Debug.Log("State's name: " + playerStateMachine.GetCurrentState().name);
 
             UpdateWeaponFromPlayerState(((Universal)playerStateMachine.GetCurrentState()).GetWeaponAccuracyModifer());
             weapons[temp].GetComponent<WeaponBase>().SetCurrentAccuracyToMin();
@@ -128,14 +131,19 @@ public class WeaponInteraction : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Update hud on the player
+    /// </summary>
     public void UpdateHud()
     {
         weaponPlayerHUD_Controller.SetCurrentMagazineAmmoText(weaponBases[selectedWeapon].GetMagazineAmmo());
         weaponPlayerHUD_Controller.SetCurrentReserveAmmoText(weaponBases[selectedWeapon].GetReserveAmmo());
     }
 
-
+    /// <summary>
+    /// Update weapon attributes that are affected by the player's state
+    /// </summary>
+    /// <param name="modifer">modifer accuracy modifier</param>
     public void UpdateWeaponFromPlayerState(float modifer)
     {
         weapons[selectedWeapon].GetComponent<WeaponBase>().UpdateWeaponFromPlayerState(modifer);

@@ -52,6 +52,10 @@ MonoBehaviour:
   projectileSpeedForce: 10
   directDamage: 60
   explosionPoolerID: pool_Explosions
+  maxExplosionDistance: 5
+  maxExplosionDamage: 100
+  damageToDistanceModifier: 4
+  eList: {fileID: 0}
 --- !u!54 &3294959084264963873
 Rigidbody:
   m_ObjectHideFlags: 0

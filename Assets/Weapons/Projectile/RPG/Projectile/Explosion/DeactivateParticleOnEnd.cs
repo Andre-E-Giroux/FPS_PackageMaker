@@ -14,9 +14,9 @@ public class DeactivateParticleOnEnd : MonoBehaviour
     {
         if(m_particleGameObject.activeInHierarchy)
         {
-            foreach (ParticleSystem particleSystems in m_particleSystem)
+            for(int i = 0; i < m_particleSystem.Length; i++)
             {
-                if(particleSystems.IsAlive())
+                if(m_particleSystem[i].IsAlive())
                 {
                     return;
                 }

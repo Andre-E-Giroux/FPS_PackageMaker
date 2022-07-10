@@ -8,8 +8,12 @@ public class ProjectileExplosionScript : ProjectileScript
     [SerializeField]
     private string explosionPoolerID = "pool_Explosions";
 
+    [SerializeField]
     private float maxExplosionDistance = 5.0f;
+    [SerializeField]
     private float maxExplosionDamage = 5.0f;
+    [SerializeField]
+    private float damageToDistanceModifier = 1;
 
     [SerializeField]
     private EntityList eList;
@@ -33,17 +37,12 @@ public class ProjectileExplosionScript : ProjectileScript
     {
         if (!other.isTrigger)
         {
-            Debug.Log("TriggerHit");
-            GameObject obj = explosionObjectPooler.GetPooledObject();
+            GameObject explosion = explosionObjectPooler.GetPooledObject();
 
-            Debug.Log(obj);
 
-            obj.transform.position = transform.position;
-            obj.SetActive(true);
-
-            Debug.Log(eList);
-
-            eList.CheckForExplosionDistance(transform.position, maxExplosionDistance, maxExplosionDamage);
+            explosion.transform.position = transform.position;
+            explosion.GetComponent<ExplosionScript>().SetDamage(maxExplosionDistance, maxExplosionDamage, damageToDistanceModifier);
+            explosion.SetActive(true);
 
             base.OnTriggerEnter(other);
 

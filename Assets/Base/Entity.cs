@@ -29,8 +29,17 @@ public class Entity : MonoBehaviour
     /// </summary>
     public bool ragdoll = false;
 
+    /// <summary>
+    /// parent holding the hitNodes
+    /// </summary>
+    [SerializeField]
+    private Transform hitNodesParent;
 
-
+    /// <summary>
+    /// Nodes for explosion/similar effects to use to see if the target can be hit by effect
+    /// </summary>
+    [HideInInspector]
+    public Transform[] hitNodes;
 
 
     /// <summary>
@@ -39,7 +48,7 @@ public class Entity : MonoBehaviour
     /// <param name="increase">Float value of the added health to the entity</param>
     public void AddHealth(float increase)
     {
-        Debug.Log("Add health called on entity: " + gameObject.name + " value increase = " + increase);
+       // Debug.Log("Add health called on entity: " + gameObject.name + " value increase = " + increase);
         if (currentHealth + increase > MAX_HEALTH)
             currentHealth = MAX_HEALTH;
         else if ((currentHealth + increase) <= 0)
@@ -78,5 +87,7 @@ public class Entity : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer("Entity");
         currentHealth = MAX_HEALTH;
+
+        hitNodes = hitNodesParent.GetComponentsInChildren<Transform>();
     }
 }

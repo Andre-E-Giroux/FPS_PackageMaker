@@ -183,11 +183,9 @@ public class WeaponBase : MonoBehaviour
             nextFire = Time.time;
 
             //BASE
-            Debug.Log("Fire1 base : " + isReloading + " cycle " + isCycleReload);
             // stop cycle reload, allowing player to chamber at least one round before allowing to fire (remember l4d shotgun reload)
             if (isReloading && isCycleReload)
             {
-                Debug.Log("Stop cycle reload");
                 stopReloadingCycle = true;
             }
 
@@ -269,7 +267,6 @@ public class WeaponBase : MonoBehaviour
         WeaponReset();
 
         SetWeaponAnimationSpeed();
-        Debug.Log("EnableWeapon");
         if (!weaponAnimator)
             AllowWeaponInteraction();
     }
@@ -430,11 +427,9 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     protected void UpdateAccuracy()
     {
-        Debug.Log("UpdateAccuracy");
 
         if (currentConeAccuracySize > GetMinAccuracyModified())
         {
-            Debug.Log("Decrease bloom");
             currentConeAccuracySize -= accuracyBloomDecreaseSpeed * Time.deltaTime;
             currentConeAccuracySize = Mathf.Clamp(currentConeAccuracySize, GetMinAccuracyModified(), GetMaxAccuracyModified());
         }
@@ -468,7 +463,6 @@ public class WeaponBase : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Update base!");
         UpdateAccuracy();
     }
 

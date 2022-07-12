@@ -38,6 +38,7 @@ public class WeaponHitScan : WeaponBase
 
     public override void Fire1( )
     {
+        Debug.Log("FIRE1 called for hit scan for weapon: " + nameOfWeapon);
         
         Vector3 shotDirectionOffset = PickFiringDirection(Vector3.forward);
 
@@ -45,6 +46,8 @@ public class WeaponHitScan : WeaponBase
 
         if (Physics.Raycast(playerCamera.transform.position, transform.TransformDirection(shotDirectionOffset), out hit, MAX_WEAPON_RANGE, entityLayerMask))
         {
+            Debug.Log( nameOfWeapon + "has hit a valid target");
+
             Entity hitEntity = hit.transform.transform.root.GetComponent<Entity>();
             if (hitEntity)
             {

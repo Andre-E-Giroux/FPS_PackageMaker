@@ -289,6 +289,9 @@ public class WeaponBase : MonoBehaviour
         //entityLayerMask = LayerMask.NameToLayer("Entity");
         allowedToReload = true;
 
+        if(!weaponAnimator)
+            weaponAnimator = GetComponent<Animator>();
+
         weaponFire1AnimationName = "anim_" + nameOfWeapon + "_Fire1";
         weaponRelaodAnimationName = "anim_" + nameOfWeapon + "_Reload";
         weaponSwitchAnimationName = "anim_" + nameOfWeapon + "_Switch";
@@ -350,9 +353,13 @@ public class WeaponBase : MonoBehaviour
     {
         bool animationSwitchFound = false;
 
+       // Debug.Log("Setting animation Speed of " + nameOfWeapon + " weapon.");
+
         // Get list of states in the animator
         UnityEditor.Animations.AnimatorController ac = weaponAnimator.runtimeAnimatorController as UnityEditor.Animations.AnimatorController;
         UnityEditor.Animations.AnimatorStateMachine sm = ac.layers[0].stateMachine;
+
+
 
         // for every state find marked states and modify speed
         for (int i = 0; i < sm.states.Length; i++)
@@ -360,14 +367,17 @@ public class WeaponBase : MonoBehaviour
             // current state in array at index
             UnityEditor.Animations.AnimatorState state = sm.states[i].state;
 
+           // Debug.Log("stateName "+ state.name + " weapon fire name: " + weaponFire1AnimationName);
+
             // is the state Fire1?
             if (state.name == weaponFire1AnimationName)
             {
+               // Debug.Log("Fire1Animation with name!");
                 AnimationClip clip = state.motion as AnimationClip;
                 if (clip != null)
                 {
-                   /// Debug.Log("Mod " + weaponFire1AnimationName + "animation speed");
-                    ///Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
+                  //  Debug.Log("Mod " + weaponFire1AnimationName + "animation speed");
+                    //Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
                     weaponAnimator.SetFloat("animationSpeed_Fire1", clip.length / WEAPON_FIRE_RATE);
                 }
             }
@@ -377,7 +387,7 @@ public class WeaponBase : MonoBehaviour
                 AnimationClip clip = state.motion as AnimationClip;
                 if (clip != null)
                 {
-                   // Debug.Log("Mod " + weaponFire1AnimationName + " animation speed");
+                  // Debug.Log("Mod " + weaponFire1AnimationName + " animation speed");
                     //Debug.Log("Clip length = " + clip.length + " Rload time = " + RELOAD_TIME);
                     weaponAnimator.SetFloat("animationSpeed_Reload", clip.length / RELOAD_TIME);
                 }
@@ -388,7 +398,7 @@ public class WeaponBase : MonoBehaviour
                 AnimationClip clip = state.motion as AnimationClip;
                 if (clip != null)
                 {
-                   // Debug.Log("Mod " + weaponSwitchAnimationName + " animation speed");
+                  // Debug.Log("Mod " + weaponSwitchAnimationName + " animation speed");
                   //  Debug.Log("Clip length = " + clip.length + " Switch time = " + WEAPON_SWITCH_TIME);
                     weaponAnimator.SetFloat("animationSpeed_Switch", clip.length / WEAPON_SWITCH_TIME);
                     animationSwitchFound = true;

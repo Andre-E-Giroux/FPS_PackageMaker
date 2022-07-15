@@ -192,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 904849795002871869}
   - component: {fileID: 4982334125304391311}
-  - component: {fileID: 1879988305336701858}
+  - component: {fileID: -4230124167866504529}
   m_Layer: 0
   m_Name: Rifle
   m_TagString: Untagged
@@ -242,7 +242,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1879988305336701858
+--- !u!114 &-4230124167866504529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -251,7 +251,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 559990844242487943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb0cfee465615144ca3cb46ac60b80c1, type: 3}
+  m_Script: {fileID: 11500000, guid: c2f93a3f27fd7714dba38021c0227a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfWeapon: Rifle
@@ -271,18 +271,18 @@ MonoBehaviour:
   entityLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  currentMagazineAmmo: 20
-  currentReserveAmmo: 40
   isReloading: 0
   isCycleReload: 0
   numberOfRoundsLoadedPerCycle: 1
-  weaponType: 2
-  fireType: 2
   weaponAnimator: {fileID: 4982334125304391311}
   playerCamera: {fileID: 0}
+  accuracyModifier: 1
+  isUnlimmitedAmmo: 0
+  currentMagazineAmmo: 20
+  currentReserveAmmo: 40
   WEAPON_DAMAGE: 10
   bulletHoleDecalPooler: {fileID: 0}
-  BURST_FIRERATE: 0.3
+  BURST_FIRERATE: 0.6
   untilNextBurst: 0
   burstLength: 3
 --- !u!1 &1244510154573969315

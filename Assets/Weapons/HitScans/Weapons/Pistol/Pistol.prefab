@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2045081839483569814}
   - component: {fileID: 296763172520293947}
-  - component: {fileID: 726807064406403127}
+  - component: {fileID: 1463026766677831047}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -88,7 +88,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &726807064406403127
+--- !u!114 &1463026766677831047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1669225457187626028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffd18cef413732a46af2253dbdbc9207, type: 3}
+  m_Script: {fileID: 11500000, guid: d02660693775a10498defb01c90a8dee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfWeapon: Pistol
@@ -108,23 +108,26 @@ MonoBehaviour:
   MAX_MAGAZINE_SIZE: 30
   MAX_RESERVE_AMMUNITION: 240
   RELOAD_TIME: 1
-  MINIMUM_CONE_ACCURACY_SIZE: 0.1
+  MINIMUM_CONE_ACCURACY_SIZE: 0
   MAXIMUM_CONE_ACCURACY_SIZE: 0
   currentConeAccuracySize: 0
+  accuracyBloomIncrease: 0
+  accuracyBloomDecreaseSpeed: 0
   NUMBER_OF_PROJECTILES_PER_SHOT: 1
   entityLayerMask:
     serializedVersion: 2
-    m_Bits: 256
-  currentMagazineAmmo: 20
-  currentReserveAmmo: 40
+    m_Bits: 0
   isReloading: 0
   isCycleReload: 0
   numberOfRoundsLoadedPerCycle: 1
-  weaponType: 0
-  fireType: 0
-  weaponAnimator: {fileID: 296763172520293947}
-  WEAPON_DAMAGE: 10
+  weaponAnimator: {fileID: 0}
   playerCamera: {fileID: 0}
+  accuracyModifier: 1
+  isUnlimmitedAmmo: 0
+  currentMagazineAmmo: 20
+  currentReserveAmmo: 40
+  WEAPON_DAMAGE: 10
+  bulletHoleDecalPooler: {fileID: 0}
 --- !u!1 &2245707304106769232
 GameObject:
   m_ObjectHideFlags: 0

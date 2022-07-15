@@ -81,6 +81,7 @@ MonoBehaviour:
   entityLayerMask:
     serializedVersion: 2
     m_Bits: 0
+  isUnlimmitedAmmo: 0
   currentMagazineAmmo: 20
   currentReserveAmmo: 40
   isReloading: 0

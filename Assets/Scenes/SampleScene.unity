@@ -546,6 +546,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 496736562245598719, guid: 499e082f54b6b01478fa8bc5a09478d7, type: 3}
+      propertyPath: m_Text
+      value: FPS_PackageMaker Created by Andre Giroux - Written on 21/6/2022 (All
+        Rights Reserved) -  15/7/2022
+      objectReference: {fileID: 0}
     - target: {fileID: 496736562851557795, guid: 499e082f54b6b01478fa8bc5a09478d7, type: 3}
       propertyPath: m_Name
       value: CopyrightUI
@@ -633,6 +638,11 @@ PrefabInstance:
     - target: {fileID: 496736562851557799, guid: 499e082f54b6b01478fa8bc5a09478d7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 496736564001126891, guid: 499e082f54b6b01478fa8bc5a09478d7, type: 3}
+      propertyPath: m_Text
+      value: FPS_PackageMaker Created by Andre Giroux - Written on 21/6/2022 (All
+        Rights Reserved) -  15/7/2022
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 499e082f54b6b01478fa8bc5a09478d7, type: 3}
@@ -2155,6 +2165,46 @@ MonoBehaviour:
   willDisableWhenNeeded: 1
   pooledObjects: []
   activeGameObjects: []
+--- !u!1 &1549655799 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5394555968347930365, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+  m_PrefabInstance: {fileID: 2086636843}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1549655801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549655799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02660693775a10498defb01c90a8dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameOfWeapon: Sword
+  NUMBER_OF_PROJECTILES_PER_SHOT: 1
+  WEAPON_FIRE_RATE: 2
+  weaponAnimator: {fileID: 1549655802}
+  playerCamera: {fileID: 2090288073}
+  entityLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  accuracyModifier: 1
+  MINIMUM_CONE_ACCURACY_SIZE: 0
+  MAXIMUM_CONE_ACCURACY_SIZE: 0
+  accuracyBloomIncrease: 0
+  accuracyBloomDecreaseSpeed: 0
+  MAX_MAGAZINE_SIZE: 30
+  MAX_RESERVE_AMMUNITION: 240
+  hasLimitedAmmunition: 0
+  RELOAD_TIME: 1
+  isCycleReload: 0
+  numberOfRoundsLoadedPerCycle: 1
+  WEAPON_SWITCH_TIME: 1
+  PLAYER_SPEED_EFFECT: 0
+  WEAPON_DAMAGE: 10
+  MAX_WEAPON_RANGE: 5
 --- !u!95 &1549655802 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5394555968347930364, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
@@ -2257,8 +2307,17 @@ PrefabInstance:
       propertyPath: weaponAnimator
       value: 
       objectReference: {fileID: 1549655802}
+    - target: {fileID: 5817879837661759805, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 2090288073}
+    - target: {fileID: 5817879837661759805, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: hasLimitedAmmunition
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6297348326298100735, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+    - {fileID: 4496007028653495840, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
 --- !u!20 &2090288073 stripped
 Camera:

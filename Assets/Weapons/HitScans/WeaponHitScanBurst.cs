@@ -2,26 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class WeaponHitScanBurst : WeaponHitScan
 {
     /// <summary>
     /// Fire rate in between burst, does not change
     /// </summary>
-    [SerializeField]
-    protected float BURST_FIRERATE = 0.6f;
-
-    /// <summary>
-    /// Tracks when burst can happen
-    /// </summary>
-    [SerializeField]
-    protected float untilNextBurst = 0;
+    public float BURST_FIRERATE = 0.6f;
 
 
     /// <summary>
     /// number of bullets fired in each burst
     /// </summary>
-    [SerializeField]
-    protected int burstLength = 3;
+    public int ROUNDS_PER_BURST = 3;
+
+    /// <summary>
+    /// Tracks when burst can happen
+    /// </summary>
+    protected float untilNextBurst = 0;
 
     /// <summary>
     /// Is burst allowed to fire
@@ -36,7 +37,7 @@ public class WeaponHitScanBurst : WeaponHitScan
 
     private void Update()
     {
-        if (burstsRemaining > 0 && GetMagazineAmmo() > 0)
+        if (burstsRemaining > 0 && (GetMagazineAmmo() > 0 || !hasLimitedAmmunition))
         {
             if (allowedToReload)
                 allowedToReload = !allowedToReload;
@@ -44,15 +45,16 @@ public class WeaponHitScanBurst : WeaponHitScan
 
             if (base.Fire1_Interaction(this))
             {
+                Debug.Log("FIRE1 CALLED");
                 --burstsRemaining;
 
-                if(GetMagazineAmmo() <= 0)
+                if(GetMagazineAmmo() <= 0 && hasLimitedAmmunition)
                 {
                     burstsRemaining = 0;
                 }
 
                 // burst cleaned, or ran out of ammo
-                if (burstsRemaining <= 0 || currentMagazineAmmo <= 0)
+                if (burstsRemaining <= 0 || (currentMagazineAmmo <= 0 && hasLimitedAmmunition))
                 {
                     untilNextBurst = Time.time;
                     allowedToFire = true;
@@ -70,11 +72,11 @@ public class WeaponHitScanBurst : WeaponHitScan
     public override bool Fire1_Interaction(WeaponBase weaponSuper)
     {
 
-        if (Time.time >= (BURST_FIRERATE + untilNextBurst) && allowedToFire)
+        if (Time.time >= (BURST_FIRERATE + untilNextBurst) && allowedToFire && (currentMagazineAmmo > 0 || !hasLimitedAmmunition))
         {
             allowedToFire = false;
             allowedToReload = true;
-            burstsRemaining = burstLength;
+            burstsRemaining = ROUNDS_PER_BURST;
         }
         return true;
     }
@@ -85,3 +87,29 @@ public class WeaponHitScanBurst : WeaponHitScan
 
      
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(WeaponHitScanBurst))]
+public class WeaponHitScanBurst_Editor : WeaponHitScan_Editor
+{
+    public override void OnInspectorGUI()
+    {
+        WeaponHitScanBurst script = (WeaponHitScanBurst)target;
+
+        base.OnInspectorGUI();
+
+
+        // TEMP - TODO: FIND A BETTER WAY TO seperate the sections "\n" (background color change?)
+      // NAME OF SCRIPT SECTION //
+        GUILayout.Label("\n|WEAPON HITSCAN BURST SECTION|");
+
+        //weapon range
+        script.BURST_FIRERATE = EditorGUILayout.FloatField("Burst fire rate", script.BURST_FIRERATE);
+
+        //weapon range
+        script.ROUNDS_PER_BURST = EditorGUILayout.IntField("Rounds per burst", script.ROUNDS_PER_BURST);
+
+    }
+
+}
+#endif

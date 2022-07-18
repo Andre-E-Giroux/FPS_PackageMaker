@@ -632,6 +632,9 @@ public class WeaponBase_Editor : Editor
 {
     public override void OnInspectorGUI()
     {
+    // updated in exampl given by brownboot67 on post
+    //https://forum.unity.com/threads/custom-editor-not-saving-changes.424675/
+        serializedObject.Update();
 
         WeaponBase script = (WeaponBase)target;
 
@@ -643,21 +646,21 @@ public class WeaponBase_Editor : Editor
         // IDENTIFICATION //
         GUILayout.Label("IDENTIFICATION");
         //name
-        script.nameOfWeapon = EditorGUILayout.TextField("Weapon Name", script.nameOfWeapon);
-
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("nameOfWeapon"));
+       
         // TEMP - TODO: FIND A BETTER WAY TO seperate the sections "\n" (background color change?)
         //  REFERENCES///
         GUILayout.Label("\nREFERENCES");
         //animator
-        script.weaponAnimator = EditorGUILayout.ObjectField("Weapon Animator", script.weaponAnimator, typeof(Animator), true) as Animator;
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("weaponAnimator"));
 
         // Camera
-        script.playerCamera = EditorGUILayout.ObjectField("Player Camera", script.playerCamera, typeof(Camera), true) as Camera;
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("playerCamera"));
 
-        //--------------VERIFY!!!!
+        //--------------ISSUE. ALL ENTITY OBJECT, INCLUDING !!PLAYER!! IS TAKING DAMAGE FIX!!!!
         string[] layers = { "Entity" };
         // Entity Layer Mask of targets
-        script.entityLayerMask = EditorGUILayout.MaskField("Entity Layer Mask", script.entityLayerMask, layers);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("entityLayerMask"));
 
 
 
@@ -665,10 +668,10 @@ public class WeaponBase_Editor : Editor
         // MISCELLANEOUS//
         GUILayout.Label("\nMISCELLANEOUS");
         //weapon switch speed
-        script.WEAPON_SWITCH_TIME = EditorGUILayout.FloatField("Weapon Switch Time", script.WEAPON_SWITCH_TIME);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("WEAPON_SWITCH_TIME"));
 
         // weapon speed effect
-        script.PLAYER_SPEED_EFFECT = EditorGUILayout.FloatField("Weapon Speed Effect", script.PLAYER_SPEED_EFFECT);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("PLAYER_SPEED_EFFECT"));
 
 
 
@@ -676,10 +679,10 @@ public class WeaponBase_Editor : Editor
         // FIRE//
         GUILayout.Label("\nFIRE");
         //weapon fire rate
-        script.WEAPON_FIRE_RATE = EditorGUILayout.FloatField("Weapon Fire Rate", script.WEAPON_FIRE_RATE);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("WEAPON_FIRE_RATE"));
 
         // projectiles per shot
-        script.NUMBER_OF_PROJECTILES_PER_SHOT = EditorGUILayout.IntField("Number of projectile per shot", script.NUMBER_OF_PROJECTILES_PER_SHOT);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("NUMBER_OF_PROJECTILES_PER_SHOT"));
 
 
 
@@ -688,19 +691,19 @@ public class WeaponBase_Editor : Editor
         // ACCURACY//
         GUILayout.Label("\nRELOAD");
         // draw checkbox for the bool
-        script.hasLimitedAmmunition = EditorGUILayout.Toggle("Weapon has limited ammo", script.hasLimitedAmmunition);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("hasLimitedAmmunition"));
         if (script.hasLimitedAmmunition) // if bool is true, show other fields
         {
-            script.MAX_MAGAZINE_SIZE = EditorGUILayout.IntField("Max Magazine Ammo", script.MAX_MAGAZINE_SIZE);
-            script.MAX_RESERVE_AMMUNITION = EditorGUILayout.IntField("Max Reserve Ammo", script.MAX_RESERVE_AMMUNITION);
-            script.RELOAD_TIME = EditorGUILayout.FloatField("Reload Time", script.RELOAD_TIME);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("MAX_MAGAZINE_SIZE"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("MAX_RESERVE_AMMUNITION"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("RELOAD_TIME"));
 
             // is cycle reload
-            script.isCycleReload = EditorGUILayout.Toggle("Is cycle reload", script.isCycleReload);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("isCycleReload"));
             if (script.isCycleReload)
             {
                 // number of cycle per reload
-                script.numberOfRoundsLoadedPerCycle = EditorGUILayout.IntField("Number of rounds per Cycle", script.numberOfRoundsLoadedPerCycle);
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("numberOfRoundsLoadedPerCycle"));
             }
         }
 
@@ -709,19 +712,21 @@ public class WeaponBase_Editor : Editor
         // ACCURACY
         GUILayout.Label("\nACCURACY");
         //Minimum Weapon Accuracy
-        script.MINIMUM_CONE_ACCURACY_SIZE = EditorGUILayout.FloatField("Minimum Weapon Accuracy", script.MINIMUM_CONE_ACCURACY_SIZE);
-        
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("MINIMUM_CONE_ACCURACY_SIZE"));
+
         //Maximum Weapon Accuracy
-        script.MAXIMUM_CONE_ACCURACY_SIZE = EditorGUILayout.FloatField("Maximum Weapon Accuracy", script.MAXIMUM_CONE_ACCURACY_SIZE);
-        
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("MAXIMUM_CONE_ACCURACY_SIZE"));
+
         //Accuracy bloom increase
-        script.accuracyBloomIncrease = EditorGUILayout.FloatField("Accuracy bloom increase on shot", script.accuracyBloomIncrease);
-        
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("accuracyBloomIncrease"));
+
         //Accuracy bloom decrease
-        script.accuracyBloomDecreaseSpeed = EditorGUILayout.FloatField("Accuracy bloom decrease speed", script.accuracyBloomDecreaseSpeed);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("accuracyBloomDecreaseSpeed"));
 
         // Accuracy modifier
-        script.accuracyModifier = EditorGUILayout.FloatField("Accuracy modifier", script.accuracyModifier);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("accuracyModifier"));
+
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

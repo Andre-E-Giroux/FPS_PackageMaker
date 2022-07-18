@@ -50,10 +50,14 @@ public class WeaponProjectile_Editor : WeaponBase_Editor
 {
     public override void OnInspectorGUI()
     {
+        serializedObject.Update();
+
         base.OnInspectorGUI();
         // WeaponHitScanBurst script = (WeaponHitScanBurst)target;
         // NAME OF SCRIPT SECTION //
         //GUILayout.Label("WEAPON PROJECTILE SECTION");
+        serializedObject.ApplyModifiedProperties();
+
     }
 }
 #endif

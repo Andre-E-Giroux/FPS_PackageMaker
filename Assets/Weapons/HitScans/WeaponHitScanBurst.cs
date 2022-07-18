@@ -94,21 +94,23 @@ public class WeaponHitScanBurst_Editor : WeaponHitScan_Editor
 {
     public override void OnInspectorGUI()
     {
+        serializedObject.Update();
+
         WeaponHitScanBurst script = (WeaponHitScanBurst)target;
 
         base.OnInspectorGUI();
 
-
         // TEMP - TODO: FIND A BETTER WAY TO seperate the sections "\n" (background color change?)
-      // NAME OF SCRIPT SECTION //
+        // NAME OF SCRIPT SECTION //
         GUILayout.Label("\n|WEAPON HITSCAN BURST SECTION|");
 
-        //weapon range
-        script.BURST_FIRERATE = EditorGUILayout.FloatField("Burst fire rate", script.BURST_FIRERATE);
+        //weapon burst fire rate
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("BURST_FIRERATE"));
 
-        //weapon range
-        script.ROUNDS_PER_BURST = EditorGUILayout.IntField("Rounds per burst", script.ROUNDS_PER_BURST);
-
+        //number of shots per bursts
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("ROUNDS_PER_BURST"));
+        
+        serializedObject.ApplyModifiedProperties();
     }
 
 }

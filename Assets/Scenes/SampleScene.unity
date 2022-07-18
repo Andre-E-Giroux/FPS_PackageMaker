@@ -1060,6 +1060,11 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!95 &1282741875 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6224619524360230295, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+  m_PrefabInstance: {fileID: 2086636843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1299512309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2095,6 +2100,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1479375872 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5823744641113654557, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+  m_PrefabInstance: {fileID: 2086636843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1548842390
 GameObject:
   m_ObjectHideFlags: 0
@@ -2189,7 +2199,7 @@ MonoBehaviour:
   playerCamera: {fileID: 2090288073}
   entityLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1527
   accuracyModifier: 1
   MINIMUM_CONE_ACCURACY_SIZE: 0
   MAXIMUM_CONE_ACCURACY_SIZE: 0
@@ -2240,6 +2250,11 @@ Transform:
   m_Father: {fileID: 364307702}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &2064702609 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6021334233914740283, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+  m_PrefabInstance: {fileID: 2086636843}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2086636843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2251,6 +2266,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 2090288073}
+    - target: {fileID: 529898604448616129, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: entityLayerMask.m_Bits
+      value: 1527
+      objectReference: {fileID: 0}
     - target: {fileID: 3578931500200609282, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -2299,6 +2318,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4169909674121663041, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: weaponAnimator
+      value: 
+      objectReference: {fileID: 2064702609}
+    - target: {fileID: 4169909674121663041, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: entityLayerMask.m_Bits
+      value: 1527
+      objectReference: {fileID: 0}
     - target: {fileID: 4496007028653495840, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: playerCamera
       value: 
@@ -2307,13 +2334,53 @@ PrefabInstance:
       propertyPath: weaponAnimator
       value: 
       objectReference: {fileID: 1549655802}
+    - target: {fileID: 5058015059460410923, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 2090288073}
+    - target: {fileID: 5058015059460410923, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: weaponAnimator
+      value: 
+      objectReference: {fileID: 1282741875}
+    - target: {fileID: 5058015059460410923, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: MAX_WEAPON_RANGE
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058015059460410923, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: WEAPON_SWITCH_TIME
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058015059460410923, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: hasLimitedAmmunition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5058015059460410923, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: entityLayerMask.m_Bits
+      value: 1527
+      objectReference: {fileID: 0}
     - target: {fileID: 5817879837661759805, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 2090288073}
     - target: {fileID: 5817879837661759805, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: weaponAnimator
+      value: 
+      objectReference: {fileID: 1479375872}
+    - target: {fileID: 5817879837661759805, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: MAX_WEAPON_RANGE
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817879837661759805, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: ROUNDS_PER_BURST
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817879837661759805, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
       propertyPath: hasLimitedAmmunition
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817879837661759805, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}
+      propertyPath: entityLayerMask.m_Bits
+      value: 1783
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6297348326298100735, guid: 123d4c90d31814d4eabb61f7cae3ae4b, type: 3}

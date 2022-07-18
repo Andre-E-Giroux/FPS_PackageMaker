@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.UI;
+using UnityEditor.SceneManagement;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -58,8 +59,10 @@ public class WeaponHitScan : WeaponBase
 
     public override void Fire1( )
     {
+
         Debug.Log("FIRE1 called for hit scan for weapon: " + nameOfWeapon);
-        
+        Debug.Log("range: " + MAX_WEAPON_RANGE);
+
         Vector3 shotDirectionOffset = PickFiringDirection(Vector3.forward);
 
         Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(shotDirectionOffset) * MAX_WEAPON_RANGE, Color.yellow,30);
@@ -103,7 +106,10 @@ public class WeaponHitScan_Editor : WeaponBase_Editor
 {
     public override void OnInspectorGUI()
     {
-        WeaponHitScan script = (WeaponHitScan)target;
+        serializedObject.Update();
+
+
+        //WeaponHitScan script = (WeaponHitScan)target;
 
         base.OnInspectorGUI();
 
@@ -113,11 +119,12 @@ public class WeaponHitScan_Editor : WeaponBase_Editor
 
 
         //weapon range
-        script.MAX_WEAPON_RANGE = EditorGUILayout.FloatField("Max Weapon Range", script.MAX_WEAPON_RANGE);
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("MAX_WEAPON_RANGE"));
+        
+        //weapon damage
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("WEAPON_DAMAGE"));
 
-        //weapon range
-        script.WEAPON_DAMAGE = EditorGUILayout.FloatField("Weapon Damage", script.WEAPON_DAMAGE);
-
+        serializedObject.ApplyModifiedProperties();
     }
 }
 #endif

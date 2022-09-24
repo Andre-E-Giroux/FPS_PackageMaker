@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class StandingIdle : Grounded
 {
-
-    
     private static float WEAPON_ACCURACY_MODIFIER = 1f;
 
 
@@ -14,6 +12,7 @@ public class StandingIdle : Grounded
     public override void Enter()
     {
         base.Enter();
+        _speedModifier = _sm.speed;
         _sm.CrouchPlayer(false);
         _horizontalInput = 0f;
         _sm.meshRenderer.material.color = Color.black;
@@ -32,6 +31,10 @@ public class StandingIdle : Grounded
         }
     }
 
+    public override void UpdatePhysics()
+    {
+        base.UpdatePhysics();
+    }
 
     public override void Exit()
     {

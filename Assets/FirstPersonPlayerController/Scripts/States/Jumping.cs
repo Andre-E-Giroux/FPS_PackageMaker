@@ -22,14 +22,15 @@ public class Jumping : Universal
 
     public override void Enter()
     {
+        Debug.Log("Entering jumping state");
         base.Enter();
         _sm.meshRenderer.material.color = Color.green;
 
         if (_sm.grounded)
         {
-            Vector3 vel = _sm.rb.velocity;
-            vel.y += _sm.jumpForce;
-            _sm.rb.velocity = vel;
+          //  Vector3 vel = _sm.rb.velocity;
+         //   vel.y += _sm.jumpForce;
+          //  _sm.rb.velocity = vel;
         }
 
         ((PlayerSM)stateMachine).wInteraction.UpdateWeaponFromPlayerState(WEAPON_ACCURACY_MODIFIER);
@@ -39,6 +40,7 @@ public class Jumping : Universal
     public override void UpdateLogic()
     {
         base.UpdateLogic();
+
 
         if (_sm.grounded)
         {
@@ -55,23 +57,6 @@ public class Jumping : Universal
     {
         base.UpdatePhysics();
 
-        Debug.Log("Update jump");
-        if (Physics.Raycast(_sm.transform.position, _sm.transform.TransformDirection(Vector3.down), _groundDetectionDistance, _groundLayer))
-        {
-            Debug.Log("Verify grounded");
-            _sm.grounded = _sm.rb.velocity.y < Mathf.Epsilon;
-        }
-        else
-        {
-            _sm.grounded = false;
-        }
-
-
-        
-
-        Debug.DrawRay(_sm.transform.position, _sm.transform.TransformDirection(Vector3.down) * (_groundDetectionDistance), Color.red);
-
-
 
 
     }
@@ -79,6 +64,8 @@ public class Jumping : Universal
     public override void Exit()
     {
         base.Exit();
+        Debug.Log("Exiting jumping state. is grounded: " + _sm.grounded);
+
     }
 
     public override float GetWeaponAccuracyModifer()

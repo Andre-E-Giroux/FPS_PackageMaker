@@ -57,17 +57,18 @@ public class WeaponHitScan : WeaponBase
         AwakenWeapon();
     }
 
-    public override void Fire1( )
+    // LOOK HERE for premade shot directions
+    public override void Fire1(Vector3 shotDirection)
     {
 
         Debug.Log("FIRE1 called for hit scan for weapon: " + nameOfWeapon);
         Debug.Log("range: " + MAX_WEAPON_RANGE);
 
-        Vector3 shotDirectionOffset = PickFiringDirection(Vector3.forward);
+        //Vector3 shotDirectionOffset = PickFiringDirection(Vector3.forward);
 
-        Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(shotDirectionOffset) * MAX_WEAPON_RANGE, Color.yellow,30);
+        Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(shotDirection) * MAX_WEAPON_RANGE, Color.yellow,30);
 
-        if (Physics.Raycast(playerCamera.transform.position, transform.TransformDirection(shotDirectionOffset), out hit, MAX_WEAPON_RANGE, entityLayerMask))
+        if (Physics.Raycast(playerCamera.transform.position, transform.TransformDirection(shotDirection), out hit, MAX_WEAPON_RANGE, entityLayerMask))
         {
             Debug.Log( nameOfWeapon + "has hit a valid target");
 

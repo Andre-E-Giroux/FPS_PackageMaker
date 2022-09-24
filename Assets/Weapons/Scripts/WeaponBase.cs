@@ -31,6 +31,16 @@ public class WeaponBase : MonoBehaviour
         /// </summary>
         public int NUMBER_OF_PROJECTILES_PER_SHOT = 1;
 
+    
+    
+    
+    
+        public bool areShotsPreDetermined = false;
+
+        public Vector2[] preAccuracyShots;
+
+
+
         /// <summary>
         /// Fire rate seconds between shots
         /// </summary>
@@ -58,7 +68,7 @@ public class WeaponBase : MonoBehaviour
         /// Layer mask's for available target's 
         /// </summary>
         public LayerMask entityLayerMask;
-        // REFRENCES VARIABLS: END /////////////////////////////////////////////////////////
+    // REFRENCES VARIABLS: END /////////////////////////////////////////////////////////
 
 
     // ACCURACY VARIABLS: START /////////////////////////////////////////////////////////
@@ -98,10 +108,10 @@ public class WeaponBase : MonoBehaviour
 
     //  AMMUNITION VARIABLES:  START ////////////////////////////////////////////////////////
 
-    /// <summary>
-    /// The current amount of ammunition in the magazine/chamber
-    /// </summary>
-    protected int currentMagazineAmmo = 20;
+        /// <summary>
+        /// The current amount of ammunition in the magazine/chamber
+        /// </summary>
+        protected int currentMagazineAmmo = 20;
 
         /// <summary>
         /// the current amount of ammunition in reserver
@@ -207,14 +217,14 @@ public class WeaponBase : MonoBehaviour
         public float PLAYER_SPEED_EFFECT = 0;
     // MISCELLANEOUS VARIABLS: END /////////////////////////////////////////////////////////
 
-
+    /// <summary>
+    /// Returns the cone of accuracy size
+    /// </summary>
+    /// <returns>float: currentConeAccuracySize</returns>
     public float GetCurrentConeSize()
     {
         return currentConeAccuracySize;
     }
-
-
-    
 
 
     /// <summary>
@@ -229,10 +239,25 @@ public class WeaponBase : MonoBehaviour
 
         if (Time.time > WEAPON_FIRE_RATE + nextFire && (currentMagazineAmmo > 0 || !hasLimitedAmmunition) && !isReloading)
         {
-            for (int i = 0; i < NUMBER_OF_PROJECTILES_PER_SHOT; i++)
+            if (!areShotsPreDetermined)
             {
-                weaponSuper.Fire1();
-                AccuracyDecrease();
+                for (int i = 0; i < NUMBER_OF_PROJECTILES_PER_SHOT; i++)
+                {
+                    weaponSuper.Fire1(PickFiringDirection(Vector3.forward));
+                    AccuracyDecrease();
+                }
+            }
+            else
+            {
+                // modification here for the pre-made attack directions
+                for (int i = 0; i < preAccuracyShots.Length; i++)
+                {
+                    //preAccuracyShots[i] shot direction
+                    //weaponSuper.Fire1();
+                    // weaponSuper.Fire1(FirePreShot(preAccuracyShots[i], Vector3.forward)); 
+                    weaponSuper.Fire1(FirePreShot(preAccuracyShots[i]));
+                    AccuracyDecrease();
+                }
             }
 
             if(hasLimitedAmmunition)
@@ -282,7 +307,7 @@ public class WeaponBase : MonoBehaviour
     /// HitScan weapons will use this function to shoot a raycast
     /// Projectile weapons will use thi function to spawn and launch a projectile(gameobject)
     /// </summary>
-    public virtual void Fire1(){}
+    public virtual void Fire1(Vector3 shotDirection) {}
 
 
 
@@ -478,6 +503,16 @@ public class WeaponBase : MonoBehaviour
         Vector3 candidate = Random.insideUnitSphere * currentConeAccuracySize + muzzleForward;
         return candidate.normalized;
     }
+
+
+
+
+    protected virtual Vector3 FirePreShot(Vector2 preAccuracyShot)
+    {
+        Vector3 directionResult = new Vector3(preAccuracyShot.x, preAccuracyShot.y, 1);
+        return directionResult.normalized;
+    }
+
 
     /// <summary>
     /// Decrease accuracy by decrease accuracy by variable accuracyBloomIncrease
@@ -681,10 +716,28 @@ public class WeaponBase_Editor : Editor
         //weapon fire rate
         EditorGUILayout.PropertyField(serializedObject.FindProperty("WEAPON_FIRE_RATE"));
 
-        // projectiles per shot
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("NUMBER_OF_PROJECTILES_PER_SHOT"));
 
 
+       
+
+        ////////////////////////////////
+        ///
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("areShotsPreDetermined"));
+
+        if (!script.areShotsPreDetermined)
+        {
+            // projectiles per shot
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("NUMBER_OF_PROJECTILES_PER_SHOT"));
+        }
+        else
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("preAccuracyShots"));
+           
+        }
+        ///
+        //////////////////////////////////
+
+       
 
 
         // TEMP - TODO: FIND A BETTER WAY TO seperate the sections "\n" (background color change?)

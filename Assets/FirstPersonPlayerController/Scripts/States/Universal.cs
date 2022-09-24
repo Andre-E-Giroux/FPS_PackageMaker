@@ -6,11 +6,11 @@ public class Universal : BaseState
 {
     protected PlayerSM _sm;
 
-    private float _mouseSensitivetyX = 1f;
-    private float _mouseSensitivetyY = 1f;
+  
     private float _verticalCameraRotClamp;
 
-    private Transform _cameraTransform;
+
+
     private Transform _playerTransform;
 
 
@@ -18,7 +18,7 @@ public class Universal : BaseState
     {
         _sm = (PlayerSM)stateMachine;
         _playerTransform = _sm.transform;
-        _cameraTransform = _sm.transform.GetChild(0);
+        
 
         Cursor.lockState = CursorLockMode.Locked; 
         //to hide the curser
@@ -30,9 +30,11 @@ public class Universal : BaseState
         base.UpdateLogic();
 
 
-        CamerRotationX();
-        CameraRotationY();
+        //CamerRotationX();
+        // CameraRotationY();
 
+        _sm.GroundedCheck();
+        _sm.JumpAndGravity();
 
 
         //crouch
@@ -54,13 +56,48 @@ public class Universal : BaseState
         }
     }
 
+    public override void UpdatePhysics()
+    {
+        base.UpdatePhysics();
 
+        CameraRotation();
+    }
+
+    public static float ClampAngle(float lfAngle, float lfMin, float lfMax)
+    {
+        if (lfAngle < -360f) lfAngle += 360f;
+        if (lfAngle > 360f) lfAngle -= 360f;
+        return Mathf.Clamp(lfAngle, lfMin, lfMax);
+    }
+
+    private void CameraRotation()
+    {
+        float deltaTimeMultiplier = _sm.IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+
+        //Don't multiply mouse input by Time.deltaTime
+        // pitch
+        _sm.cinemachineTargetPitch += ((Input.GetAxis("Mouse Y") * _sm.invertedMouseVal) * _sm.mouseSensitivetyY) * _sm.rotationSpeed * deltaTimeMultiplier;
+        //yaw
+        _sm.rotationVelocity = (Input.GetAxis("Mouse X") * _sm.mouseSensitivetyX) * _sm.rotationSpeed * deltaTimeMultiplier;
+
+        // clamp our pitch rotation
+        _sm.cinemachineTargetPitch = ClampAngle(_sm.cinemachineTargetPitch, _sm.BottomClamp, _sm.TopClamp);
+
+        // Update Cinemachine camera target pitch
+        _sm.cinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_sm.cinemachineTargetPitch, 0.0f, 0.0f);
+
+        // rotate the player left and right
+        _playerTransform.Rotate(Vector3.up * _sm.rotationVelocity);
+        
+    }
+
+    /*
     private void CamerRotationX()
     {
         // mouse X
         float mouseX = Input.GetAxis("Mouse X");
 
-        float rotationNumberX = mouseX * _mouseSensitivetyX;
+        float rotationNumberX = mouseX * _sm.mouseSensitivetyX;
         Vector3 cameraRotation = _cameraTransform.localEulerAngles;
         Vector3 playerRotation = _playerTransform.rotation.eulerAngles;
 
@@ -77,7 +114,7 @@ public class Universal : BaseState
     {
         float mouseY = Input.GetAxis("Mouse Y");
 
-        float rotationNumberY = mouseY * _mouseSensitivetyY;
+        float rotationNumberY = mouseY * _sm.mouseSensitivetyY;
 
         Vector3 cameraRotation = _cameraTransform.rotation.eulerAngles;
 
@@ -103,7 +140,7 @@ public class Universal : BaseState
         _cameraTransform.rotation = Quaternion.Euler(cameraRotation);
     }
 
-
+    */
     public virtual float GetWeaponAccuracyModifer()
     {
         return 1;

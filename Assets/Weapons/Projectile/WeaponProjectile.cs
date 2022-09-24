@@ -32,7 +32,7 @@ public class WeaponProjectile : WeaponBase
         AwakenWeapon();
     }
 
-    public override void Fire1()
+    public override void Fire1(Vector3 shotDirection)
     {
         GameObject projectile = projectilePool.GetPooledObject();
 

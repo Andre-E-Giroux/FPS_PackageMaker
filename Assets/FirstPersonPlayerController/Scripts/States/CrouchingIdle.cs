@@ -12,6 +12,8 @@ public class CrouchingIdle : Grounded
     public override void Enter()
     {
         base.Enter();
+        _speedModifier = _sm.crouchSpeed;
+
         _sm.CrouchPlayer(true);
         _horizontalInput = 0f;
         _sm.meshRenderer.material.color = Color.black;

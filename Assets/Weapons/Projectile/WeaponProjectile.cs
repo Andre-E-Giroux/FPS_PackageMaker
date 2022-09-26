@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class WeaponProjectile : WeaponBase
 {
 
@@ -28,7 +32,7 @@ public class WeaponProjectile : WeaponBase
         AwakenWeapon();
     }
 
-    public override void Fire1()
+    public override void Fire1(Vector3 shotDirection)
     {
         GameObject projectile = projectilePool.GetPooledObject();
 
@@ -39,3 +43,21 @@ public class WeaponProjectile : WeaponBase
         //projectile.GetComponent<ProjectileScript>().FireProjectile();
     }
 }
+
+#if UNITY_EDITOR
+[CustomEditor(typeof(WeaponProjectile))]
+public class WeaponProjectile_Editor : WeaponBase_Editor
+{
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+
+        base.OnInspectorGUI();
+        // WeaponHitScanBurst script = (WeaponHitScanBurst)target;
+        // NAME OF SCRIPT SECTION //
+        //GUILayout.Label("WEAPON PROJECTILE SECTION");
+        serializedObject.ApplyModifiedProperties();
+
+    }
+}
+#endif

@@ -1,29 +1,27 @@
-(DONE) Allow interuptable reloading/break them up (Shotgun) have a window to stop it. 
-(DONE) *Bonus* Clean Fire1 from WeaponHitscan script to move most to the WeaponBaseScript, allowing for easier integration for the projectile weapon.
-(DONE_VERIFY AGAIN!) Bloom affect when firing weapon
-(Universal Crosshair added, unique: NO) Show the cone with a crosshair (Scaling a decal won't work, unique crosshair for each weapon (Yay new VAR!))
-(Done)Weapon switch speed implementd, with animation
-(Done) Decal spawn on terrain hit from weapon
-(Done, play with it to modify until satisfy)Modify cone accuracy based on movement and stance
-(Done)Projectile Weapons
-(Done)UI Copyright
-(Done)Projectile Weapons explosion variant
-
-
-Update Comments on scripts
-Melee weapon
-Show Weapons hud, similar to Dishonored. (Press weapon switch button, show line of weapons)
-Fine tune movement
-Enemy ragdoll
-Gun push force on RG objects
+-(DONE) Allow interuptable reloading/break them up (Shotgun) have a window to stop it. 
+-(DONE) *Bonus* Clean Fire1 from WeaponHitscan script to move most to the WeaponBaseScript, allowing for easier integration for the projectile weapon.
+-(DONE_VERIFY AGAIN!) Bloom affect when firing weapon
+-(Universal Crosshair added, unique: NO) Show the cone with a crosshair (Scaling a decal won't work, unique crosshair for each weapon (Yay new VAR!))
+-(Done)Weapon switch speed implementd, with animation
+-(Done) Decal spawn on terrain hit from weapon
+-(Done, play with it to modify until satisfy)Modify cone accuracy based on movement and stance
+-(Done)Projectile Weapons
+-(Done)UI Copyright
+-(Done)Projectile Weapons explosion variant
+-(Updated) Clean up and catagorise weapon inspectors(ON HOLD, WENT DOWN A RABBIT HOLE AND IT IS DEEP!)
 
 
 
 
 
-BUGS: 
-when smashing the camera down, camera my inverse due to the clamp
-Cmera jitters when turning horziontal and player is straffing
-(Possible bug) If projectile is to fast, it will phase through objects, "missing" the target
-		add a function where a raycast is sent out from the projectiles location last frame to the current position.
-		The raycast will detect if there is an object between them and cuase the effects on hit to happen on that object and point of hit detected by raycast.
+-(CURRENTLY WORKING ON (HOLD ON PLAYER SM INSPECTOR AND CLASS OVERHAUL))Melee weapon
+	NOTES: MAY NEED TO ADD A NEW FUNCTION TO BASE WEAPON, WHERE SHOTS DEVIATE IN A CONTROLLED MANOR. PRE SET SPREAD. ADDING THIS WOULD ADD THE ABILITY TO 
+	MAKE MELLE USE HITSCAN TO ATTACK AND ADD AN EXTRA OPTION TO WEAPON
+- Increase better connections to accuracy settings and cross hair
+-Show Weapons hud, similar to Dishonored. (Press weapon switch button, show line of weapons)
+-Fine tune movement
+-Enemy ragdoll
+-Gun push force on RG objects
+
+
+-(CONTINUOUS)Update Comments on scripts

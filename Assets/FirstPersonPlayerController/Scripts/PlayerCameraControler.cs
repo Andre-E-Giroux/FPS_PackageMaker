@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCameraControler : MonoBehaviour
-{
+{/*
     [SerializeField]
     private float _mouseSensitivetyX = 1f;
     [SerializeField]
@@ -72,5 +72,5 @@ public class PlayerCameraControler : MonoBehaviour
 
         _cameraTransform.rotation = Quaternion.Euler(cameraRotation);
     }
-
+    *///OBSOLETE
 }

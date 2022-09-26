@@ -500,7 +500,7 @@ public class WeaponBase : MonoBehaviour
     /// <returns>Direction of the fire will take</returns>
     protected virtual Vector3 PickFiringDirection(Vector3 muzzleForward)
     {
-        Vector3 candidate = Random.insideUnitSphere * currentConeAccuracySize + muzzleForward;
+        Vector3 candidate = (Random.insideUnitSphere * (currentConeAccuracySize * 2)) + muzzleForward;
         return candidate.normalized;
     }
 

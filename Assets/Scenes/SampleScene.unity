@@ -2485,6 +2485,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3148493395006218288, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: MAXIMUM_CONE_ACCURACY_SIZE
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148493395006218288, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: MINIMUM_CONE_ACCURACY_SIZE
+      value: 0.02
+      objectReference: {fileID: 0}
     - target: {fileID: 6641389803408247233, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: m_Name
       value: Main Camera

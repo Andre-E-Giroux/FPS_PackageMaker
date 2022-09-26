@@ -12,7 +12,7 @@ public class StandingIdle : Grounded
     public override void Enter()
     {
         base.Enter();
-        _speedModifier = _sm.speed;
+        _speedModifier = _sm.defaultSpeed;
         _sm.CrouchPlayer(false);
         _horizontalInput = 0f;
         _sm.meshRenderer.material.color = Color.black;

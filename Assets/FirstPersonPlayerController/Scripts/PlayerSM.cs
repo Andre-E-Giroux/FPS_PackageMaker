@@ -16,10 +16,7 @@ public class PlayerSM : StateMachine
     public CrouchingMoving crouchMovingState;
     [HideInInspector]
     public CrouchingIdle crouchIdleState;
-    //[HideInInspector]
-    //public Attack attackState;
 
-    // public Rigidbody rb;
     public CharacterController characterController;
     public MeshRenderer meshRenderer;
 
@@ -40,28 +37,32 @@ public class PlayerSM : StateMachine
     [Tooltip("What layers the character uses as ground")]
     public LayerMask groundLayers;
 
-    public float speed = 4f;
+    [Header("Player speed attributes")]
+    public float defaultSpeed = 4f;
     public float runningSpeed = 6f;
     public float crouchSpeed = 1.5f;
     public float jumpForce = 10f;
 
-
+    [Header("Player Jump and gravity")]
     [Tooltip("The height the player can jump")]
     public float JumpHeight = 1.2f;
     [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
     public float Gravity = -15.0f;
 
-    // rotation
-    public float rotationSpeed = 1.0f;
 
+    [Header("Player rotation")]
+    public float rotationSpeed = 1.0f;
+    [HideInInspector]
+    public float rotationVelocity;
+
+    [Header("Player mouse sensitivity")]
     public float mouseSensitivetyX = 1f;
     public float mouseSensitivetyY = 1f;
 
     [Tooltip("Acceleration and deceleration")]
     public float SpeedChangeRate = 10.0f;
 
-    private float _speed;
-    private float _verticalVelocity;
+
 
 
 
@@ -71,14 +72,16 @@ public class PlayerSM : StateMachine
     [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
     public float FallTimeout = 0.15f;
 
-
+    [Header("Misk attributes")]
     // timeout deltatime
     private float _jumpTimeoutDelta;
     private float _fallTimeoutDelta;
+
+    // falling terminal velocity
     private float _terminalVelocity = 53.0f;
+    private float _speed;
+    private float _verticalVelocity;
 
-
-    public float rotationVelocity;
 
     //cinemachine
     public float cinemachineTargetPitch;
@@ -95,7 +98,7 @@ public class PlayerSM : StateMachine
     [Tooltip("How far in degrees can you move the camera down")]
     public float BottomClamp = -90.0f;
 
-
+    // verify if mouse is the rotation device
     public bool IsCurrentDeviceMouse
     {
         get
@@ -108,28 +111,20 @@ public class PlayerSM : StateMachine
         }
     }
 
-
-    public float healthDecaySpeed = 4.0f;
-
+    [HideInInspector]
     public bool isCrouching = false;
-
-    [SerializeField]
+    //consts
     private const float CAMERA_STANDING_HEIGHT = 1.63f;
-    [SerializeField]
     private const float CAMERA_CROUCHING_HEIGHT = 0.85f;
-
-    [SerializeField]
     private const float COLLIDER_STANDING_HEIGHT = 2;
-    [SerializeField]
     private const float COLLIDER_CROUCHING_HEIGHT = 1.22f;
-
-    [SerializeField]
     private const float COLLIDER_STANDING_CENTER = 1;
-    [SerializeField]
     private const float COLLIDER_CROUCHING_CENTER = 0.61F;
 
+    [Header("Player reference")]
+    [Tooltip("Player Entity reference")]
     public Entity playerEntity;
-
+    [Tooltip("Player Weapon Interaction")]
     public WeaponInteraction wInteraction;
 
     public void Awake()

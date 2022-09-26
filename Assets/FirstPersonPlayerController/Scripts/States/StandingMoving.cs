@@ -14,7 +14,7 @@ public class StandingMoving : Grounded
     public override void Enter()
     {
         base.Enter();
-        _speedModifier = _sm.speed;
+        _speedModifier = _sm.defaultSpeed;
         _horizontalInput = 0f;
         _sm.meshRenderer.material.color = Color.red;
         ((PlayerSM)stateMachine).wInteraction.UpdateWeaponFromPlayerState(WEAPON_ACCURACY_MODIFIER);

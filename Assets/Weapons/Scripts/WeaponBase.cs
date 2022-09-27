@@ -37,7 +37,7 @@ public class WeaponBase : MonoBehaviour
     
         public bool areShotsPreDetermined = false;
 
-        public Vector2[] preAccuracyShots;
+        public Vector3[] preAccuracyShots;
 
 
 
@@ -243,7 +243,7 @@ public class WeaponBase : MonoBehaviour
             {
                 for (int i = 0; i < NUMBER_OF_PROJECTILES_PER_SHOT; i++)
                 {
-                    weaponSuper.Fire1(PickFiringDirection(Vector3.forward));
+                    weaponSuper.Fire1(PickFiringRandomDirection(Vector3.forward));
                     AccuracyDecrease();
                 }
             }
@@ -255,7 +255,7 @@ public class WeaponBase : MonoBehaviour
                     //preAccuracyShots[i] shot direction
                     //weaponSuper.Fire1();
                     // weaponSuper.Fire1(FirePreShot(preAccuracyShots[i], Vector3.forward)); 
-                    weaponSuper.Fire1(FirePreShot(preAccuracyShots[i]));
+                    weaponSuper.Fire1(FirePreDeterminedShot(preAccuracyShots[i]));
                     AccuracyDecrease();
                 }
             }
@@ -498,7 +498,7 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     /// <param name="muzzleForward">Forward vector of the camera</param>
     /// <returns>Direction of the fire will take</returns>
-    protected virtual Vector3 PickFiringDirection(Vector3 muzzleForward)
+    protected virtual Vector3 PickFiringRandomDirection(Vector3 muzzleForward)
     {
         Vector3 candidate = (Random.insideUnitSphere * (currentConeAccuracySize * 2)) + muzzleForward;
         return candidate.normalized;
@@ -507,10 +507,9 @@ public class WeaponBase : MonoBehaviour
 
 
 
-    protected virtual Vector3 FirePreShot(Vector2 preAccuracyShot)
+    protected virtual Vector3 FirePreDeterminedShot(Vector3 preAccuracyShot)
     {
-        Vector3 directionResult = new Vector3(preAccuracyShot.x, preAccuracyShot.y, 1);
-        return directionResult.normalized;
+        return preAccuracyShot.normalized;
     }
 
 

@@ -260,6 +260,7 @@ public class WeaponBase : MonoBehaviour
                 }
             }
 
+
             if(hasLimitedAmmunition)
                 --currentMagazineAmmo;
 
@@ -288,6 +289,8 @@ public class WeaponBase : MonoBehaviour
             //BASE
 
 
+            AfterFire1();
+
             return true;
         }
         else if (isReloading)
@@ -309,6 +312,12 @@ public class WeaponBase : MonoBehaviour
     /// </summary>
     public virtual void Fire1(Vector3 shotDirection) {}
 
+
+    /// <summary>
+    /// After succesful weapon fire1 function.
+    /// weapons will use this function when they need to have an effect that happens after a succesful fire1
+    /// </summary>
+    public virtual void AfterFire1() { }
 
 
     /// <summary>

@@ -72,7 +72,7 @@ public class PlayerSM : StateMachine
     [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
     public float FallTimeout = 0.15f;
 
-    [Header("Misk attributes")]
+    [Header("Misc attributes")]
     // timeout deltatime
     private float _jumpTimeoutDelta;
     private float _fallTimeoutDelta;

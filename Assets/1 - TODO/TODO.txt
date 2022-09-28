@@ -9,15 +9,15 @@
 -(Done)UI Copyright
 -(Done)Projectile Weapons explosion variant
 -(Updated) Clean up and catagorise weapon inspectors(ON HOLD, WENT DOWN A RABBIT HOLE AND IT IS DEEP!)
-
-
-
-
-
--(CURRENTLY WORKING ON (HOLD ON PLAYER SM INSPECTOR AND CLASS OVERHAUL))Melee weapon
-	NOTES: MAY NEED TO ADD A NEW FUNCTION TO BASE WEAPON, WHERE SHOTS DEVIATE IN A CONTROLLED MANOR. PRE SET SPREAD. ADDING THIS WOULD ADD THE ABILITY TO 
-	MAKE MELLE USE HITSCAN TO ATTACK AND ADD AN EXTRA OPTION TO WEAPON
-- Increase better connections to accuracy settings and cross hair
+-(Done) Added a pre-determined shot direction for weapons. When "areShotPreDetermined" is set to true, random accuracy is bypassed, the inspector will show an array of Vector3s, each vector 3 is a single shot
+				NOTES: MAY NEED TO ADD A NEW FUNCTION TO BASE WEAPON, WHERE SHOTS DEVIATE IN A CONTROLLED MANER. PRE SET SPREAD. ADDING THIS WOULD ADD THE ABILITY TO 
+				MAKE MELLE USE HITSCAN TO ATTACK AND ADD AN EXTRA OPTION TO WEAPON
+-(Done)Melee weapon "hitscan"
+	Added the singleHitDamage bool, which allows the the use of the multiple weapon spread only doing one set of damage per group of raycasts
+	Example, one click spawns 3 rays, two hits 1 person and the last hits another. Both target hit will receive the same damage, because the raycasts 
+	that hit the same target as another will be ignored
+	
+- Increase better connections to accuracy settings and cross hair (Updated by 2x the accuracy deviation in Base Weapon class)
 -Show Weapons hud, similar to Dishonored. (Press weapon switch button, show line of weapons)
 -Fine tune movement
 -Enemy ragdoll

@@ -2493,6 +2493,34 @@ PrefabInstance:
       propertyPath: MINIMUM_CONE_ACCURACY_SIZE
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 6079403385176996954, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: areShotsPreDetermined
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079403385176996954, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: preAccuracyShots.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079403385176996954, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: preAccuracyShots.Array.data[0].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079403385176996954, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: preAccuracyShots.Array.data[0].y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079403385176996954, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: preAccuracyShots.Array.data[0].z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079403385176996954, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: preAccuracyShots.Array.data[1].x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6079403385176996954, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: preAccuracyShots.Array.data[1].z
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6641389803408247233, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: m_Name
       value: Main Camera

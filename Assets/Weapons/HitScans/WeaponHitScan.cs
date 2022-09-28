@@ -33,7 +33,13 @@ public class WeaponHitScan : WeaponBase
     /// </summary>
     public float MAX_WEAPON_RANGE = 5;
 
-    
+
+    public bool singleHitDamage = false;
+
+
+    private List<int> singleHitList = new List<int>();
+
+
 
     private void Awake()
     {
@@ -57,15 +63,19 @@ public class WeaponHitScan : WeaponBase
         AwakenWeapon();
     }
 
-    // LOOK HERE for premade shot directions
+    public override void AfterFire1() 
+    {
+        singleHitList.Clear();
+    }
+
+
     public override void Fire1(Vector3 shotDirection)
     {
 
         Debug.Log("FIRE1 called for hit scan for weapon: " + nameOfWeapon);
         Debug.Log("range: " + MAX_WEAPON_RANGE);
 
-        //Vector3 shotDirectionOffset = PickFiringDirection(Vector3.forward);
-
+  
         Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(shotDirection) * MAX_WEAPON_RANGE, Color.yellow,30);
 
         if (Physics.Raycast(playerCamera.transform.position, transform.TransformDirection(shotDirection), out hit, MAX_WEAPON_RANGE, entityLayerMask))
@@ -75,8 +85,25 @@ public class WeaponHitScan : WeaponBase
             Entity hitEntity = hit.transform.transform.root.GetComponent<Entity>();
             if (hitEntity)
             {
+                
+                
+                if(singleHitDamage)
+                {
+                    if (singleHitList.Contains(hitEntity.gameObject.GetInstanceID()))
+                    {
+                        Debug.Log("Target hit before, ignore");
+                        return;
+                    }
+                    else
+                        singleHitList.Add(hitEntity.gameObject.GetInstanceID());
+                }
 
+                Debug.Log("Damage daealth to: " + hitEntity.GetInstanceID());
                 hitEntity.AddHealth(-WEAPON_DAMAGE);
+
+                
+
+
             }
             else
             {
@@ -124,6 +151,10 @@ public class WeaponHitScan_Editor : WeaponBase_Editor
         
         //weapon damage
         EditorGUILayout.PropertyField(serializedObject.FindProperty("WEAPON_DAMAGE"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("singleHitDamage"));
+
+
+
 
         serializedObject.ApplyModifiedProperties();
     }

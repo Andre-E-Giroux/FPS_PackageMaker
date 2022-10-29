@@ -13,14 +13,15 @@
 				NOTES: MAY NEED TO ADD A NEW FUNCTION TO BASE WEAPON, WHERE SHOTS DEVIATE IN A CONTROLLED MANER. PRE SET SPREAD. ADDING THIS WOULD ADD THE ABILITY TO 
 				MAKE MELLE USE HITSCAN TO ATTACK AND ADD AN EXTRA OPTION TO WEAPON
 -(Done)Melee weapon "hitscan"
+-(Done)Show Weapons hud, similar to Dishonored. (Press weapon switch button, show line of weapons)
 	Added the singleHitDamage bool, which allows the the use of the multiple weapon spread only doing one set of damage per group of raycasts
 	Example, one click spawns 3 rays, two hits 1 person and the last hits another. Both target hit will receive the same damage, because the raycasts 
 	that hit the same target as another will be ignored	
 - (Done- Revise later)Increase better connections to accuracy settings and cross hair (Updated by 2x the accuracy deviation in Base Weapon class)
 
 
--Show Weapons hud, similar to Dishonored. (Press weapon switch button, show line of weapons)
--Fine tune movement
+-(To be started)Fine tune movement
+	Move to jump does not preserve momentum from move
 -Enemy ragdoll
 -Gun push force on RG objects
 

@@ -15,9 +15,10 @@
 -(Done)Melee weapon "hitscan"
 	Added the singleHitDamage bool, which allows the the use of the multiple weapon spread only doing one set of damage per group of raycasts
 	Example, one click spawns 3 rays, two hits 1 person and the last hits another. Both target hit will receive the same damage, because the raycasts 
-	that hit the same target as another will be ignored
-	
-- Increase better connections to accuracy settings and cross hair (Updated by 2x the accuracy deviation in Base Weapon class)
+	that hit the same target as another will be ignored	
+- (Done- Revise later)Increase better connections to accuracy settings and cross hair (Updated by 2x the accuracy deviation in Base Weapon class)
+
+
 -Show Weapons hud, similar to Dishonored. (Press weapon switch button, show line of weapons)
 -Fine tune movement
 -Enemy ragdoll

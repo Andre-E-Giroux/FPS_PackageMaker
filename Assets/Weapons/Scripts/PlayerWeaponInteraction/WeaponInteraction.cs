@@ -35,8 +35,9 @@ public class WeaponInteraction : MonoBehaviour
         }
         weapons[0].SetActive(true);
 
+        weaponPlayerHUD_Controller.Startup(MAX_NUMBER_OF_WEAPONS, selectedWeapon, this);
 
-        
+
         UpdateHud();
     }
 
@@ -138,6 +139,7 @@ public class WeaponInteraction : MonoBehaviour
     {
         weaponPlayerHUD_Controller.SetCurrentMagazineAmmoText(weaponBases[selectedWeapon].GetMagazineAmmo());
         weaponPlayerHUD_Controller.SetCurrentReserveAmmoText(weaponBases[selectedWeapon].GetReserveAmmo());
+        weaponPlayerHUD_Controller.ChangeSeletedItem(selectedWeapon);
     }
 
     /// <summary>

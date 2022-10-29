@@ -35,7 +35,7 @@ public class WeaponInteraction : MonoBehaviour
         }
         weapons[0].SetActive(true);
 
-        weaponPlayerHUD_Controller.Startup(MAX_NUMBER_OF_WEAPONS, selectedWeapon);
+        weaponPlayerHUD_Controller.Startup(MAX_NUMBER_OF_WEAPONS, selectedWeapon, this);
 
 
         UpdateHud();

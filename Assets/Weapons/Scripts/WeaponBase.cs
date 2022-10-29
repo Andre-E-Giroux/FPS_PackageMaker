@@ -14,18 +14,24 @@ using UnityEditor;
 /// </summary>
 public class WeaponBase : MonoBehaviour
 {
-    // IDENTIFICATION VARIABLS: START /////////////////////////////////////////////////////////
+    // IDENTIFICATION VARIABLES: START /////////////////////////////////////////////////////////
         /// <summary>
         /// Name of weapon. animation names must follow this pattern: "anim_*nameOfWeapon*_*action*"
         /// Example: "anim_Pistol_Fire"
         /// </summary>
         public string nameOfWeapon;
-    // IDENTIFICATION VARIABLS: END /////////////////////////////////////////////////////////
+
+       /// <summary>
+       /// The weapon's icon that will be shown in inventory/hotbars
+       /// </summary>
+       public Texture weaponIcon;
+    
+    // IDENTIFICATION VARIABLES: END /////////////////////////////////////////////////////////
 
    
 
 
-    // FIRE  VARIABLS: START /////////////////////////////////////////////////////////
+    // FIRE  VARIABLES: START /////////////////////////////////////////////////////////
         /// <summary>
         /// Size of the cone that projectiles can fire within
         /// </summary>
@@ -690,6 +696,8 @@ public class WeaponBase_Editor : Editor
         GUILayout.Label("IDENTIFICATION");
         //name
         EditorGUILayout.PropertyField(serializedObject.FindProperty("nameOfWeapon"));
+        //icon
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("weaponIcon"));
        
         // TEMP - TODO: FIND A BETTER WAY TO seperate the sections "\n" (background color change?)
         //  REFERENCES///

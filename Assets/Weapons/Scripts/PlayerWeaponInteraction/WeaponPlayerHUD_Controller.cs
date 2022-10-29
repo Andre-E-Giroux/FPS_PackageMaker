@@ -29,6 +29,8 @@ public class WeaponPlayerHUD_Controller : MonoBehaviour
     [SerializeField]
     private Color[] iconColors = new Color[2];
 
+    private WeaponInteraction weaponInteraction;
+
 
     public void SetCurrentMagazineAmmoText(int ammoCount)
     {
@@ -40,9 +42,10 @@ public class WeaponPlayerHUD_Controller : MonoBehaviour
     }
 
 
-    public void Startup(int numberOfItems, int initialWeapon)
+    public void Startup(int numberOfItems, int initialWeapon, WeaponInteraction wInteraction)
     {
-        Debug.Log("STARTUP");
+       // Debug.Log("STARTUP");
+        weaponInteraction = wInteraction;
         itemEntities = new RectTransform[numberOfItems];
         CreateItemListHud(numberOfItems);
         InitialWeapon(initialWeapon);
@@ -51,10 +54,10 @@ public class WeaponPlayerHUD_Controller : MonoBehaviour
 
     public void InitialWeapon(int initialWeapon)
     {
-        Debug.Log("initial weapon");
+       // Debug.Log("initial weapon");
 
         currentItemSelected =initialWeapon;
-        Debug.Log("Current item selected: "+currentItemSelected);
+       // Debug.Log("Current item selected: "+currentItemSelected);
         ChangeItemHudColor(initialWeapon, 1);
 
     }
@@ -72,7 +75,6 @@ public class WeaponPlayerHUD_Controller : MonoBehaviour
 
     private void ChangeItemHudColor(int itemIndex, int colorTypeIndex)
     {
-        Debug.Log("Change to colortype: " + colorTypeIndex);
         //box
         itemEntities[itemIndex].GetComponent<RawImage>().color = boxColors[colorTypeIndex];
         //icon
@@ -92,10 +94,25 @@ public class WeaponPlayerHUD_Controller : MonoBehaviour
         
         for(int i = 0; i < numberOfItems; i++)
         {
-            RectTransform hold = Instantiate(itemBoxPrefab).GetComponent<RectTransform>();
-            hold.parent = listBackgroundRectTransform;
-            hold.anchoredPosition = new Vector3(boxPadding + (boxPadding * i) + (i * itemBoxPrefab.GetComponent<RectTransform>().sizeDelta.x), 0, 0);
-            itemEntities[i] = hold;
+            RectTransform newIcon = Instantiate(itemBoxPrefab).GetComponent<RectTransform>();
+            newIcon.parent = listBackgroundRectTransform;
+            newIcon.anchoredPosition = new Vector3(boxPadding + (boxPadding * i) + (i * itemBoxPrefab.GetComponent<RectTransform>().sizeDelta.x), 0, 0);
+            Texture weaponIcon = weaponInteraction.weapons[i].GetComponent<WeaponBase>().weaponIcon;
+            newIcon.GetChild(0).GetComponent<RawImage>().texture = weaponIcon;
+
+            RectTransform newIconChildRect = newIcon.GetChild(0).GetComponent<RectTransform>();
+
+            if (weaponIcon.width > weaponIcon.height)
+            {
+                newIconChildRect.sizeDelta = new Vector2(newIconChildRect.sizeDelta.x, (float)newIconChildRect.sizeDelta.y / ((float)weaponIcon.width / (float)weaponIcon.height));
+            }
+            else
+            {
+                //Debug.Log("Resize width");
+                newIconChildRect.GetComponent<RectTransform>().sizeDelta = new Vector2((float)newIconChildRect.sizeDelta.x / ((float)weaponIcon.height/ (float)weaponIcon.width), newIconChildRect.sizeDelta.y);
+            }
+
+            itemEntities[i] = newIcon;
 
             ChangeItemHudColor(i, 0);
         }

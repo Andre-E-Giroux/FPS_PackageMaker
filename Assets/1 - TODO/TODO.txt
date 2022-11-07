@@ -21,7 +21,7 @@
 
 
 -(To be started)Fine tune movement
-	Move to jump does not preserve momentum from move
+	(Done)Move to jump does not preserve momentum from move
 -Enemy ragdoll
 -Gun push force on RG objects
 

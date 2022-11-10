@@ -41,6 +41,11 @@ public class Entity : MonoBehaviour
     [HideInInspector]
     public Transform[] hitNodes;
 
+    /// <summary>
+    /// Reference tot he RagdolScript component on the entitiy
+    /// </summary>
+    [SerializeField]
+    private RagdollScript ragdollScript;
 
     /// <summary>
     /// Add health to target
@@ -75,11 +80,12 @@ public class Entity : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Call this function to enable ragdoll
     /// </summary>
     public void DeathRagdoll()
     {
-
+        ragdollScript.SetActiveRagdoll(true);
+        ragdollScript.SetExtraObjectConnection(false);
     }
 
     // Start is called before the first frame update
@@ -89,5 +95,11 @@ public class Entity : MonoBehaviour
         currentHealth = MAX_HEALTH;
 
         hitNodes = hitNodesParent.GetComponentsInChildren<Transform>();
+
+        if(ragdollScript)
+        {
+            ragdollScript.InitializeRagdoll();
+            ragdollScript.SetAccessorieOrigins();
+        }
     }
 }

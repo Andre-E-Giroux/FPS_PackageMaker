@@ -45,13 +45,16 @@ public class RagdollScript : MonoBehaviour
     {
         _animator.enabled = !activate;
         _collider.enabled = !activate;
-        _rigidbody.isKinematic = activate;
 
-        if (activate)
-            _rigidbody.constraints = RigidbodyConstraints.None;
-        else
-            _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY;
+        if (_rigidbody)
+        {
+            _rigidbody.isKinematic = activate;
 
+            if (activate)
+                _rigidbody.constraints = RigidbodyConstraints.None;
+            else
+                _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY;
+        }
 
         for (int i = 0; i < _ragdollColliders.Count; i++)
         {
@@ -129,6 +132,7 @@ public class RagdollScript : MonoBehaviour
 
             if (_ragDollRigidbodies[i].transform.parent == null)
             {
+                Debug.Log("No parent, removed");
                 _ragDollRigidbodies.RemoveAt(i);
             }
             else
@@ -146,7 +150,7 @@ public class RagdollScript : MonoBehaviour
             }
             else
             {
-                _ragdollColliders[i].isTrigger = true;
+                _ragdollColliders[i].enabled = false;
             }
         }
 

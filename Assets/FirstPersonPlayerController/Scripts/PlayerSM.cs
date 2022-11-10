@@ -81,6 +81,9 @@ public class PlayerSM : StateMachine
     private float _terminalVelocity = 53.0f;
     private float _speed;
     private float _verticalVelocity;
+    private float _xVelocity;
+    private float _zVelocity;
+    private Vector3 _inputDirection;
 
 
     //cinemachine
@@ -181,18 +184,19 @@ public class PlayerSM : StateMachine
         }
 
         // normalise input direction
-        Vector3 inputDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical")).normalized;
+        _inputDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical")).normalized;
 
         // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
         // if there is a move input rotate player when the player is moving
         if (new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) != Vector2.zero)
         {
             // move
-            inputDirection = transform.right * Input.GetAxisRaw("Horizontal") + transform.forward * Input.GetAxisRaw("Vertical");
+            _inputDirection = transform.right * Input.GetAxisRaw("Horizontal") + transform.forward * Input.GetAxisRaw("Vertical");
         }
 
-        // move the player
-        characterController.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+
+
+
     }
 
 
@@ -244,15 +248,37 @@ public class PlayerSM : StateMachine
 				
 		}
 
-		// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-		if (_verticalVelocity < _terminalVelocity)
-		{
-			_verticalVelocity += Gravity * Time.deltaTime;
-		}
+        // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+        if (_verticalVelocity < _terminalVelocity)
+        {
+            _verticalVelocity += Gravity * Time.deltaTime;
 
-        characterController.Move(new Vector3(characterController.velocity.x, _verticalVelocity, characterController.velocity.z) * Time.deltaTime);
+        }
+        //UniversalMove();
+
+        //characterController.Move(new Vector3(characterController.velocity.x, _verticalVelocity, characterController.velocity.z) * Time.deltaTime);
 
     }
+
+
+    public void UniversalMove(bool isGrounded)
+    {
+        if (isGrounded)
+        {
+            characterController.Move(_inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+
+            _xVelocity = characterController.velocity.x;
+            _zVelocity = characterController.velocity.z;
+        }
+        else
+        {
+            characterController.Move(new Vector3(_xVelocity, _verticalVelocity, _zVelocity) * Time.deltaTime);
+        }
+
+        characterController.Move(new Vector3(_xVelocity, _verticalVelocity, _zVelocity) * Time.deltaTime);
+    }
+
+
 
     public void GroundedCheck()
     {

@@ -35,6 +35,7 @@ public class Universal : BaseState
 
         _sm.GroundedCheck();
         _sm.JumpAndGravity();
+        _sm.UniversalMove(_sm.grounded);
 
 
         //crouch

@@ -27,7 +27,7 @@ public class Entity : MonoBehaviour
     /// Can the entity ragdoll, true of false?
     /// If true the DeathRagdoll function will be called, else DeathDelete function will be called
     /// </summary>
-    public bool ragdoll = false;
+    public bool ragdollDeathAllowed = false;
 
     /// <summary>
     /// parent holding the hitNodes
@@ -47,29 +47,109 @@ public class Entity : MonoBehaviour
     [SerializeField]
     private RagdollScript ragdollScript;
 
+   // [SerializeField]
+    //public Ragdoll ragdoll;
+
+    
     /// <summary>
     /// Add health to target
     /// </summary>
     /// <param name="increase">Float value of the added health to the entity</param>
-    public void AddHealth(float increase)
+    public virtual void AddHealth(float increase)
     {
        // Debug.Log("Add health called on entity: " + gameObject.name + " value increase = " + increase);
         if (currentHealth + increase > MAX_HEALTH)
             currentHealth = MAX_HEALTH;
-        else if ((currentHealth + increase) <= 0)
-        {
-            currentHealth = 0;
-            if (ragdoll)
-                DeathRagdoll();
-            else
-                DeathDelete();
-        }
-        else
+        
+        else if(!CheckDeath())
             currentHealth += increase;
 
         if (ED)
             ED.UpdateHealthBar(currentHealth, MAX_HEALTH);
     }
+    
+
+    /// <summary>
+    /// Take damage based on the part that was hit
+    /// </summary>
+    /// <param name="deffaultDamage"></param>
+    /// <param name="distance"></param>
+    /// <param name="hitBodyPart"></param>
+    public void TakeDamageBasedOnPart(float deffaultDamage, float distance, string hitBodyPart)
+    {
+        // 1. find what type of body part
+        // 2. fin algorithm on how to deal damage
+
+
+        distance = 1;
+
+        Debug.Log("Damaged based on part: " + hitBodyPart);
+
+        if (distance < 1)
+            distance = 1;
+
+        if (hitBodyPart == "CritPart")
+        {
+            Debug.Log("damage: crit");
+            currentHealth -= (deffaultDamage / distance) * 2;
+        }
+
+        else if (hitBodyPart == "WeakPart")
+        {
+            Debug.Log("damage: weak");
+
+            currentHealth -= (deffaultDamage / distance) * 1.5f;
+        }
+
+
+        else if(hitBodyPart == "StrongPart")
+        {
+            Debug.Log("damage: strong");
+
+            currentHealth -= (deffaultDamage / distance) * 0.5f;
+        }
+
+        else
+        {
+            Debug.Log("damage: standard");
+
+            currentHealth -= (deffaultDamage / distance);
+        }
+
+        CheckDeath();
+
+        if (ED)
+            ED.UpdateHealthBar(currentHealth, MAX_HEALTH);
+    }
+
+    private bool CheckDeath()
+    {
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+
+            if (ragdollScript && ragdollDeathAllowed)
+                DeathRagdoll();
+            else
+                DeathDelete();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    // to be modded later if needed
+    public void TakeExploDistanceDamage(float explosioDamage)
+    {
+        currentHealth -= explosioDamage;
+
+        CheckDeath();
+
+        if (ED)
+            ED.UpdateHealthBar(currentHealth, MAX_HEALTH);
+    }
+
 
     /// <summary>
     /// Delete game object

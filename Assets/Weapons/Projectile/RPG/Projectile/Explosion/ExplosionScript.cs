@@ -86,10 +86,11 @@ public class ExplosionScript : MonoBehaviour
                     if (shortestDistance > hit.distance)
                         shortestDistance = hit.distance;
                 }
-            } 
-            cEntity.AddHealth(-CalculateExplosionDamage(shortestDistance));
+            }
+            cEntity.TakeExploDistanceDamage(-CalculateExplosionDamage(shortestDistance));
+
         }
-            
+
     }
 
     /// <summary>

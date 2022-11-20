@@ -46,6 +46,8 @@ public class RagdollScript : MonoBehaviour
         _animator.enabled = !activate;
         _collider.enabled = !activate;
 
+        _rigidbody.isKinematic = activate;
+        /*
         if (_rigidbody)
         {
             _rigidbody.isKinematic = activate;
@@ -55,10 +57,10 @@ public class RagdollScript : MonoBehaviour
             else
                 _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY;
         }
-
+        */
         for (int i = 0; i < _ragdollColliders.Count; i++)
         {
-            _ragdollColliders[i].enabled = activate;
+            _ragdollColliders[i].isTrigger = !activate;
             _ragDollRigidbodies[i].isKinematic = !activate;
         }
     }
@@ -119,7 +121,6 @@ public class RagdollScript : MonoBehaviour
     {
         // first rigid body is ignored, wut?! Look for fix/update 2021 build
         _ragDollRigidbodies = new List<Rigidbody>(GetComponentsInChildren<Rigidbody>());
-
         _ragdollColliders = new List<Collider>(GetComponentsInChildren<Collider>());
 
         // components taht affects the ragdoll without being connected to it
@@ -132,11 +133,13 @@ public class RagdollScript : MonoBehaviour
 
             if (_ragDollRigidbodies[i].transform.parent == null)
             {
-                Debug.Log("No parent, removed");
+               // Debug.Log("No parent, removed: " + _ragDollRigidbodies[i].name);
                 _ragDollRigidbodies.RemoveAt(i);
+                i--;
             }
             else
             {
+               // Debug.Log("Has set for: " + _ragDollRigidbodies[i].name);
                 _ragDollRigidbodies[i].isKinematic = true;
             }
         }
@@ -147,10 +150,11 @@ public class RagdollScript : MonoBehaviour
             if (_ragdollColliders[i].transform.parent == null)
             {
                 _ragdollColliders.RemoveAt(i);
+                i--;
             }
             else
             {
-                _ragdollColliders[i].enabled = false;
+                _ragdollColliders[i].isTrigger = true;
             }
         }
 

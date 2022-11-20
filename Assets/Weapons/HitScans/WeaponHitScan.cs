@@ -72,15 +72,15 @@ public class WeaponHitScan : WeaponBase
     public override void Fire1(Vector3 shotDirection)
     {
 
-        Debug.Log("FIRE1 called for hit scan for weapon: " + nameOfWeapon);
-        Debug.Log("range: " + MAX_WEAPON_RANGE);
+      //  Debug.Log("FIRE1 called for hit scan for weapon: " + nameOfWeapon);
+      //  Debug.Log("range: " + MAX_WEAPON_RANGE);
 
   
         Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(shotDirection) * MAX_WEAPON_RANGE, Color.yellow,30);
 
         if (Physics.Raycast(playerCamera.transform.position, transform.TransformDirection(shotDirection), out hit, MAX_WEAPON_RANGE, entityLayerMask))
         {
-            Debug.Log( nameOfWeapon + "has hit a valid target");
+            Debug.Log( nameOfWeapon + "has hit a valid target:"+ hit.transform.gameObject.name + " with tag of: " + hit.transform.tag);
 
             Entity hitEntity = hit.transform.transform.root.GetComponent<Entity>();
             if (hitEntity)
@@ -91,17 +91,20 @@ public class WeaponHitScan : WeaponBase
                 {
                     if (singleHitList.Contains(hitEntity.gameObject.GetInstanceID()))
                     {
-                        Debug.Log("Target hit before, ignore");
+                       // Debug.Log("Target hit before, ignore");
                         return;
                     }
                     else
                         singleHitList.Add(hitEntity.gameObject.GetInstanceID());
                 }
 
-                Debug.Log("Damage daealth to: " + hitEntity.GetInstanceID());
-                hitEntity.AddHealth(-WEAPON_DAMAGE);
+                //Debug.Log("Damage daealth to: " + hitEntity.GetInstanceID());
 
-                
+                Debug.Log(hitEntity.transform.gameObject.name);
+                //hitEntity.AddHealth(-WEAPON_DAMAGE);
+                hitEntity.TakeDamageBasedOnPart(WEAPON_DAMAGE, hit.distance, hit.transform.tag);
+
+
 
 
             }

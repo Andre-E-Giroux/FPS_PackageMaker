@@ -49,7 +49,9 @@ public class ProjectileScript : MonoBehaviour
         if (entityTargetLayerMask == (entityTargetLayerMask | (1 << other.gameObject.layer)))
         {
             Debug.Log("Damage target!");
-            other.GetComponent<Entity>().AddHealth(-directDamage);
+            //other.GetComponent<Entity>().AddHealth(-directDamage);
+            other.transform.root.GetComponent<Entity>().TakeDamageBasedOnPart(directDamage, 0, other.transform.tag);
+
         }
 
         gameObject.SetActive(false);

@@ -129,7 +129,7 @@ public class Entity : MonoBehaviour
             currentHealth = 0;
 
             if (ragdollScript && ragdollDeathAllowed)
-                DeathRagdoll();
+                ActivateRagdoll(true);
             else
                 DeathDelete();
 
@@ -162,10 +162,10 @@ public class Entity : MonoBehaviour
     /// <summary>
     /// Call this function to enable ragdoll
     /// </summary>
-    public void DeathRagdoll()
+    public void ActivateRagdoll(bool activate)
     {
-        ragdollScript.SetActiveRagdoll(true);
-        ragdollScript.SetExtraObjectConnection(false);
+        ragdollScript.SetActiveRagdoll(activate);
+        ragdollScript.SetExtraObjectConnection(activate);
     }
 
     // Start is called before the first frame update
@@ -179,7 +179,6 @@ public class Entity : MonoBehaviour
         if(ragdollScript)
         {
             ragdollScript.InitializeRagdoll();
-            ragdollScript.SetAccessorieOrigins();
         }
     }
 }

@@ -74,16 +74,10 @@ public class RagdollScript : MonoBehaviour
                 extraItemsAndOwners[i].child.parent = extraItemsAndOwners[i].parent;
                 extraItemsAndOwners[i].child.localPosition = extraItemsAndOwners[i].childOriginLocalPosition;
                 extraItemsAndOwners[i].child.localRotation = extraItemsAndOwners[i].childOriginLocalRotation;
-
-                foreach (Behaviour behaviour in extraItemsAndOwners[i].behavioursActiveOnOrphan)
-                    behaviour.enabled = false;
             }
             else
             {
                 extraItemsAndOwners[i].child.parent = null;
-
-                foreach (Behaviour behaviour in extraItemsAndOwners[i].behavioursActiveOnOrphan)
-                    behaviour.enabled = true;
             }
         }
 
@@ -162,6 +156,15 @@ public class RagdollScript : MonoBehaviour
         }
 
         _isRagdollActivated = false;
+    }
+
+    /// <summary>
+    /// Call this function to enable ragdoll
+    /// </summary>
+    public void ActivateRagdoll(bool activate)
+    {
+        SetActiveRagdoll(activate);
+        SetExtraObjectConnection(activate);
     }
 
     /// <summary>

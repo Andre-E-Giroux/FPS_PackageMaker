@@ -30,6 +30,11 @@ public class Entity : MonoBehaviour
     public bool ragdollDeathAllowed = false;
 
     /// <summary>
+    /// Boolean that informs if the entity is dead or not
+    /// </summary>
+    public bool isAlive;
+
+    /// <summary>
     /// parent holding the hitNodes
     /// </summary>
     [SerializeField]
@@ -124,15 +129,19 @@ public class Entity : MonoBehaviour
 
     private bool CheckDeath()
     {
+        if (!isAlive)
+            return true;
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
 
             if (ragdollScript && ragdollDeathAllowed)
-                ActivateRagdoll(true);
+                ragdollScript.ActivateRagdoll(true);
             else
                 DeathDelete();
 
+            isAlive = false;
             return true;
         }
 
@@ -159,18 +168,12 @@ public class Entity : MonoBehaviour
         Destroy(gameObject);
     }
 
-    /// <summary>
-    /// Call this function to enable ragdoll
-    /// </summary>
-    public void ActivateRagdoll(bool activate)
-    {
-        ragdollScript.SetActiveRagdoll(activate);
-        ragdollScript.SetExtraObjectConnection(activate);
-    }
+   
 
     // Start is called before the first frame update
     void Awake()
     {
+        isAlive = true;
         gameObject.layer = LayerMask.NameToLayer("Entity");
         currentHealth = MAX_HEALTH;
 

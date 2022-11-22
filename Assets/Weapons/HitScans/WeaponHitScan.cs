@@ -36,6 +36,8 @@ public class WeaponHitScan : WeaponBase
 
     public bool singleHitDamage = false;
 
+    public float weaponInanimateImpactForce = 0f;
+
 
     private List<int> singleHitList = new List<int>();
 
@@ -85,26 +87,35 @@ public class WeaponHitScan : WeaponBase
             Entity hitEntity = hit.transform.transform.root.GetComponent<Entity>();
             if (hitEntity)
             {
-                
-                
-                if(singleHitDamage)
+                if (hitEntity.isAlive)
                 {
-                    if (singleHitList.Contains(hitEntity.gameObject.GetInstanceID()))
+
+                    if (singleHitDamage)
                     {
-                       // Debug.Log("Target hit before, ignore");
-                        return;
+                        if (singleHitList.Contains(hitEntity.gameObject.GetInstanceID()))
+                        {
+                            // Debug.Log("Target hit before, ignore");
+                            return;
+                        }
+                        else
+                            singleHitList.Add(hitEntity.gameObject.GetInstanceID());
                     }
-                    else
-                        singleHitList.Add(hitEntity.gameObject.GetInstanceID());
+
+                    //Debug.Log("Damage daealth to: " + hitEntity.GetInstanceID());
+
+                    Debug.Log(hitEntity.transform.gameObject.name);
+                    //hitEntity.AddHealth(-WEAPON_DAMAGE);
+                    hitEntity.TakeDamageBasedOnPart(WEAPON_DAMAGE, hit.distance, hit.transform.tag);
+
                 }
-
-                //Debug.Log("Damage daealth to: " + hitEntity.GetInstanceID());
-
-                Debug.Log(hitEntity.transform.gameObject.name);
-                //hitEntity.AddHealth(-WEAPON_DAMAGE);
-                hitEntity.TakeDamageBasedOnPart(WEAPON_DAMAGE, hit.distance, hit.transform.tag);
-
-
+                else
+                {
+                    Rigidbody rgHit = hit.transform.GetComponent<Rigidbody>();
+                    if (rgHit)
+                    {
+                        rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);
+                    }
+                }
 
 
             }
@@ -115,6 +126,13 @@ public class WeaponHitScan : WeaponBase
                 bulletHole.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
                 bulletHole.transform.parent = hit.transform;
                 bulletHole.SetActive(true);
+
+
+                Rigidbody rgHit = hit.transform.GetComponent<Rigidbody>();
+                if (rgHit)
+                {
+                    rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);
+                }
             }
 
         }
@@ -155,6 +173,7 @@ public class WeaponHitScan_Editor : WeaponBase_Editor
         //weapon damage
         EditorGUILayout.PropertyField(serializedObject.FindProperty("WEAPON_DAMAGE"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("singleHitDamage"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("weaponInanimateImpactForce"));
 
 
 

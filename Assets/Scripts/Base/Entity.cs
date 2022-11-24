@@ -72,15 +72,16 @@ public class Entity : MonoBehaviour
         if (ED)
             ED.UpdateHealthBar(currentHealth, MAX_HEALTH);
     }
-    
+
 
     /// <summary>
-    /// Take damage based on the part that was hit
+    ///  Take damage based on the part that was hit
     /// </summary>
     /// <param name="deffaultDamage"></param>
     /// <param name="distance"></param>
     /// <param name="hitBodyPart"></param>
-    public void TakeDamageBasedOnPart(float deffaultDamage, float distance, string hitBodyPart)
+    /// <returns>Returns True if the entity is dead, false if entiti is still alive</returns>
+    public bool TakeDamageBasedOnPart(float deffaultDamage, float distance, string hitBodyPart)
     {
         // 1. find what type of body part
         // 2. fin algorithm on how to deal damage
@@ -121,10 +122,12 @@ public class Entity : MonoBehaviour
             currentHealth -= (deffaultDamage / distance);
         }
 
-        CheckDeath();
+        
 
         if (ED)
             ED.UpdateHealthBar(currentHealth, MAX_HEALTH);
+
+        return(CheckDeath());
     }
 
     private bool CheckDeath()

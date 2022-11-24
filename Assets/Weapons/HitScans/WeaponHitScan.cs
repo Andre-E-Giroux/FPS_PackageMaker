@@ -85,6 +85,8 @@ public class WeaponHitScan : WeaponBase
             Debug.Log( nameOfWeapon + "has hit a valid target:"+ hit.transform.gameObject.name + " with tag of: " + hit.transform.tag);
 
             Entity hitEntity = hit.transform.transform.root.GetComponent<Entity>();
+            Rigidbody rgHit = hit.transform.GetComponent<Rigidbody>();
+
             if (hitEntity)
             {
                 if (hitEntity.isAlive)
@@ -94,23 +96,22 @@ public class WeaponHitScan : WeaponBase
                     {
                         if (singleHitList.Contains(hitEntity.gameObject.GetInstanceID()))
                         {
-                            // Debug.Log("Target hit before, ignore");
                             return;
                         }
                         else
                             singleHitList.Add(hitEntity.gameObject.GetInstanceID());
                     }
 
-                    //Debug.Log("Damage daealth to: " + hitEntity.GetInstanceID());
 
                     Debug.Log(hitEntity.transform.gameObject.name);
                     //hitEntity.AddHealth(-WEAPON_DAMAGE);
-                    hitEntity.TakeDamageBasedOnPart(WEAPON_DAMAGE, hit.distance, hit.transform.tag);
-
+                    if(hitEntity.TakeDamageBasedOnPart(WEAPON_DAMAGE, hit.distance, hit.transform.tag))
+                    {
+                        rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);
+                    }
                 }
                 else
                 {
-                    Rigidbody rgHit = hit.transform.GetComponent<Rigidbody>();
                     if (rgHit)
                     {
                         rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);
@@ -128,7 +129,6 @@ public class WeaponHitScan : WeaponBase
                 bulletHole.SetActive(true);
 
 
-                Rigidbody rgHit = hit.transform.GetComponent<Rigidbody>();
                 if (rgHit)
                 {
                     rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);

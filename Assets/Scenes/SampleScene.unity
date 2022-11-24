@@ -2230,7 +2230,7 @@ PrefabInstance:
       objectReference: {fileID: 2800000, guid: 1f8934c21d0cb18419f788a463d77b5d, type: 3}
     - target: {fileID: 3148493395006218288, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: entityLayerMask.m_Bits
-      value: 1267
+      value: 3315
       objectReference: {fileID: 0}
     - target: {fileID: 3148493395006218288, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: MAXIMUM_CONE_ACCURACY_SIZE
@@ -2250,7 +2250,7 @@ PrefabInstance:
       objectReference: {fileID: 2800000, guid: 9411272ddaed09a48bc25ddac0a6c56d, type: 3}
     - target: {fileID: 4412785503549007654, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: entityLayerMask.m_Bits
-      value: 1267
+      value: 3315
       objectReference: {fileID: 0}
     - target: {fileID: 4412785503549007654, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: weaponInanimateImpactForce
@@ -2266,11 +2266,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6079403385176996954, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: entityLayerMask.m_Bits
-      value: 1267
+      value: 3315
       objectReference: {fileID: 0}
     - target: {fileID: 6079403385176996954, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: weaponInanimateImpactForce
-      value: 3
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 6079403385176996954, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: preAccuracyShots.Array.size
@@ -2358,7 +2358,7 @@ PrefabInstance:
       objectReference: {fileID: 2800000, guid: 1f3e56584a9357248b105d4aa53e12a3, type: 3}
     - target: {fileID: 7699620528081215706, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: entityLayerMask.m_Bits
-      value: 1267
+      value: 3315
       objectReference: {fileID: 0}
     - target: {fileID: 7890341638994066889, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: weaponIcon
@@ -2370,7 +2370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7890341638994066889, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: entityLayerMask.m_Bits
-      value: 1267
+      value: 3315
       objectReference: {fileID: 0}
     - target: {fileID: 7890341638994066889, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: weaponInanimateImpactForce

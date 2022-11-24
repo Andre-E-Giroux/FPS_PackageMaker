@@ -53,6 +53,12 @@ public class RagdollScript : MonoBehaviour
         {
             _ragdollColliders[i].isTrigger = !activate;
             _ragDollRigidbodies[i].isKinematic = !activate;
+            if(activate)
+                _ragDollRigidbodies[i].gameObject.layer = LayerMask.NameToLayer("PhysicsObject");
+            else
+            {
+                _ragDollRigidbodies[i].gameObject.layer = LayerMask.NameToLayer("Default");
+            }
         }
     }
 

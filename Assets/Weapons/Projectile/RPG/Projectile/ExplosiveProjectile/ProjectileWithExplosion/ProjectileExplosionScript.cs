@@ -37,17 +37,17 @@ public class ProjectileExplosionScript : ProjectileScript
 
     protected override void OnTriggerEnter(Collider other)
     {
-        if (!other.isTrigger)
-        {
-            GameObject explosion = explosionObjectPooler.GetPooledObject();
+        Debug.Log("Proj explosion has hit something");
+        base.OnTriggerEnter(other);
+
+        GameObject explosion = explosionObjectPooler.GetPooledObject();
 
 
-            explosion.transform.position = transform.position;
-            explosion.GetComponent<ExplosionScript>().SetExplosionValuesFromProjectile(maxExplosionDistance, maxExplosionDamage, damageToDistanceModifier, explosiveForce);
-            explosion.SetActive(true);
+        explosion.transform.position = transform.position;
+        explosion.GetComponent<ExplosionScript>().SetExplosionValuesFromProjectile(maxExplosionDistance, maxExplosionDamage, damageToDistanceModifier, explosiveForce);
+        explosion.SetActive(true);
 
-            base.OnTriggerEnter(other);
 
-        }
+        
     }
 }

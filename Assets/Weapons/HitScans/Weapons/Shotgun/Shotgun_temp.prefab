@@ -140,7 +140,7 @@ MonoBehaviour:
   NUMBER_OF_PROJECTILES_PER_SHOT: 8
   areShotsPreDetermined: 0
   preAccuracyShots: []
-  WEAPON_FIRE_RATE: 50
+  WEAPON_FIRE_RATE: 0.8
   weaponAnimator: {fileID: 1047850370450250291}
   playerCamera: {fileID: 0}
   entityLayerMask:

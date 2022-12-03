@@ -9,6 +9,7 @@ TagManager:
   - StandardPart
   - WeakPart
   - CritPart
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - Player
   - Explosion
   - PhysicsObject
-  - 
-  - 
+  - Projectile
+  - IgnoreProjectile
   - 
   - 
   - 

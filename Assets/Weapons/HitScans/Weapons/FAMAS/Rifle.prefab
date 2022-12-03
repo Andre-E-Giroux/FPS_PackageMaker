@@ -638,7 +638,7 @@ MonoBehaviour:
   WEAPON_SWITCH_TIME: 1
   PLAYER_SPEED_EFFECT: 0
   WEAPON_DAMAGE: 10
-  MAX_WEAPON_RANGE: 5
+  MAX_WEAPON_RANGE: 15
   singleHitDamage: 0
   weaponInanimateImpactForce: 0
   BURST_FIRERATE: 0.6

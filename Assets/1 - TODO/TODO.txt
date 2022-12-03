@@ -20,10 +20,10 @@
 - (Done- Revise later)Increase better connections to accuracy settings and cross hair (Updated by 2x the accuracy deviation in Base Weapon class)
 -Enemy ragdoll
 -Gun push force on RG objects
+- Projectile weapon (non exploding) verification and add physics force
 
 -------------------------------------------------------------------
 
-- Projectile weapon (non exploding) verification and add physics force
 -Interact with object (Press E to....)
 
 -Fine tune movement

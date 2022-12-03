@@ -258,9 +258,7 @@ public class WeaponBase : MonoBehaviour
                 // modification here for the pre-made attack directions
                 for (int i = 0; i < preAccuracyShots.Length; i++)
                 {
-                    //preAccuracyShots[i] shot direction
-                    //weaponSuper.Fire1();
-                    // weaponSuper.Fire1(FirePreShot(preAccuracyShots[i], Vector3.forward)); 
+                    Debug.Log("pre shot no: " + i);
                     weaponSuper.Fire1(FirePreDeterminedShot(preAccuracyShots[i]));
                     AccuracyDecrease();
                 }

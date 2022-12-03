@@ -37,5 +37,8 @@ public class EntityDebugger : MonoBehaviour
         float hold = (hpBarSizeMax / maxHealth) * health;
 
         healthBar.rectTransform.sizeDelta = new Vector2(hold, healthBar.rectTransform.sizeDelta.y);
+
+        if(healthBar.rectTransform.sizeDelta.x < 0)
+            healthBar.rectTransform.sizeDelta = new Vector2(0, healthBar.rectTransform.sizeDelta.y);
     }
 }

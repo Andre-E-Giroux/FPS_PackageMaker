@@ -71,6 +71,11 @@ public class WeaponHitScan : WeaponBase
     }
 
 
+    private void WeaponAddPhysicsForce(Rigidbody rgHit)
+    {
+        rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);
+    }
+
     public override void Fire1(Vector3 shotDirection)
     {
 
@@ -107,14 +112,14 @@ public class WeaponHitScan : WeaponBase
                     //hitEntity.AddHealth(-WEAPON_DAMAGE);
                     if(hitEntity.TakeDamageBasedOnPart(WEAPON_DAMAGE, hit.distance, hit.transform.tag))
                     {
-                        rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);
+                        WeaponAddPhysicsForce(rgHit);
                     }
                 }
                 else
                 {
                     if (rgHit)
                     {
-                        rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);
+                        WeaponAddPhysicsForce(rgHit);
                     }
                 }
 
@@ -131,7 +136,7 @@ public class WeaponHitScan : WeaponBase
 
                 if (rgHit)
                 {
-                    rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);
+                    WeaponAddPhysicsForce(rgHit);
                 }
             }
 

@@ -2224,6 +2224,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2313103735399017427, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: pooledObject
+      value: 
+      objectReference: {fileID: 6196476107147711604, guid: ca650264f48d90e488f99e35c7ad0011, type: 3}
     - target: {fileID: 3148493395006218288, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: weaponIcon
       value: 
@@ -2248,6 +2252,10 @@ PrefabInstance:
       propertyPath: weaponIcon
       value: 
       objectReference: {fileID: 2800000, guid: 9411272ddaed09a48bc25ddac0a6c56d, type: 3}
+    - target: {fileID: 4412785503549007654, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
+      propertyPath: MAX_WEAPON_RANGE
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4412785503549007654, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: entityLayerMask.m_Bits
       value: 3315
@@ -2306,7 +2314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6641389803408247235, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 1399
+      value: 7543
       objectReference: {fileID: 0}
     - target: {fileID: 6641389803408247236, guid: 8a855c40cd45faa49ac24259bcc74e8b, type: 3}
       propertyPath: m_RootOrder

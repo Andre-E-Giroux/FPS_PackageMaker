@@ -56,6 +56,8 @@ public class ProjectileScript : MonoBehaviour
         rgHit.AddForceAtPosition(((hitTransform.position - transform.position).normalized) * (weaponInanimateImpactForce / distance), hitTransform.position, ForceMode.Impulse);
     }
 
+
+
     protected virtual void OnTriggerEnter(Collider other)
     {
         Rigidbody rgHit = other.transform.GetComponent<Rigidbody>();

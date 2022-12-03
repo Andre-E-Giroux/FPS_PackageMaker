@@ -14,6 +14,8 @@ public class ProjectileExplosionScript : ProjectileScript
     private float maxExplosionDamage = 5.0f;
     [SerializeField]
     private float damageToDistanceModifier = 1;
+    [SerializeField]
+    private float explosiveForce = 15f;
 
     [SerializeField]
     private EntityList eList;
@@ -41,7 +43,7 @@ public class ProjectileExplosionScript : ProjectileScript
 
 
             explosion.transform.position = transform.position;
-            explosion.GetComponent<ExplosionScript>().SetDamage(maxExplosionDistance, maxExplosionDamage, damageToDistanceModifier);
+            explosion.GetComponent<ExplosionScript>().SetExplosionValuesFromProjectile(maxExplosionDistance, maxExplosionDamage, damageToDistanceModifier, explosiveForce);
             explosion.SetActive(true);
 
             base.OnTriggerEnter(other);

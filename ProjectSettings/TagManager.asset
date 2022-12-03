@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Pool
+  - StrongPart
+  - StandardPart
+  - WeakPart
+  - CritPart
   layers:
   - Default
   - TransparentFX
@@ -17,7 +21,7 @@ TagManager:
   - Entity
   - Player
   - Explosion
-  - 
+  - PhysicsObject
   - 
   - 
   - 

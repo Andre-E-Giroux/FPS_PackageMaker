@@ -36,6 +36,8 @@ public class WeaponHitScan : WeaponBase
 
     public bool singleHitDamage = false;
 
+    public float weaponInanimateImpactForce = 0f;
+
 
     private List<int> singleHitList = new List<int>();
 
@@ -69,39 +71,57 @@ public class WeaponHitScan : WeaponBase
     }
 
 
+    private void WeaponAddPhysicsForce(Rigidbody rgHit)
+    {
+        rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);
+    }
+
     public override void Fire1(Vector3 shotDirection)
     {
 
-        Debug.Log("FIRE1 called for hit scan for weapon: " + nameOfWeapon);
-        Debug.Log("range: " + MAX_WEAPON_RANGE);
+      //  Debug.Log("FIRE1 called for hit scan for weapon: " + nameOfWeapon);
+      //  Debug.Log("range: " + MAX_WEAPON_RANGE);
 
   
         Debug.DrawRay(playerCamera.transform.position, transform.TransformDirection(shotDirection) * MAX_WEAPON_RANGE, Color.yellow,30);
 
         if (Physics.Raycast(playerCamera.transform.position, transform.TransformDirection(shotDirection), out hit, MAX_WEAPON_RANGE, entityLayerMask))
         {
-            Debug.Log( nameOfWeapon + "has hit a valid target");
+            Debug.Log( nameOfWeapon + "has hit a valid target:"+ hit.transform.gameObject.name + " with tag of: " + hit.transform.tag);
 
             Entity hitEntity = hit.transform.transform.root.GetComponent<Entity>();
+            Rigidbody rgHit = hit.transform.GetComponent<Rigidbody>();
+
             if (hitEntity)
             {
-                
-                
-                if(singleHitDamage)
+                if (hitEntity.isAlive)
                 {
-                    if (singleHitList.Contains(hitEntity.gameObject.GetInstanceID()))
+
+                    if (singleHitDamage)
                     {
-                        Debug.Log("Target hit before, ignore");
-                        return;
+                        if (singleHitList.Contains(hitEntity.gameObject.GetInstanceID()))
+                        {
+                            return;
+                        }
+                        else
+                            singleHitList.Add(hitEntity.gameObject.GetInstanceID());
                     }
-                    else
-                        singleHitList.Add(hitEntity.gameObject.GetInstanceID());
+
+
+                    Debug.Log(hitEntity.transform.gameObject.name);
+                    //hitEntity.AddHealth(-WEAPON_DAMAGE);
+                    if(hitEntity.TakeDamageBasedOnPart(WEAPON_DAMAGE, hit.distance, hit.transform.tag))
+                    {
+                        WeaponAddPhysicsForce(rgHit);
+                    }
                 }
-
-                Debug.Log("Damage daealth to: " + hitEntity.GetInstanceID());
-                hitEntity.AddHealth(-WEAPON_DAMAGE);
-
-                
+                else
+                {
+                    if (rgHit)
+                    {
+                        WeaponAddPhysicsForce(rgHit);
+                    }
+                }
 
 
             }
@@ -112,6 +132,12 @@ public class WeaponHitScan : WeaponBase
                 bulletHole.transform.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
                 bulletHole.transform.parent = hit.transform;
                 bulletHole.SetActive(true);
+
+
+                if (rgHit)
+                {
+                    WeaponAddPhysicsForce(rgHit);
+                }
             }
 
         }
@@ -152,6 +178,7 @@ public class WeaponHitScan_Editor : WeaponBase_Editor
         //weapon damage
         EditorGUILayout.PropertyField(serializedObject.FindProperty("WEAPON_DAMAGE"));
         EditorGUILayout.PropertyField(serializedObject.FindProperty("singleHitDamage"));
+        EditorGUILayout.PropertyField(serializedObject.FindProperty("weaponInanimateImpactForce"));
 
 
 

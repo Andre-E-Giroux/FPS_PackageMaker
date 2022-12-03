@@ -7,7 +7,7 @@ public class RagdollScript : MonoBehaviour
     /// <summary>
     /// Information on character accessories of a ragdol (ex: sword, gun, helmet, pencil, etc)
     /// </summary>
-    public struct childParentConnection
+    public struct ChildParentConnection
     {
         public Transform child;
 
@@ -23,7 +23,9 @@ public class RagdollScript : MonoBehaviour
     /// <summary>
     /// Array that holds structs of a parent and child (Sword and hand)
     /// </summary>
-    public childParentConnection[] extraItemsAndOwners;
+    public ChildParentConnection[] extraItemsAndOwners;
+
+    public Transform[] extraItems;
 
     [SerializeField]
     private List<Collider> _ragdollColliders;
@@ -46,20 +48,17 @@ public class RagdollScript : MonoBehaviour
         _animator.enabled = !activate;
         _collider.enabled = !activate;
 
-        if (_rigidbody)
-        {
-            _rigidbody.isKinematic = activate;
-
-            if (activate)
-                _rigidbody.constraints = RigidbodyConstraints.None;
-            else
-                _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY;
-        }
-
+        _rigidbody.isKinematic = activate;
         for (int i = 0; i < _ragdollColliders.Count; i++)
         {
-            _ragdollColliders[i].enabled = activate;
+            _ragdollColliders[i].isTrigger = !activate;
             _ragDollRigidbodies[i].isKinematic = !activate;
+            if(activate)
+                _ragDollRigidbodies[i].gameObject.layer = LayerMask.NameToLayer("PhysicsObject");
+            else
+            {
+                _ragDollRigidbodies[i].gameObject.layer = LayerMask.NameToLayer("Default");
+            }
         }
     }
 
@@ -69,7 +68,8 @@ public class RagdollScript : MonoBehaviour
     /// <param name="toBeConnected">True: the accessories to be reconnected tot the character, False: the accessories will split from the character</param>
     public void SetExtraObjectConnection(bool toBeConnected)
     {
-        if (extraItemsAndOwners == null)
+
+        if (extraItemsAndOwners.Length < 1)
             return;
 
         for (int i = 0; i < extraItemsAndOwners.Length; i++)
@@ -80,16 +80,10 @@ public class RagdollScript : MonoBehaviour
                 extraItemsAndOwners[i].child.parent = extraItemsAndOwners[i].parent;
                 extraItemsAndOwners[i].child.localPosition = extraItemsAndOwners[i].childOriginLocalPosition;
                 extraItemsAndOwners[i].child.localRotation = extraItemsAndOwners[i].childOriginLocalRotation;
-
-                foreach (Behaviour behaviour in extraItemsAndOwners[i].behavioursActiveOnOrphan)
-                    behaviour.enabled = false;
             }
             else
             {
                 extraItemsAndOwners[i].child.parent = null;
-
-                foreach (Behaviour behaviour in extraItemsAndOwners[i].behavioursActiveOnOrphan)
-                    behaviour.enabled = true;
             }
         }
 
@@ -105,6 +99,7 @@ public class RagdollScript : MonoBehaviour
     {
         if (extraItemsAndOwners == null)
             return;
+
         for (int i = 0; i < extraItemsAndOwners.Length; i++)
         {
             extraItemsAndOwners[i].childOriginLocalPosition = extraItemsAndOwners[i].child.localPosition;
@@ -117,9 +112,18 @@ public class RagdollScript : MonoBehaviour
     /// </summary>
     public void InitializeRagdoll()
     {
+
+        extraItemsAndOwners = new ChildParentConnection[extraItems.Length];
+
+        for(int i = 0; i < extraItems.Length; i++)
+        {
+            extraItemsAndOwners[i].child = extraItems[i];
+            extraItemsAndOwners[i].parent = extraItems[i].parent;
+        }
+        SetAccessorieOrigins();
+
         // first rigid body is ignored, wut?! Look for fix/update 2021 build
         _ragDollRigidbodies = new List<Rigidbody>(GetComponentsInChildren<Rigidbody>());
-
         _ragdollColliders = new List<Collider>(GetComponentsInChildren<Collider>());
 
         // components taht affects the ragdoll without being connected to it
@@ -132,11 +136,13 @@ public class RagdollScript : MonoBehaviour
 
             if (_ragDollRigidbodies[i].transform.parent == null)
             {
-                Debug.Log("No parent, removed");
+               // Debug.Log("No parent, removed: " + _ragDollRigidbodies[i].name);
                 _ragDollRigidbodies.RemoveAt(i);
+                i--;
             }
             else
             {
+               // Debug.Log("Has set for: " + _ragDollRigidbodies[i].name);
                 _ragDollRigidbodies[i].isKinematic = true;
             }
         }
@@ -147,14 +153,24 @@ public class RagdollScript : MonoBehaviour
             if (_ragdollColliders[i].transform.parent == null)
             {
                 _ragdollColliders.RemoveAt(i);
+                i--;
             }
             else
             {
-                _ragdollColliders[i].enabled = false;
+                _ragdollColliders[i].isTrigger = true;
             }
         }
 
         _isRagdollActivated = false;
+    }
+
+    /// <summary>
+    /// Call this function to enable ragdoll
+    /// </summary>
+    public void ActivateRagdoll(bool activate)
+    {
+        SetActiveRagdoll(activate);
+        SetExtraObjectConnection(activate);
     }
 
     /// <summary>

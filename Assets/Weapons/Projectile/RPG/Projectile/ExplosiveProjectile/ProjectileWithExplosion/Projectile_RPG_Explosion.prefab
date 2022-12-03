@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8668732426957079228}
-  - component: {fileID: 470511225840680039}
+  - component: {fileID: -7727452880434800130}
   - component: {fileID: 3294959084264963873}
   - component: {fileID: -4183571102196600868}
-  m_Layer: 0
-  m_Name: Projectile_RPG
-  m_TagString: Untagged
+  m_Layer: 12
+  m_Name: Projectile_RPG_Explosion
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,12 +29,13 @@ Transform:
   m_LocalRotation: {x: -0.004363368, y: 0, z: 0, w: 0.9999905}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 171843531082577802}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.5, y: 0, z: 0}
---- !u!114 &470511225840680039
+--- !u!114 &-7727452880434800130
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +44,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6196476107147711604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d6c5543aef1d2b4383fab6817f9061f, type: 3}
+  m_Script: {fileID: 11500000, guid: b917f992c657f7f4ca87836448cdca09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   entityTargetLayerMask:
@@ -51,6 +52,13 @@ MonoBehaviour:
     m_Bits: 256
   projectileSpeedForce: 10
   directDamage: 60
+  weaponInanimateImpactForce: 0
+  explosionPoolerID: pool_Explosions
+  maxExplosionDistance: 5
+  maxExplosionDamage: 100
+  damageToDistanceModifier: 4
+  explosiveForce: 5000
+  eList: {fileID: 0}
 --- !u!54 &3294959084264963873
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -109,6 +117,7 @@ Transform:
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0.67}
   m_LocalScale: {x: 0.013886475, y: 0.013886475, z: 0.013886475}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8668732426957079228}
   m_RootOrder: 0
@@ -132,6 +141,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

@@ -24,6 +24,7 @@ public class ExplosionScript : MonoBehaviour
     private float maxExplosionDistance;
     private float maxExplosionDamage;
     private float damageToDistanceModifier;
+    private float explosiveForce;
 
     private void OnEnable()
     {
@@ -73,8 +74,8 @@ public class ExplosionScript : MonoBehaviour
         Entity cEntity = c.transform.root.GetComponent<Entity>();
 
         float shortestDistance = float.MaxValue;
-
-        if (cEntity)
+        Debug.Log("Explosion Hit: " + c.transform);
+        if (cEntity && cEntity.isAlive)
         {
             for(int i = 0; i < cEntity.hitNodes.Length; i++)
             {
@@ -86,10 +87,24 @@ public class ExplosionScript : MonoBehaviour
                     if (shortestDistance > hit.distance)
                         shortestDistance = hit.distance;
                 }
-            } 
-            cEntity.AddHealth(-CalculateExplosionDamage(shortestDistance));
+            }
+            cEntity.TakeExploDistanceDamage(CalculateExplosionDamage(shortestDistance));
+
         }
-            
+        // NOT REACHING !!!!!!!
+        else 
+        {
+
+            Debug.Log("Send target flying");
+            Rigidbody rigigdBody = c.GetComponent<Rigidbody>();
+            if (rigigdBody)
+            {
+                Debug.Log("Launch");
+
+                rigigdBody.AddExplosionForce(explosiveForce, transform.position, maxExplosionDistance);
+            }
+        }
+
     }
 
     /// <summary>
@@ -98,11 +113,14 @@ public class ExplosionScript : MonoBehaviour
     /// <param name="maxExplosionDistance">projectile's maxExplosionDistance value</param>
     /// <param name="maxExplosionDamage">projectile's maxExplosionDamage value</param>
     /// <param name="damageToDistanceModifier">projectile's damageToDistanceModifier value</param>
-    public void SetDamage(float maxExplosionDistance, float maxExplosionDamage, float damageToDistanceModifier)
+    /// <param name="explosiveForce">projectile's explosive force to push physics object value</param>
+
+    public void SetExplosionValuesFromProjectile(float maxExplosionDistance, float maxExplosionDamage, float damageToDistanceModifier, float explosiveForce)
     {
         this.maxExplosionDistance =  maxExplosionDistance;
         this.maxExplosionDamage = maxExplosionDamage;
         this.damageToDistanceModifier = damageToDistanceModifier;
+        this.explosiveForce = explosiveForce;
     }
 
     /// <summary>

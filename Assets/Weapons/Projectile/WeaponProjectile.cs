@@ -35,12 +35,12 @@ public class WeaponProjectile : WeaponBase
     public override void Fire1(Vector3 shotDirection)
     {
         GameObject projectile = projectilePool.GetPooledObject();
+        Debug.DrawRay(playerCamera.transform.position, weaponInteraction.projectileSpawnPoint.TransformDirection(shotDirection) * 10, Color.yellow, 30);
 
         projectile.transform.position = weaponInteraction.projectileSpawnPoint.position;
-        projectile.transform.rotation = weaponInteraction.projectileSpawnPoint.rotation;
+        projectile.transform.forward = weaponInteraction.projectileSpawnPoint.TransformDirection(shotDirection);
 
         projectile.SetActive(true);
-        //projectile.GetComponent<ProjectileScript>().FireProjectile();
     }
 }
 

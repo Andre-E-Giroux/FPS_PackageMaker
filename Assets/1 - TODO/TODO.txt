@@ -18,12 +18,15 @@
 	Example, one click spawns 3 rays, two hits 1 person and the last hits another. Both target hit will receive the same damage, because the raycasts 
 	that hit the same target as another will be ignored	
 - (Done- Revise later)Increase better connections to accuracy settings and cross hair (Updated by 2x the accuracy deviation in Base Weapon class)
-
-
--(To be started)Fine tune movement
-	(Done)Move to jump does not preserve momentum from move
 -Enemy ragdoll
 -Gun push force on RG objects
+- Projectile weapon (non exploding) verification and add physics force
 
+-------------------------------------------------------------------
 
+-Interact with object (Press E to....)
+
+-Fine tune movement
+	(Done)Move to jump does not preserve momentum from move
+-Finalize prefabs
 -(CONTINUOUS)Update Comments on scripts

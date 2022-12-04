@@ -9,6 +9,8 @@ public class StateMachine : MonoBehaviour
     
     protected BaseState currentState;
 
+    public bool allowStatemachine = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,13 +22,13 @@ public class StateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentState != null)
+        if (currentState != null && allowStatemachine)
             currentState.UpdateLogic();
     }
 
     private void LateUpdate()
     {
-        if (currentState != null)
+        if (currentState != null && allowStatemachine)
             currentState.UpdatePhysics();
     }
 
@@ -50,6 +52,9 @@ public class StateMachine : MonoBehaviour
     {
          return currentState;
     }
- 
 
+    public virtual void StopStateMachine(bool stop)
+    {
+        allowStatemachine = !stop;
+    }
 }

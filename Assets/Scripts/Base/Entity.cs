@@ -23,6 +23,8 @@ public class Entity : MonoBehaviour
     /// </summary>
     public bool isPlayer = false;
 
+    private PlayerSM playerSM;
+
     /// <summary>
     /// Can the entity ragdoll, true of false?
     /// If true the DeathRagdoll function will be called, else DeathDelete function will be called
@@ -142,7 +144,13 @@ public class Entity : MonoBehaviour
             if (ragdollScript && ragdollDeathAllowed)
                 ragdollScript.ActivateRagdoll(true);
             else
-                DeathDelete();
+            {
+                if(isPlayer)
+                {
+                    playerSM.StopStateMachine(true);
+                }
+               
+            }
 
             isAlive = false;
             return true;
@@ -177,6 +185,8 @@ public class Entity : MonoBehaviour
     void Awake()
     {
         isAlive = true;
+        if(isPlayer)
+            playerSM = GetComponent<PlayerSM>();
         gameObject.layer = LayerMask.NameToLayer("Entity");
         currentHealth = MAX_HEALTH;
 

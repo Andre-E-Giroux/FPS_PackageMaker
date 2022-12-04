@@ -21,10 +21,12 @@
 -Enemy ragdoll
 -Gun push force on RG objects
 - Projectile weapon (non exploding) verification and add physics force
+-Interact with object (Press E to....)
+-Add Death Screen and stop player actions
 
 -------------------------------------------------------------------
 
--Interact with object (Press E to....)
+-Add GameManager to go from Title Screen to Title then back
 
 -Fine tune movement
 	(Done)Move to jump does not preserve momentum from move

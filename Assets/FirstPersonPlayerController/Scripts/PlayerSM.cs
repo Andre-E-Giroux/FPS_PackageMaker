@@ -101,6 +101,12 @@ public class PlayerSM : StateMachine
     [Tooltip("How far in degrees can you move the camera down")]
     public float BottomClamp = -90.0f;
 
+    [Space(10)]
+    public GameObject gameOverUI;
+
+
+
+
     // verify if mouse is the rotation device
     public bool IsCurrentDeviceMouse
     {
@@ -147,6 +153,9 @@ public class PlayerSM : StateMachine
         wInteraction = GetComponent<WeaponInteraction>();
 
         playerCollider = GetComponent<CapsuleCollider>();
+
+        if (gameOverUI)
+            gameOverUI.SetActive(false);
     }
 
     protected override BaseState GetInitialState()
@@ -193,10 +202,6 @@ public class PlayerSM : StateMachine
             // move
             _inputDirection = transform.right * Input.GetAxisRaw("Horizontal") + transform.forward * Input.GetAxisRaw("Vertical");
         }
-
-
-
-
     }
 
 
@@ -254,10 +259,6 @@ public class PlayerSM : StateMachine
             _verticalVelocity += Gravity * Time.deltaTime;
 
         }
-        //UniversalMove();
-
-        //characterController.Move(new Vector3(characterController.velocity.x, _verticalVelocity, characterController.velocity.z) * Time.deltaTime);
-
     }
 
 
@@ -318,4 +319,12 @@ public class PlayerSM : StateMachine
 
         }
     }
+
+    public override void StopStateMachine(bool stop)
+    {
+        base.StopStateMachine(stop);
+        gameOverUI.SetActive(stop);
+
+    }
+
 }

@@ -26,7 +26,8 @@
 
 -------------------------------------------------------------------
 
--Add GameManager to go from Title Screen to Title then back
+-Add GameManager to go from Title Screen to BuildScene then back
+	-persists game object between scenes
 
 -Fine tune movement
 	(Done)Move to jump does not preserve momentum from move

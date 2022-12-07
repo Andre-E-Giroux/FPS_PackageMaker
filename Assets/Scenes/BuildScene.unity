@@ -2486,10 +2486,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverUI
       objectReference: {fileID: 0}
-    - target: {fileID: 8933593385043179630, guid: 0b3091f13a6c6bc4fb57d86eb8a9802e, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b3091f13a6c6bc4fb57d86eb8a9802e, type: 3}
 --- !u!4 &3578931499109968628 stripped

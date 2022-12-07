@@ -320,10 +320,20 @@ public class PlayerSM : StateMachine
         }
     }
 
+    // may need to be more robust, cutscenes and such
+    // stop player statemachine
     public override void StopStateMachine(bool stop)
     {
         base.StopStateMachine(stop);
         gameOverUI.SetActive(stop);
+
+        Cursor.visible = stop;
+
+        if(stop)
+            Cursor.lockState = CursorLockMode.None;
+        else
+            Cursor.lockState = CursorLockMode.Locked;
+
 
     }
 

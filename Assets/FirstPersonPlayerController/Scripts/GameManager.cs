@@ -5,6 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+    private AssetBundle myLoadedAssetBundle;
+    private string[] scenePaths;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     public void GoToBuildScene()
     {
         SceneManager.LoadScene("BuildScene");
@@ -14,4 +23,10 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("TitleScene");
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }

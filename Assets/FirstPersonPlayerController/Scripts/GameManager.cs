@@ -9,20 +9,51 @@ public class GameManager : MonoBehaviour
     private AssetBundle myLoadedAssetBundle;
     private string[] scenePaths;
 
+    private List<ManagerAssistant> managerAssistants = new List<ManagerAssistant>();
+
+    public GameObject[] disableObjectsOnLoad;
+
+    private GameObject instance;
+    //private static string  titleSceneName = "TitleScene";
+    // private string buildSceneName = "BuildScene";
+
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        if (instance != null)
+        {
+            Destroy(instance);
+            instance = this.gameObject;
+        }
+        else
+        {
+            instance = this.gameObject;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
-    public void GoToBuildScene()
+
+    public GameManager AddSceneManagerAssistants(ManagerAssistant assistant)
     {
-        SceneManager.LoadScene("BuildScene");
+        managerAssistants.Add(assistant);
+        return this;
     }
 
-    public void GoToTitleScene()
+    public void GoToSceneByString(string sceneName)
     {
-        SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene(sceneName);
+
+
+        for(int i = 0; i < managerAssistants.Count; i++)
+        {
+            managerAssistants[i].StartManager();
+        }
+
+        for (int i = 0; i < disableObjectsOnLoad.Length; i++)
+        {
+            disableObjectsOnLoad[i].SetActive(false);
+        }
     }
+
 
     public void QuitGame()
     {

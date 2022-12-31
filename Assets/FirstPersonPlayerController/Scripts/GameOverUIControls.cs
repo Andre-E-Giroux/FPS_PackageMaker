@@ -17,7 +17,7 @@ public class GameOverUIControls : MonoBehaviour
 
     public void ReturnToTitle()
     {
-        gm.GoToTitleScene();
+        gm.GoToSceneByString("TitleScene");
     }
 
 }

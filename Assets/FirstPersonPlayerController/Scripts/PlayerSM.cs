@@ -17,16 +17,19 @@ public class PlayerSM : StateMachine
     [HideInInspector]
     public CrouchingIdle crouchIdleState;
 
+    [SerializeField]
+    private CameraTracker cTracker;
+
     public CharacterController characterController;
     public MeshRenderer meshRenderer;
 
     public UnityEngine.UI.RawImage healthBar;
 
     public Transform cameraTransform;
+    public Transform virtualCameraTransform;
 
     public GameObject cinemachineCameraTarget;
 
-    public CapsuleCollider playerCollider;
     [Header("Player Grounded")]
     [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
     public bool grounded = true;
@@ -152,15 +155,33 @@ public class PlayerSM : StateMachine
 
         wInteraction = GetComponent<WeaponInteraction>();
 
-        playerCollider = GetComponent<CapsuleCollider>();
 
+        if (!gameOverUI)
+            gameOverUI = GameObject.FindGameObjectWithTag("GameOverUI");
         if (gameOverUI)
             gameOverUI.SetActive(false);
+
+
+        SetCameraAsPlayerChild(false);
     }
 
     protected override BaseState GetInitialState()
     {
         return standingIdleState;
+    }
+
+    public void SetCameraAsPlayerChild(bool toBeChilded)
+    {
+        if (toBeChilded)
+        {
+            cameraTransform.parent = transform;
+            virtualCameraTransform.parent = transform;
+        }
+        else
+        {
+            cameraTransform.parent = null;
+            virtualCameraTransform.parent = null;
+        }
     }
 
 
@@ -303,8 +324,6 @@ public class PlayerSM : StateMachine
         if(toCrouch)
         {
             cinemachineCameraTarget.transform.localPosition = new Vector3(cinemachineCameraTarget.transform.localPosition.x, CAMERA_CROUCHING_HEIGHT, cinemachineCameraTarget.transform.localPosition.z);
-            //playerCollider.height = COLLIDER_CROUCHING_HEIGHT;
-            //playerCollider.center = new Vector3(playerCollider.center.x, COLLIDER_CROUCHING_CENTER, playerCollider.center.z);
             characterController.height = COLLIDER_CROUCHING_HEIGHT;
             characterController.center = new Vector3(characterController.center.x, COLLIDER_CROUCHING_CENTER, characterController.center.z);
 
@@ -312,8 +331,6 @@ public class PlayerSM : StateMachine
         else
         {
             cinemachineCameraTarget.transform.localPosition = new Vector3(cinemachineCameraTarget.transform.localPosition.x, CAMERA_STANDING_HEIGHT, cinemachineCameraTarget.transform.localPosition.z);
-            //playerCollider.height = COLLIDER_STANDING_HEIGHT;
-            // playerCollider.center = new Vector3(playerCollider.center.x, COLLIDER_STANDING_CENTER, playerCollider.center.z);
             characterController.height = COLLIDER_STANDING_HEIGHT;
             characterController.center = new Vector3(characterController.center.x, COLLIDER_STANDING_CENTER, characterController.center.z);
 

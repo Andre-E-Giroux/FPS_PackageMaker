@@ -2,14 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityList : MonoBehaviour
+public class EntityListManager : ManagerAssistant
 {
     public List<Entity> entities = new List<Entity>();
 
-    private void Start()
+    public override void StartManager()
     {
+       /* entities = new List<Entity>();
+
+        foreach (Entity entity in FindObjectsOfType<Entity>())
+            AddTransformToActors(entity);*/
+    }
+
+    public void Start()
+    {
+        entities = new List<Entity>();
+
         foreach (Entity entity in FindObjectsOfType<Entity>())
             AddTransformToActors(entity);
+
+
+        GameManager gm = FindObjectOfType<GameManager>();
+        if (gm)
+            headManager = gm.AddSceneManagerAssistants(this);
     }
 
     public void AddTransformToActors(Entity entity)

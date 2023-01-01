@@ -10,6 +10,8 @@ TagManager:
   - WeakPart
   - CritPart
   - Projectile
+  - Interactable
+  - GameOverUI
   layers:
   - Default
   - TransparentFX

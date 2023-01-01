@@ -18,7 +18,7 @@ public class ProjectileExplosionScript : ProjectileScript
     private float explosiveForce = 15f;
 
     [SerializeField]
-    private EntityList eList;
+    private EntityListManager eList;
 
     public new  void Start()
     {
@@ -31,7 +31,7 @@ public class ProjectileExplosionScript : ProjectileScript
         //SDebug.Log("hello");
         if (eList == null)
         {
-            eList = FindObjectOfType<EntityList>();
+            eList = FindObjectOfType<EntityListManager>();
         }
     }
 

@@ -31,7 +31,7 @@
 
 -A more robust system for player deactivation, cutscenes, pausing death.
 	-Currently only death effects happen
-	-Make Game Manager more powerfull, so many UIs seperated, to many different pieces to add to a scene to make it work
+	-Add pause menu
 
 -Fine tune movement
 	(Done)Move to jump does not preserve momentum from move

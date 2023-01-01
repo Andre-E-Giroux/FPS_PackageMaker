@@ -30,6 +30,9 @@ public class PlayerSM : StateMachine
 
     public GameObject cinemachineCameraTarget;
 
+
+    private bool isGamePaused;
+
     [Header("Player Grounded")]
     [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
     public bool grounded = true;
@@ -107,7 +110,9 @@ public class PlayerSM : StateMachine
     [Space(10)]
     public GameObject gameOverUI;
 
-
+    [Space(10)]
+    public PauseManager pauseManager;
+    public GameObject pauseUI;
 
 
     // verify if mouse is the rotation device
@@ -163,6 +168,18 @@ public class PlayerSM : StateMachine
 
 
         SetCameraAsPlayerChild(false);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+
+        // pause game
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseGame();
+        }
     }
 
     protected override BaseState GetInitialState()
@@ -342,7 +359,8 @@ public class PlayerSM : StateMachine
     public override void StopStateMachine(bool stop)
     {
         base.StopStateMachine(stop);
-        gameOverUI.SetActive(stop);
+
+        wInteraction.allowWeaponInteraction = !stop;
 
         Cursor.visible = stop;
 
@@ -350,8 +368,22 @@ public class PlayerSM : StateMachine
             Cursor.lockState = CursorLockMode.None;
         else
             Cursor.lockState = CursorLockMode.Locked;
-
-
     }
+
+    public void PlayerDeath(bool isDead)
+    {
+        gameOverUI.SetActive(isDead);
+        StopStateMachine(isDead);
+    }
+
+
+    public void PauseGame()
+    {
+        isGamePaused = !isGamePaused;
+        StopStateMachine(isGamePaused);
+        pauseUI.SetActive(isGamePaused);
+        Time.timeScale = isGamePaused ? 0 : 1; ;
+    }
+
 
 }

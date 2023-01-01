@@ -9,9 +9,9 @@ public class GameManager : MonoBehaviour
     private AssetBundle myLoadedAssetBundle;
     private string[] scenePaths;
 
-    private List<ManagerAssistant> managerAssistants = new List<ManagerAssistant>();
+    public List<ManagerAssistant> localManagerAssistants = new List<ManagerAssistant>();
 
-    private GameObject[] disableObjectsOnLoad;
+    public GameObject[] disableObjectsOnLoad;
 
     private static GameManager instance;
     //private static string  titleSceneName = "TitleScene";
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     public GameManager AddSceneManagerAssistants(ManagerAssistant assistant)
     {
-        managerAssistants.Add(assistant);
+        localManagerAssistants.Add(assistant);
         return this;
     }
 
@@ -41,26 +41,28 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
 
+        localManagerAssistants.Clear();
 
-        for(int i = 0; i < managerAssistants.Count; i++)
+        /*
+        for (int i = 0; i < localManagerAssistants.Count; i++)
         {
-            if (managerAssistants[i] == null)
+            if (localManagerAssistants[i] == null)
             {
                 Debug.LogError("Missing manager assistant at postion " + i);
                 continue;
-            }    
-            managerAssistants[i].StartManager();
+            }
+            localManagerAssistants[i].StartManager();
         }
 
         for (int i = 0; i < disableObjectsOnLoad.Length; i++)
         {
-            if (managerAssistants[i] == null)
+            if (localManagerAssistants[i] == null)
             {
                 Debug.LogError("Missing disable object on load at postion " + i);
                 continue;
             }
             disableObjectsOnLoad[i].SetActive(false);
-        }
+        }*/
     }
 
 

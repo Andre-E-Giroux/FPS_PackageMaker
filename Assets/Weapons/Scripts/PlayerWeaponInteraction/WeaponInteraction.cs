@@ -20,6 +20,7 @@ public class WeaponInteraction : MonoBehaviour
 
     public PlayerSM playerStateMachine;
 
+    public bool allowWeaponInteraction = true;
     private void Awake()
     {
         weaponBases = new WeaponBase[weapons.Length];
@@ -43,6 +44,10 @@ public class WeaponInteraction : MonoBehaviour
 
     private void Update()
     {
+
+        if (!allowWeaponInteraction)
+            return;
+
         //Fire1
         if(Input.GetMouseButton(0))
         {

@@ -20,7 +20,7 @@ public class StateMachine : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (currentState != null && allowStatemachine)
             currentState.UpdateLogic();

@@ -37,7 +37,6 @@ public class Universal : BaseState
         _sm.JumpAndGravity();
         _sm.UniversalMove(_sm.grounded);
 
-
         //crouch
         if (Input.GetKeyDown(KeyCode.C) && _sm.grounded)
         {
@@ -55,6 +54,9 @@ public class Universal : BaseState
                 stateMachine.ChangeState(_sm.standingIdleState);
             }
         }
+
+      
+
     }
 
     public override void UpdatePhysics()

@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
 
     private List<ManagerAssistant> managerAssistants = new List<ManagerAssistant>();
 
-    public GameObject[] disableObjectsOnLoad;
+    private GameObject[] disableObjectsOnLoad;
 
-    private GameObject instance;
+    private static GameManager instance;
     //private static string  titleSceneName = "TitleScene";
     // private string buildSceneName = "BuildScene";
 
@@ -21,13 +21,12 @@ public class GameManager : MonoBehaviour
     {
         if (instance != null)
         {
-            Destroy(instance);
-            instance = this.gameObject;
+            Destroy(gameObject);
         }
         else
         {
-            instance = this.gameObject;
-            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -45,11 +44,21 @@ public class GameManager : MonoBehaviour
 
         for(int i = 0; i < managerAssistants.Count; i++)
         {
+            if (managerAssistants[i] == null)
+            {
+                Debug.LogError("Missing manager assistant at postion " + i);
+                continue;
+            }    
             managerAssistants[i].StartManager();
         }
 
         for (int i = 0; i < disableObjectsOnLoad.Length; i++)
         {
+            if (managerAssistants[i] == null)
+            {
+                Debug.LogError("Missing disable object on load at postion " + i);
+                continue;
+            }
             disableObjectsOnLoad[i].SetActive(false);
         }
     }

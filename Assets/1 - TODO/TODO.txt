@@ -25,13 +25,12 @@
 -Add Death Screen and stop player actions
 -Add GameManager to go from Title Screen to BuildScene then back
 	-persists game object between scenes
-
-
--------------------------------------------------------------------
-
 -A more robust system for player deactivation, cutscenes, pausing death.
 	-Currently only death effects happen
 	-Add pause menu
+-------------------------------------------------------------------
+
+
 
 -Fine tune movement
 	(Done)Move to jump does not preserve momentum from move

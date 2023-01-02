@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Base class for all NPC/Player/Object with health/etc
+/// </summary>
 public class Entity : MonoBehaviour
 {
     [SerializeField]
@@ -53,9 +56,6 @@ public class Entity : MonoBehaviour
     /// </summary>
     [SerializeField]
     private RagdollScript ragdollScript;
-
-   // [SerializeField]
-    //public Ragdoll ragdoll;
 
     
     /// <summary>
@@ -132,6 +132,10 @@ public class Entity : MonoBehaviour
         return(CheckDeath());
     }
 
+    /// <summary>
+    /// Verify if the entity has died
+    /// </summary>
+    /// <returns>True: the enity has died, false: the entity is still alive</returns>
     private bool CheckDeath()
     {
         if (!isAlive)
@@ -147,7 +151,7 @@ public class Entity : MonoBehaviour
             {
                 if(isPlayer)
                 {
-                    playerSM.StopStateMachine(true);
+                    playerSM.PlayerDeath(true);
                 }
                
             }
@@ -159,10 +163,13 @@ public class Entity : MonoBehaviour
         return false;
     }
 
-    // to be modded later if needed
-    public void TakeExploDistanceDamage(float explosioDamage)
+    /// <summary>
+    /// Take explosion damage when hit
+    /// </summary>
+    /// <param name="explosionDamage">damage done by the explosion</param>
+    public void TakeExploDistanceDamage(float explosionDamage)
     {
-        currentHealth -= explosioDamage;
+        currentHealth -= explosionDamage;
 
         CheckDeath();
 
@@ -172,7 +179,7 @@ public class Entity : MonoBehaviour
 
 
     /// <summary>
-    /// Delete game object
+    /// Delete entity
     /// </summary>
     public void DeathDelete()
     {
@@ -180,8 +187,6 @@ public class Entity : MonoBehaviour
     }
 
    
-
-    // Start is called before the first frame update
     void Awake()
     {
         isAlive = true;

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Script that spawns a explosion when a ED was. (Rocket hit something: spawn explosion)
+/// </summary>
 public class ProjectileExplosionScript : ProjectileScript
 {
     private ObjectPooler explosionObjectPooler;
@@ -28,7 +32,6 @@ public class ProjectileExplosionScript : ProjectileScript
                 if (op.poolerID == explosionPoolerID)
                     explosionObjectPooler = op;
 
-        //SDebug.Log("hello");
         if (eList == null)
         {
             eList = FindObjectOfType<EntityListManager>();

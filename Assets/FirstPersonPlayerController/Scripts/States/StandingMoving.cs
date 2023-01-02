@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// State for player movement while standing
+/// </summary>
 public class StandingMoving : Grounded
 {
     private static float WEAPON_ACCURACY_MODIFIER = 1.3f;
@@ -37,17 +40,6 @@ public class StandingMoving : Grounded
     public override void UpdatePhysics()
     {
         base.UpdatePhysics();
-
-        /*
-        Vector2 xMov = new Vector2(_horizontalInput * _sm.transform.right.x, _horizontalInput * _sm.transform.right.z);
-        Vector2 zMov = new Vector2(_verticalInput * _sm.transform.forward.x, _verticalInput * _sm.transform.forward.z);
-
-
-        Vector2 velo = (xMov + zMov).normalized * _sm.speed;
-
-
-        _sm.rb.velocity = new Vector3(velo.x, _sm.rb.velocity.y, velo.y);
-        */
     }
 
 

@@ -31,17 +31,37 @@ public class WeaponPlayerHUD_Controller : MonoBehaviour
 
     private WeaponInteraction weaponInteraction;
 
+    // prefab
+    [SerializeField]
+    private GameObject itemBoxPrefab;
 
+    // padding between hotbar boxes
+    private float boxPadding = 10;
+
+    /// <summary>
+    /// Set the current magazine ammo count from the current weapon to the hud
+    /// </summary>
+    /// <param name="ammoCount">current ammo count</param>
     public void SetCurrentMagazineAmmoText(int ammoCount)
     {
         currentAmmoText.text = ammoCount.ToString();
     }
+
+    /// <summary>
+    /// Set the current reserve ammo count from the current weapon to the hud
+    /// </summary>
+    /// <param name="reserveAmmoCount">current reserve ammo count</param>
     public void SetCurrentReserveAmmoText(int reserveAmmoCount)
     {
         currentReserveAmmoText.text = reserveAmmoCount.ToString();
     }
 
-
+    /// <summary>
+    /// First function called when game starts
+    /// </summary>
+    /// <param name="numberOfItems">number of items in the hotbar</param>
+    /// <param name="initialWeapon">the item that is the first to be active</param>
+    /// <param name="wInteraction">weapon interaction object instance</param>
     public void Startup(int numberOfItems, int initialWeapon, WeaponInteraction wInteraction)
     {
        // Debug.Log("STARTUP");
@@ -52,27 +72,32 @@ public class WeaponPlayerHUD_Controller : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Set the initial weapon as the selected weapon in the hotbar hud
+    /// </summary>
+    /// <param name="initialWeapon"></param>
     public void InitialWeapon(int initialWeapon)
     {
-       // Debug.Log("initial weapon");
-
         currentItemSelected =initialWeapon;
-       // Debug.Log("Current item selected: "+currentItemSelected);
         ChangeItemHudColor(initialWeapon, 1);
-
     }
 
+    /// <summary>
+    /// Change the selected item in the hotbar
+    /// </summary>
+    /// <param name="itemSelected">Item that was selected</param>
     public void ChangeSeletedItem(int itemSelected)
     {
         ChangeItemHudColor(currentItemSelected, 0);
         currentItemSelected = itemSelected;
         ChangeItemHudColor(currentItemSelected, 1);
-
-        //Debug.Log("change selected item");
-
     }
 
-
+    /// <summary>
+    /// Change the color of the box and item icon color in the hud hot bar
+    /// </summary>
+    /// <param name="itemIndex">index of the item that is selected</param>
+    /// <param name="colorTypeIndex">Index of the color that will be selected for the box and icon</param>
     private void ChangeItemHudColor(int itemIndex, int colorTypeIndex)
     {
         //box
@@ -82,14 +107,12 @@ public class WeaponPlayerHUD_Controller : MonoBehaviour
     }
 
 
-    // prefabs
-    [SerializeField]
-    private GameObject itemBoxPrefab;
-
-    private float boxPadding = 10;
+    /// <summary>
+    /// Create the item list box on start up. Form up the bar, populate it with the correct number of boxes and add the icons to it.
+    /// </summary>
+    /// <param name="numberOfItems">Number of items in the list of weapons to be added to the hotbar</param>
     private void CreateItemListHud(int numberOfItems)
     {
-        //Debug.Log("create item list hud");
         listBackgroundRectTransform.sizeDelta = new Vector2((itemBoxPrefab.GetComponent<RectTransform>().sizeDelta.x * numberOfItems) + ((numberOfItems + 1) * boxPadding) , itemBoxPrefab.GetComponent<RectTransform>().sizeDelta.y + boxPadding) ;
         
         for(int i = 0; i < numberOfItems; i++)

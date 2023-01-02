@@ -6,6 +6,10 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
+
+/// <summary>
+/// Class used for projectil based weapons (enable object, place object in front of gun, fire)
+/// </summary>
 public class WeaponProjectile : WeaponBase
 {
 

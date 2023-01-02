@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// Script for the behaviour of a projectile
+/// </summary>
 public class ProjectileScript : MonoBehaviour
 {
     /// <summary>
@@ -46,6 +50,11 @@ public class ProjectileScript : MonoBehaviour
         rb.AddForce(transform.forward * projectileSpeedForce, ForceMode.Impulse);
     }
 
+    /// <summary>
+    /// Add physics force to a valid object
+    /// </summary>
+    /// <param name="rgHit">the rigid body of the object hit</param>
+    /// <param name="hitTransform">the transform of the object that was hit</param>
     private void WeaponAddPhysicsForce(Rigidbody rgHit, Transform hitTransform)
     {
         if (!rgHit)

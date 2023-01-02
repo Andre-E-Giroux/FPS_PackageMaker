@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Player interaction with active weapon and weapon hot bar
+/// </summary>
 public class WeaponInteraction : MonoBehaviour
 {
 
     public int selectedWeapon = 0;
-    public int MAX_NUMBER_OF_WEAPONS = 1;
+    public int maxNumberOfWeapons = 5;
     public GameObject[] weapons;
+    
     [HideInInspector]
     public WeaponBase[] weaponBases;
 
@@ -36,7 +40,7 @@ public class WeaponInteraction : MonoBehaviour
         }
         weapons[0].SetActive(true);
 
-        weaponPlayerHUD_Controller.Startup(MAX_NUMBER_OF_WEAPONS, selectedWeapon, this);
+        weaponPlayerHUD_Controller.Startup(maxNumberOfWeapons, selectedWeapon, this);
 
 
         UpdateHud();
@@ -72,52 +76,52 @@ public class WeaponInteraction : MonoBehaviour
         int temp = selectedWeapon;
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if(MAX_NUMBER_OF_WEAPONS > 0)
+            if(maxNumberOfWeapons > 0)
                 temp = 0;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            if (MAX_NUMBER_OF_WEAPONS > 1)
+            if (maxNumberOfWeapons > 1)
                 temp = 1;
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            if (MAX_NUMBER_OF_WEAPONS > 2)
+            if (maxNumberOfWeapons > 2)
                 temp = 2;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            if (MAX_NUMBER_OF_WEAPONS > 3)
+            if (maxNumberOfWeapons > 3)
                 temp = 3;
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            if (MAX_NUMBER_OF_WEAPONS > 4)
+            if (maxNumberOfWeapons > 4)
                 temp = 4;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            if (MAX_NUMBER_OF_WEAPONS > 5)
+            if (maxNumberOfWeapons > 5)
                 temp = 5;
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            if (MAX_NUMBER_OF_WEAPONS > 6)
+            if (maxNumberOfWeapons > 6)
                 temp = 6;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            if (MAX_NUMBER_OF_WEAPONS > 7)
+            if (maxNumberOfWeapons > 7)
                 temp = 7;
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            if (MAX_NUMBER_OF_WEAPONS > 8)
+            if (maxNumberOfWeapons > 8)
                 temp = 8;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            if (MAX_NUMBER_OF_WEAPONS > 9)
+            if (maxNumberOfWeapons > 9)
                 temp = 9;
         }
 

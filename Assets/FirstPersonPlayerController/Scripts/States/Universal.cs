@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Player Universal state where regardless of state thes variables and actions are done
+/// </summary>
 public class Universal : BaseState
 {
     protected PlayerSM _sm;
-
   
     private float _verticalCameraRotClamp;
 
-
-
     private Transform _playerTransform;
 
-
+    /// <summary>
+    /// Constructor, referencing the player state machine (PlayerSM)
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="stateMachine"></param>
     public Universal(string name, PlayerSM stateMachine) : base(name, stateMachine)
     {
         _sm = (PlayerSM)stateMachine;
@@ -29,9 +33,6 @@ public class Universal : BaseState
     {
         base.UpdateLogic();
 
-
-        //CamerRotationX();
-        // CameraRotationY();
 
         _sm.GroundedCheck();
         _sm.JumpAndGravity();
@@ -66,6 +67,13 @@ public class Universal : BaseState
         CameraRotation();
     }
 
+    /// <summary>
+    /// Clamp the camera angle function
+    /// </summary>
+    /// <param name="lfAngle">current angle</param>
+    /// <param name="lfMin">Minimum angle</param>
+    /// <param name="lfMax">Maximum angle</param>
+    /// <returns></returns>
     public static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
         if (lfAngle < -360f) lfAngle += 360f;
@@ -94,56 +102,10 @@ public class Universal : BaseState
         
     }
 
-    /*
-    private void CamerRotationX()
-    {
-        // mouse X
-        float mouseX = Input.GetAxis("Mouse X");
-
-        float rotationNumberX = mouseX * _sm.mouseSensitivetyX;
-        Vector3 cameraRotation = _cameraTransform.localEulerAngles;
-        Vector3 playerRotation = _playerTransform.rotation.eulerAngles;
-
-        cameraRotation.z = 0;
-
-        playerRotation.y += rotationNumberX;
-
-        _cameraTransform.localRotation = Quaternion.Euler(cameraRotation);
-        _playerTransform.rotation = Quaternion.Euler(playerRotation);
-
-    }
-
-    public void CameraRotationY()
-    {
-        float mouseY = Input.GetAxis("Mouse Y");
-
-        float rotationNumberY = mouseY * _sm.mouseSensitivetyY;
-
-        Vector3 cameraRotation = _cameraTransform.rotation.eulerAngles;
-
-        cameraRotation.x -= rotationNumberY;
-
-        cameraRotation.z = 0;
-
-        _verticalCameraRotClamp -= rotationNumberY;
-
-
-        if (_verticalCameraRotClamp > 90)
-        {
-            _verticalCameraRotClamp = 90;
-            cameraRotation.x = 90;
-        }
-
-        else if (_verticalCameraRotClamp < -90)
-        {
-            _verticalCameraRotClamp = -90;
-            cameraRotation.x = 270;
-        }
-
-        _cameraTransform.rotation = Quaternion.Euler(cameraRotation);
-    }
-
-    */
+    /// <summary>
+    /// Get the accuracy modify for the current state
+    /// </summary>
+    /// <returns>return accuracy modifier</returns>
     public virtual float GetWeaponAccuracyModifer()
     {
         return 1;

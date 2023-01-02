@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// State for player when grounded
+/// </summary>
 public class Grounded : Universal
 {
     protected float _horizontalInput;

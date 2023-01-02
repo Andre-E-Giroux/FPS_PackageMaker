@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// State for player when in the air/ jumping
+/// </summary>
 public class Jumping : Universal
 {
    
@@ -14,7 +17,10 @@ public class Jumping : Universal
     private static float WEAPON_ACCURACY_MODIFIER = 2f;
 
 
-
+    /// <summary>
+    /// Construcor, referencing the player state machine (PlayerSM)
+    /// </summary>
+    /// <param name="stateMachine"></param>
     public Jumping(PlayerSM stateMachine) : base ("Jumping", stateMachine) 
     {
         _sm = (PlayerSM)stateMachine;

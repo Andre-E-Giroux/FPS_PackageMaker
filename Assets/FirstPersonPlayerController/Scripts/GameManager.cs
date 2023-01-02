@@ -30,42 +30,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Add ManagerAssistants from the scene
+    /// </summary>
+    /// <param name="assistant">assistant to be added</param>
+    /// <returns>The GameManager instance</returns>
     public GameManager AddSceneManagerAssistants(ManagerAssistant assistant)
     {
         localManagerAssistants.Add(assistant);
         return this;
     }
 
+    /// <summary>
+    /// Go scene that is called by the string input
+    /// </summary>
+    /// <param name="sceneName">name of the scene to be moved to</param>
     public void GoToSceneByString(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
 
         localManagerAssistants.Clear();
-
-        /*
-        for (int i = 0; i < localManagerAssistants.Count; i++)
-        {
-            if (localManagerAssistants[i] == null)
-            {
-                Debug.LogError("Missing manager assistant at postion " + i);
-                continue;
-            }
-            localManagerAssistants[i].StartManager();
-        }
-
-        for (int i = 0; i < disableObjectsOnLoad.Length; i++)
-        {
-            if (localManagerAssistants[i] == null)
-            {
-                Debug.LogError("Missing disable object on load at postion " + i);
-                continue;
-            }
-            disableObjectsOnLoad[i].SetActive(false);
-        }*/
     }
 
-
+    /// <summary>
+    /// Quit the game, and close it
+    /// </summary>
     public void QuitGame()
     {
         Application.Quit();

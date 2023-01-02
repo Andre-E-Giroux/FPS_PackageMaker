@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class to keep track of weapon accuracy through hud crosshair (COME BACK)
+/// </summary>
 public class CrosshairBehaviour : MonoBehaviour
 {
 
@@ -17,7 +20,9 @@ public class CrosshairBehaviour : MonoBehaviour
         UpdateCrosshair();
     }
 
-
+    /// <summary>
+    /// update the crosshair on the hud to match firing accuracy of current weapon
+    /// </summary>
     private void UpdateCrosshair()
     {
         // universal// find a better accurate depiction, currently 2500

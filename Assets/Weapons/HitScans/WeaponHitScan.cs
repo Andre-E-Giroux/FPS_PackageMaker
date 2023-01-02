@@ -9,6 +9,9 @@ using UnityEditor.SceneManagement;
 using UnityEditor;
 #endif
 
+/// <summary>
+/// Class of the HitScan weapons (Raycasts)
+/// </summary>
 public class WeaponHitScan : WeaponBase
 {
     /// <summary>
@@ -70,7 +73,10 @@ public class WeaponHitScan : WeaponBase
         singleHitList.Clear();
     }
 
-
+    /// <summary>
+    /// Add physics force to object if it is a valid target
+    /// </summary>
+    /// <param name="rgHit">The rigidbody of the hit object</param>
     private void WeaponAddPhysicsForce(Rigidbody rgHit)
     {
         rgHit.AddForceAtPosition(((hit.point - transform.position).normalized) * (weaponInanimateImpactForce / hit.distance), hit.point, ForceMode.Impulse);

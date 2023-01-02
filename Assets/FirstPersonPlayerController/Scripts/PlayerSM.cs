@@ -111,7 +111,7 @@ public class PlayerSM : StateMachine
     public GameObject gameOverUI;
 
     [Space(10)]
-    public PauseManager pauseManager;
+    public PauseUIControls pauseManager;
     public GameObject pauseUI;
 
 
@@ -182,11 +182,16 @@ public class PlayerSM : StateMachine
         }
     }
 
+    
     protected override BaseState GetInitialState()
     {
         return standingIdleState;
     }
 
+    /// <summary>
+    /// Set the camera elements to be a child of the player object, or make it independent 
+    /// </summary>
+    /// <param name="toBeChilded">True: the camera objects are set as children to the player, false: make the camera objects as roots</param>
     public void SetCameraAsPlayerChild(bool toBeChilded)
     {
         if (toBeChilded)
@@ -201,7 +206,10 @@ public class PlayerSM : StateMachine
         }
     }
 
-
+    /// <summary>
+    /// Player move controls for grounded characters
+    /// </summary>
+    /// <param name="targetSpeed">Top speed the player can move</param>
     public void Move(float targetSpeed)
     {
         // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
@@ -242,7 +250,9 @@ public class PlayerSM : StateMachine
         }
     }
 
-
+    /// <summary>
+    /// Jumping and gravity action/effects
+    /// </summary>
     public void JumpAndGravity()
 	{
 		if (grounded)
@@ -299,7 +309,10 @@ public class PlayerSM : StateMachine
         }
     }
 
-
+    /// <summary>
+    /// Movement of the player, keep momentum when airborn and slow down when player is not activaly trying to move
+    /// </summary>
+    /// <param name="isGrounded"></param>
     public void UniversalMove(bool isGrounded)
     {
         if (isGrounded)
@@ -318,7 +331,9 @@ public class PlayerSM : StateMachine
     }
 
 
-
+    /// <summary>
+    /// Check if the character is grounded
+    /// </summary>
     public void GroundedCheck()
     {
         // set sphere position, with offset
@@ -336,6 +351,10 @@ public class PlayerSM : StateMachine
         GUILayout.Label($"<color='white'><size=40>{content}</size></color>");
     }
 
+    /// <summary>
+    /// Function to make the player crouch/uncrouch
+    /// </summary>
+    /// <param name="toCrouch">True: set the character to crouch, False: set the character to stand</param>
     public void CrouchPlayer(bool toCrouch)
     {
         if(toCrouch)
@@ -354,8 +373,10 @@ public class PlayerSM : StateMachine
         }
     }
 
-    // may need to be more robust, cutscenes and such
-    // stop player statemachine
+    /// <summary>
+    /// Function to stop the statemachine from running and weapon interactions
+    /// </summary>
+    /// <param name="stop">stop player interaction if true, return player action if false</param>
     public override void StopStateMachine(bool stop)
     {
         base.StopStateMachine(stop);
@@ -370,13 +391,19 @@ public class PlayerSM : StateMachine
             Cursor.lockState = CursorLockMode.Locked;
     }
 
+    /// <summary>
+    /// Verify if the player is dead
+    /// </summary>
+    /// <param name="isDead">True: player is dead, false: the player isn't dead</param>
     public void PlayerDeath(bool isDead)
     {
         gameOverUI.SetActive(isDead);
         StopStateMachine(isDead);
     }
 
-
+    /// <summary>
+    /// Pause the game action
+    /// </summary>
     public void PauseGame()
     {
         isGamePaused = !isGamePaused;

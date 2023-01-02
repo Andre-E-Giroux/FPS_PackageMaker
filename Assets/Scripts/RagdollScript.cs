@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Script to enabable/disable a ragdoll
+/// </summary>
 public class RagdollScript : MonoBehaviour
 {
     /// <summary>

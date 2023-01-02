@@ -30,9 +30,18 @@
 	-Add pause menu
 -------------------------------------------------------------------
 
-
+-Add burst fire for projectile weapon
 
 -Fine tune movement
 	(Done)Move to jump does not preserve momentum from move
 -Finalize prefabs
 -(CONTINUOUS)Update Comments on scripts
+
+
+
+--------------------------
+To delete: (verify first!)
+CameraTracker.cs
+PooledObjectBase.cs
+--------------------------
+Change name of the state class for the player states

@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
+/// <summary>
+/// Class for the hitscan weapons (raycast) that with burst fire action
+/// </summary>
 public class WeaponHitScanBurst : WeaponHitScan
 {
     /// <summary>
@@ -88,6 +91,9 @@ public class WeaponHitScanBurst : WeaponHitScan
      
 }
 
+/// <summary>
+/// Editor inspector modifications
+/// </summary>
 #if UNITY_EDITOR
 [CustomEditor(typeof(WeaponHitScanBurst))]
 public class WeaponHitScanBurst_Editor : WeaponHitScan_Editor

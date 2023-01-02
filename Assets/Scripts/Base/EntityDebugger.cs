@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class used during debug for the Entity class in effect
+/// </summary>
 public class EntityDebugger : MonoBehaviour
 {
     [SerializeField]
@@ -32,6 +35,11 @@ public class EntityDebugger : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update health bar above the entity
+    /// </summary>
+    /// <param name="health">current enitity health</param>
+    /// <param name="maxHealth">Entities max health</param>
     public void UpdateHealthBar(float health, float maxHealth)
     {
         float hold = (hpBarSizeMax / maxHealth) * health;

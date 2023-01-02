@@ -2,24 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class that keeps track of all of the entities in the scene
+/// </summary>
 public class EntityListManager : ManagerAssistant
 {
     public List<Entity> entities = new List<Entity>();
 
-    public override void StartManager()
-    {
-       /* entities = new List<Entity>();
 
-        foreach (Entity entity in FindObjectsOfType<Entity>())
-            AddTransformToActors(entity);*/
-    }
+    // Currently unused, stated to replace start.
+    public override void StartManager(){}
 
     public void Start()
     {
         entities = new List<Entity>();
 
         foreach (Entity entity in FindObjectsOfType<Entity>())
-            AddTransformToActors(entity);
+            AddEntityFromList(entity);
 
 
         GameManager gm = FindObjectOfType<GameManager>();
@@ -27,11 +26,19 @@ public class EntityListManager : ManagerAssistant
             headManager = gm.AddSceneManagerAssistants(this);
     }
 
-    public void AddTransformToActors(Entity entity)
+    /// <summary>
+    /// Add entity to list
+    /// </summary>
+    /// <param name="entity">Enity to be added</param>
+    public void AddEntityFromList(Entity entity)
     {
         entities.Add(entity);
     }
-    public void RemoveTransformFromActors(Entity entity)
+    /// <summary>
+    /// Remove entity from list
+    /// </summary>
+    /// <param name="entity">Enity to be removed</param>
+    public void RemoveEntityFromList(Entity entity)
     {
         entities.Remove(entity);
     }

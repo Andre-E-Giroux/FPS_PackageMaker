@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Player Crouching Idle state
+/// </summary>
 public class CrouchingIdle : Grounded
 {
 

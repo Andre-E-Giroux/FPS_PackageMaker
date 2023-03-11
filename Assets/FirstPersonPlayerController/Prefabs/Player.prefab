@@ -819,13 +819,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedWeapon: 0
-  MAX_NUMBER_OF_WEAPONS: 5
+  maxNumberOfWeapons: 6
   weapons:
   - {fileID: 6505399073309846722}
   - {fileID: 946361299397253719}
   - {fileID: 6896568017356404590}
   - {fileID: 944517682553709944}
   - {fileID: 6182559005171592639}
+  - {fileID: 1453610612017267858}
   weaponBases: []
   weaponPositionPoint: {fileID: 4626469818375374841}
   weaponPlayerHUD_Controller: {fileID: 2238725222893158625}
@@ -1991,6 +1992,68 @@ RectTransform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7124750608364510653, guid: 0b3091f13a6c6bc4fb57d86eb8a9802e, type: 3}
   m_PrefabInstance: {fileID: 2238725224522137722}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4082992698265468501
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4626469818375374841}
+    m_Modifications:
+    - target: {fileID: 3208242024564619975, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_Name
+      value: BurstRocket
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3208242024564619977, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+--- !u!1 &1453610612017267858 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3208242024564619975, guid: bbc8f18341f1cf443a6fc01cbad0775a, type: 3}
+  m_PrefabInstance: {fileID: 4082992698265468501}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4923692022318967729
 PrefabInstance:

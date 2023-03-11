@@ -1,3 +1,5 @@
+DONE LIST
+
 -(DONE) Allow interuptable reloading/break them up (Shotgun) have a window to stop it. 
 -(DONE) *Bonus* Clean Fire1 from WeaponHitscan script to move most to the WeaponBaseScript, allowing for easier integration for the projectile weapon.
 -(DONE_VERIFY AGAIN!) Bloom affect when firing weapon
@@ -28,9 +30,10 @@
 -A more robust system for player deactivation, cutscenes, pausing death.
 	-Currently only death effects happen
 	-Add pause menu
--------------------------------------------------------------------
-
 -Add burst fire for projectile weapon
+
+-------------------------------------------------------------------
+TODO LIST
 
 -Fine tune movement
 	(Done)Move to jump does not preserve momentum from move
